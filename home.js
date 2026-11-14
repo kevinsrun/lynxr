@@ -180,1245 +180,432 @@ for (const el of document.querySelectorAll("[data-carry-utm]")) {
   } catch { /* a malformed query is not worth breaking the only button on */ }
 }
 
-/* THE HERO'S SIGN-UP BOX (owner, 2026-09-23: "where the lynxr was, put a sign up
-   box", then, on a claude.ai sign-in card: "something like this", "but in our
-   styling").
+/* THE INTRO VIDEO (owner, 2026-11-13; plan ~/.claude/plans/landing-intro-video.md). index.html section#lp-intro,
+   app.css .lp-intro-card. It plays ONCE, with sound where the browser allows it (SOUND FIRST, MUTED IF REFUSED, below), when
+   half of it is on screen, then rests on its last frame; there
+   is no loop, so it stops moving. An autoplay pauses when less than half is on screen and picks up again when it
+   comes back. Once the visitor has played, paused or scrubbed it, it is theirs: it only pauses when the card is
+   fully off screen (or hidden behind the sign-in card: #lp-main is display:none then) and never restarts by
+   itself. Under reduced motion, Save-Data, or with no IntersectionObserver it never starts on its own; the poster
+   waits with the big play button (preload="none", so nothing downloads until a press).
+   Since 2026-11-13 the card is the FIRST screen (plan ~/.claude/plans/landing-video-first.md), so "half on screen" is
+   the moment the page loads; a stored session skips autoplay too, and the one primary button (#lp-first-cta)
+   shimmers only while the video is not playing. With no element (the
+   waitlist page, or a signed-in visit, where enterApp() has removed #lp-main) nothing runs.
+   LYNXR'S OWN LIGHT CONTROLS (owner, 2026-11-13: "Yes, light controls"). The browser's bar painted a near-black
+   fade over the bottom of this tinted-white card (~40% of it on a phone), and Chromium ignored a click on the
+   poster under reduced motion. `controls` stays in the HTML so the video still works if this script never runs;
+   it comes off here, and the replacement is built in the same breath, so there is never a moment with neither.
+   THE VIDEO DRIVES EVERY PAINTED STATE, NOT THE CLICK (the creator app's wireRefControls rule): play/pause/ended/
+   timeupdate/volumechange write the classes and labels, because autoplay below also plays and pauses it.
+   A press on any of these controls is the visitor's: it reaches the element as a play/pause/seeking event that
+   autoplay did not cause (ours is false), so `theirs` flips exactly as it does for a native control. */
+(function introVideo() {
+  const v = document.getElementById("lp-intro-video");
+  const card = v && v.closest(".lp-intro-card");
+  if (!v || !card || !document.body.classList.contains("home")) return;
+  v.muted = false;                                  // sound by default; the property (not the HTML attribute) is what plays
+  const cta = document.getElementById("lp-first-cta");          // the page's one primary button (index.html)
+  let ours = false;     // the next play/pause event is one this code caused
+  let theirs = false;   // the visitor has touched it: autoplay keeps its hands off from here on
+  let autoMuted = false;    // muted only because the browser refused sound before any press (SOUND FIRST, MUTED IF REFUSED)
+  v.addEventListener("play", () => { if (ours) ours = false; else theirs = true; });
+  v.addEventListener("pause", () => { if (ours) ours = false; else if (!v.ended) theirs = true; });
+  v.addEventListener("seeking", () => { if (!ours) theirs = true; });
+  const calm = matchMedia("(prefers-reduced-motion: reduce)");
 
-   IT INVENTS NO AUTH, AND IT IS NOT A <form>. Every control in the box is a
-   `data-gate="up"` / `data-gate="in"` control, exactly like the pricing CTAs:
-   creator.js delegates every [data-gate] click on the document to the real gate
-   (showGate, #gate) and accepts both values. This file adds the two hand-offs
-   nobody else can do, and nothing more:
+  /* ---- the controls. Built with DOM calls; the only markup strings are SVG paths (no style attributes: CSP). ---- */
+  const svg = (cls, body, filled) => `<svg class="lpv-ico ${cls}" viewBox="0 0 24 24" aria-hidden="true" focusable="false" ${filled
+    ? 'fill="currentColor"' : 'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"'}>${body}</svg>`;
+  const PLAY = svg("i-play", '<path d="M8 5.5v13l10.5-6.5z"/>', true);
+  const PAUSE = svg("i-pause", '<path d="M7 5h3.4v14H7zm6.6 0H17v14h-3.4z"/>', true);
+  const AGAIN = svg("i-again", '<path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4.5 4.5v4h4"/>', false);
+  const button = (cls, html) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = `lpv-btn ${cls}`; b.innerHTML = html;
+    return b;
+  };
+  const big = button("lpv-big", PLAY);                            // the poster's one obvious target (Fitts)
+  big.setAttribute("aria-label", "Play the video");
+  const bar = document.createElement("div");
+  bar.className = "lpv-bar";
+  bar.setAttribute("role", "group");
+  bar.setAttribute("aria-label", "Video controls");
+  const toggle = button("lpv-toggle", PLAY + PAUSE + AGAIN);
+  const time = document.createElement("span");
+  time.className = "lpv-time";
+  const scrub = document.createElement("div");
+  scrub.className = "lpv-scrub";
+  /* The fill and the thumb move by TRANSFORM, not width/left: a moving box is a layout shift in Chromium's CLS
+     (it logged one per frame) and a layout per frame; a transform is neither. */
+  scrub.innerHTML = '<div class="lpv-rail" aria-hidden="true"><i class="lpv-fill"></i></div><i class="lpv-knob" aria-hidden="true"></i>';
+  const fill = scrub.querySelector(".lpv-fill"), knob = scrub.querySelector(".lpv-knob");
+  const place = (p) => {                                          // CSSOM, never a style="" attribute (CSP)
+    p = Math.max(0, Math.min(1, p || 0));
+    fill.style.transform = `scaleX(${p})`;
+    knob.style.transform = `translateX(${p * 100}%)`;
+  };
+  const seek = document.createElement("input");
+  seek.className = "lpv-seek"; seek.type = "range"; seek.min = "0"; seek.max = "1"; seek.step = "0.01"; seek.value = "0";
+  seek.setAttribute("aria-label", "Seek through the video");
+  scrub.append(seek);
+  const sound = button("lpv-sound", svg("i-quiet", '<path d="M4 9v6h4l5 4V5L8 9H4zM17 10l4 4m0-4l-4 4"/>', false)
+    + svg("i-loud", '<path d="M4 9v6h4l5 4V5L8 9H4zM16.5 9.5a3.5 3.5 0 0 1 0 5M19 7a7 7 0 0 1 0 10"/>', false));
+  sound.hidden = true;                                            // until the file proves it has an audio track
+  const full = button("lpv-full", svg("i-in", '<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>', false)
+    + svg("i-out", '<path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/>', false));
+  bar.append(toggle, time, scrub, sound, full);
+  card.append(big, bar);
+  v.controls = false;
+  v.tabIndex = -1;            // focusable by click/script (so Space/K work after a click on the frame), not a tab stop
+  card.classList.add("lpv", "is-fresh", "is-shown");
 
-     1. THE TYPED ADDRESS. Whatever is in #hxs-email is copied into the gate's own
-        email field (#email) BEFORE the gate opens, so the real create-account
-        form arrives pre-filled instead of asking for it twice. The cursor then goes
-        to the password, the one thing left to type.
-     2. GOOGLE. #hxs-google does not start an OAuth flow itself — there is exactly
-        one Google button on this site, the gate's own #oauth-google, and it carries
-        the busy state and oauthStart(). This opens the gate in create-account mode and CLICKS that button, so the visitor goes
-        straight into the real Google flow from the hero. There is no tick box any more (owner,
-        2026-09-25): the line under these buttons, "by continuing you agree to the terms and privacy
-        policy", is the agreement, and the gate shows the same line. If the gate is not offering
-        Google at that moment (it hides the provider block when invites are required or seats are
-        closed), nothing is clicked and the visitor simply lands on the real gate.
-
-   WHY THE LISTENER IS ON THE BOX AND NOT ON THE DOCUMENT: creator.js's is on the
-   document, in the bubble phase. A listener on an ancestor nearer the target runs
-   first, so the field is filled before showGate() reads and focuses it. Nothing
-   here calls preventDefault — the gate's handler owns that — and with creator.js
-   absent or broken the email control and the sign-in line are still real links to
-   /?signup=1 and /, which work with JS off entirely.
-
-   ENTER MAY NOT RELOAD THE PAGE. There is no <form> around the field, so the
-   browser cannot implicitly submit it; Enter is routed to the same control by
-   hand instead, so the key still does the obvious thing. */
-const hxsBox = document.querySelector(".hxs");
-if (hxsBox) {
-  const mail = $("hxs-email");
-  /* The gate's fields are looked up at CLICK time, not now: on a page without the
-     gate (there is none today, but this file is shared) every one of these is
-     simply skipped and the plain hrefs still navigate. */
-  const carry = () => {
-    const to = $("email");
-    const v = mail && mail.value.trim();
-    if (to && v) to.value = v;
-  };
-  const toGoogle = () => {
-    const box = $("gate-oauth"), btn = $("oauth-google");
-    if (!(box && btn && !box.hidden && !btn.hidden && !btn.disabled)) return;
-    btn.click();
-  };
-  hxsBox.addEventListener("click", (e) => {
-    if (!e.target.closest("[data-gate]")) return;
-    carry();
-    // After creator.js's own handler has opened the gate and moved focus to #email.
-    if (e.target.closest("#hxs-google")) setTimeout(toGoogle, 0);
-    // The typed address is already in the form, so the next thing to type is the password.
-    else if (e.target.closest("#hxs-go") && mail && mail.value.trim()) setTimeout(() => $("pw")?.focus(), 0);
-  });
-  if (mail) {
-    mail.addEventListener("keydown", (e) => {
-      if (e.key !== "Enter") return;
-      e.preventDefault();              // no form to submit, but stop any UA default dead
-      $("hxs-go")?.click();            // the same control, so the same gate mode; carry() runs on it
-    });
-  }
-}
-
-/* THE HERO'S INTRO: THE PANEL WRITES ITSELF TOP TO BOTTOM (owner, 2026-09-25: "have everything load
-   from top to bottom, like lynxr is writing the landing page", then "i mean just in this box" — so the
-   headline, subline and sign-up card outside the panel stay on screen from frame 0). One pass, ~2.3s,
-   from t0 (hxStart):
-
-     0.45s  the COACH row: pill, then its headline types (.45-.80s), "learn more" at .80s
-     1.08s  the three dots are written and start to ripple
-     1.30s  the SCRIPT headline types (to 1.62s); the paste box fades in at 1.62s
-     1.90s  the "new here? create your free account" row (phone) fades in
-     2.30s  the intro ends
-
-   THERE IS NO MASCOT IN THE PANEL ANY MORE (owner, 2026-10-05: "have it just be the one and the visual
-   get rid of the lynxr"). The buddy that sat in the card's bottom band and played a whistle, then a
-   pencil, over this timeline (2026-09-22 to 2026-10-05) is gone with its band; the one x on the page
-   is the nav logo, which bounces down and starts this timeline on its first landing (the performer below).
-
-   FOUR THINGS IT MAY NOT DO, worst first:
-   1. (Was: play once per session. The owner wants it on EVERY load — see armHeroIntro — so the
-      escape hatch below, any touch of the hero ending it instantly, is what keeps it bearable.)
-   2. Gate the composer. The field is live from the first frame — never disabled, never moved —
-      and ANY touch of the hero (pointer, focus, key, paste) ends the intro on the spot and
-      leaves the finished hero behind. Delaying the one element that converts, to show a
-      mascot, is not a trade this page makes.
-   3. Hide the hero when scripting is off. The stylesheet's default IS the finished state; all
-      the hiding lives under .hx-anim, which only this file adds and only once it has decided
-      to play. No JS, blocked JS, an error thrown earlier: the whole hero is simply there.
-   4. Move anything. The reveal is opacity plus a 7px rise, and the composer gets opacity only,
-      so the one element people click never shifts under the pointer.
-   Reduced motion: it does not run at all — the hero is finished immediately.
-
-   THE CLASS GOES ON HERE, AT THE TOP LEVEL, not in a DOMContentLoaded handler: the deferred scripts
-   run before the first paint (measured on this page: DOMContentLoaded 55ms, first paint 68ms), so
-   nothing is ever painted and then hidden. */
-/* STARTED IS NOT ARMED (2026-10-05, the nav-logo performer below). The card's intro is ARMED before
-   the first paint (.hx-anim, the typed headlines) but STARTS at hxStart: at once when there is no
-   performer — exactly the old timeline, t0 at the top level — or at the moment the performer first
-   lands on the sign-up card. Until then .hx-hold pauses every one of the intro's CSS animations in its
-   delay (fill: both, so the rows sit at their first frame).
-   hxEnd is the card's own finish (natural, at t0 + 2.3s). hxStop is an INTERRUPT — a touch, a
-   scroll, a resize — and finishes everything at once: the performer perched, the card finished. */
-const HX = { on: false, over: false, started: false, t0: 0, timers: [] };
-const PERF = { on: false, end: null, armed: 0 };
-const hxAt = (ms, fn) => { HX.timers.push(setTimeout(fn, Math.max(0, ms - (performance.now() - HX.t0)))); };
-const hxEnd = () => {
-  if (HX.over) return;
-  HX.over = true;
-  for (const t of HX.timers) clearTimeout(t);
-  HX.timers.length = 0;
-  const sec = document.querySelector(".hx");
-  if (sec) sec.classList.remove("hx-anim", "hx-hold");   // default CSS = the finished hero, so this is the snap
-};
-const hxStart = () => {
-  if (!HX.on || HX.started || HX.over) return;
-  HX.started = true;
-  HX.t0 = performance.now();
-  document.querySelector(".hx")?.classList.remove("hx-hold");   // the paused CSS timeline runs from here
-  hxAt(2300, hxEnd);   // the panel writes top to bottom; its last row ("new here", phone) lands ~2.2s
-};
-const hxStop = () => {
-  if (PERF.end) PERF.end();
-  hxEnd();
-  barIntroEnd();
-};
-/* A REFRESH OPENS LIKE A VISIT (owner, 2026-10-07: "when i refresh it doesnt do the full animation ... like the
-   opening load"). A browser puts a reloaded page back where it was scrolled, and a phone does it even from a few
-   pixels down — and the x does not perform on a page that is not at the top (armPerformer), so a refresh got the
-   card alone. Signed out, the landing tells the browser not to restore: every refresh starts at the top, like a
-   fresh open. The setting lives on the history entry, so it is in force for the NEXT reload; a link to a #section
-   still scrolls there. Signed in (the app on this same URL), restoring is left on. */
-if (document.body.classList.contains("home") && "scrollRestoration" in history) {
-  let signedIn = false;
-  try { signedIn = !!localStorage.getItem("lynxr_creator_session"); } catch { /* storage blocked: treat as signed out */ }
-  history.scrollRestoration = signedIn ? "auto" : "manual";
-}
-(function armHeroIntro() {
-  const sec = document.querySelector("body.home .hx");
-  if (!sec || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  /* Opened in a background tab: play nothing. Timers there are throttled to a second at a
-     time, so the beats would land minutes later, over a hero the visitor is already reading.
-     The session is NOT spent — the next arrival with the tab in front gets the intro. */
-  if (document.hidden) return;
-  /* EVERY LOAD (owner, 2026-09-22: "everytime on reload, have the main load animation happen").
-     There was a once-per-session gate here (sessionStorage "lx-hx-intro"); the owner removed it.
-     The two other skips stay: reduced motion, and a tab that opened in the background. */
-  HX.on = true;
-  HX.t0 = performance.now();
-  /* TYPED OUT (owner, 2026-09-24: "for the loading animation, make it more like typed out"). The
-     panel's two headlines arrive one character at a time inside their row's own window — the
-     coach line over .45–.80s, the script line over 1.30–1.62s.
-     Done by splitting each h2 into per-character spans (createElement + textContent, never
-     innerHTML) that app.css fades in on a per-character delay: the FULL text is in the layout from
-     frame 0, only opacity moves, so the line wraps exactly as it will when finished and nothing
-     shifts. The h2 keeps its text for assistive tech via aria-label; the spans are aria-hidden.
-     Only done here, on the path that plays the intro — no JS, reduced motion and background tabs
-     never split anything. Snapping (hxEnd) removes .hx-anim and every span is simply text. */
-  /* The panel's two headlines only (owner, 2026-09-25: "i mean just in this box" — the headline and
-     subline outside the panel stay on screen from frame 0). */
-  const windows = [[".hx-row-coach .hx-h2", 0.45, 0.35], [".hx-row-script .hx-h2", 1.30, 0.32]];
-  for (const [selector, t0, span] of windows) {
-    const h2 = sec.querySelector(selector);
-    if (!h2 || h2.classList.contains("hx-type")) continue;
-    const text = h2.textContent;
-    h2.setAttribute("aria-label", text);
-    h2.textContent = "";
-    const chars = Array.from(text);
-    const dt = span / Math.max(1, chars.length);
-    chars.forEach((ch, i) => {
-      const el = document.createElement("span");
-      el.className = "hx-ch";
-      el.textContent = ch;
-      el.setAttribute("aria-hidden", "true");
-      const at = (t0 + i * dt).toFixed(3) + "s";
-      el.style.animationDelay = at;                       // this character keys in here
-      el.style.setProperty("--hx-d", at);                 // ...and its caret shows from here
-      el.style.setProperty("--hx-hold", (i === chars.length - 1 ? 0.3 : dt).toFixed(3) + "s");
-      h2.appendChild(el);
-    });
-    h2.classList.add("hx-type");
-  }
-  sec.classList.add("hx-anim");
-  for (const ev of ["pointerdown", "focusin", "keydown", "paste"]) {
-    sec.addEventListener(ev, hxStop, { capture: true, passive: true });
-  }
-})();
-
-/* THE NAV LOGO'S X FLOATS OFF, WANDERS, GASPS AT THE SIGN-UP BUTTONS AND SETTLES ON THE RIGHT CARD
-   (owner, 2026-10-06: "for the bounce thing, have it just float and wander and then be in shock when it
-   sees the continue with google or email and then go to the right side and be like mmm interesting thats
-   cool with emotions and as i scroll down have it follow my cursor"). This replaces the two-hop bounce of
-   2026-10-05 (plan ~/.claude/plans/lynxr-logo-intro.md, Revisions 3-12). A plain float was tried and
-   withdrawn that day ("i hate that, bring back the bounce"); this one is a float with a story.
-
-   THE PERFORMER IS A SEPARATE LIVE AVATAR (.hx-perf), never the nav's own mark: the static mark shares
-   the page's #lx-idle mask with the footer's, so moving it would move both. It is mounted EXACTLY over
-   the nav logo at the logo's own size (the two are the same art, so the swap is invisible), the nav
-   logo goes to opacity 0 under it, and:
-     0.00s  hello: the up-right arm waves (avatar.js lynxrGesture), happy face
-     0.60s  it lifts off the nav — no crouch, no spring — and the nav's x does NOT come back: its spot
-            closes over .3s (on a phone "get started" glides into it). The right card starts writing
-            itself here, so it is finished by the time the x comes to read it.
-     THE ROUTE IS THE OWNER'S, drawn on a screenshot (2026-10-06, redrawn the same evening: "this is the new path"):
-     OUT    one weightless drift (~2s): out of the logo with a curve, a long sweep right across the open
-            band between the bar and the headline, a turn, then straight down just RIGHT of the headline's
-            ink onto the sign-up card's top-right corner. A slow bob (app.css hx-perf-float), a lean into
-            the way it is going, eyes looking where it goes.
-     ~2.6s  THE DOUBLE-TAKE, floating over that corner: it looks down at the buttons and gasps — the
-            "shock" face (eyes pop, a "!", arms up) and a little startle jump. "continue with Google"
-            rings, then its eyes drop to "continue with email", which rings too (once per page view).
-     HOP    ~3.8s, a short curve up and to the right, to its home: it tucks in behind the sign-up card's
-            top-right corner and peeks out from there (owner, 2026-10-08; it was the video card's left edge).
-     ~4.7s  "hmm": a squint down at the card, thinking dots, a slow nod — mmm, interesting
-     ~6.0s  "cool": happy eyes, sparkles, approving nods — that's cool. Then idle, floating there:
-            that corner is its HOME.
-   On a phone the sign-up card is hidden: it floats down onto the right card's top edge near its right
-   end, gasps at that card's "create your free account" / paste box, then drifts along the edge to the
-   top-left corner (home). The times are the 1440x900 ones; the drift's length is measured, its pace fixed.
-
-   THE RULES ARE THE CARD INTRO'S RULES (the FOUR THINGS block above), across the whole performance:
-   every load of the signed-out landing; ANY input anywhere — pointer press, focus, key, paste, wheel,
-   touch, scroll, resize, the tab going to the background — ends it at once in the finished state (on
-   the right card, no x in the nav, card finished: hxStop); merely moving the mouse does not. While it
-   performs the x is pointer-events: none, aria-hidden and takes no layout; where it rests is chosen by
-   MEASURING the page so it covers no text and no control; no JS or a thrown error leaves the hero
-   exactly as it is with no performer at all; reduced motion and a background tab never arm it.
-   IT DOES NOT RUN when the gate opens on load (?signup=1, an invite ?e=/?c=, a brief link ?lynx=, a confirmation, OAuth
-   or reset link in the #fragment), when a session is stored (resume() in creator.js takes the visitor
-   into the app), or when the cards are not on screen. If the gate opens or the app replaces the page
-   mid-flight, it ends.
-
-   ONE X ON SCREEN, EVER (owner, 2026-10-05: "dont leave it there at the top, have it just be the one"):
-   after the story it is the page's companion (below) and the nav's x never comes back. Wherever the
-   performance does not run, the nav keeps its x and there is no companion. */
-const HX_STORY = {
-  from: ".lp-bar a.wordmark > svg.mark",
-  // the card whose buttons it gasps at (the first on screen: on a phone the sign-up card is display:none)...
-  notice: [".hxs", ".hx-panel"],
-  // ...and those buttons, per card, in the order its eyes find them
-  see: [["#hxs-google", "#hxs-go"], [".hx-new-link", "#lp-composer-form"]],
-  rest: [".hx-panel", ".hxs"], // where the story ends: beside the video card; a phone (no video card since 2026-10-06): the sign-up card
-  // home, where it rests and peeks (owner, 2026-10-08): the sign-up card's top-right corner, at every width
-  home: ".hxs",
-  clear: "#hx-buddy-h",      // the headline: the wander keeps to the open band above it
-};
-/* A list of selectors means "the first one that is on screen". */
-const hxPick = (sel) => {
-  for (const s of [].concat(sel)) {
-    const el = document.querySelector(s), r = el && el.getBoundingClientRect();
-    if (r && r.width && r.height) return el;
-  }
-  return null;
-};
-(function armPerformer() {
-  const sec = document.querySelector("body.home .hx");
-  if (!HX.on || !sec) return;   // reduced motion, a background tab, not the landing
-  if (/[?&](signup=1|e=|c=|lynx=)/.test(location.search) || /access_token|refresh_token|error|type=/.test(location.hash)) return;
-  try { if (localStorage.getItem("lynxr_creator_session")) return; } catch { /* storage blocked: carry on */ }
-  if (document.body.classList.contains("gate-on") || scrollY > 0) return;
-  /* HOLD FIRST, MEASURE SECOND: the measuring below forces the first style pass, which is the moment
-     the card's CSS animations start — so the hold has to be on before it, and comes off again if the
-     performance turns out not to be possible. */
-  sec.classList.add("hx-hold");
-  for (const s of [HX_STORY.from, HX_STORY.notice, HX_STORY.rest]) {
-    if (!hxPick(s)) { sec.classList.remove("hx-hold"); return; }
-  }
-  PERF.on = true;
-  PERF.armed = performance.now();
-  // Watchdog: whatever happens below, the card never waits more than 4.5s for its cue.
-  setTimeout(() => { if (!HX.started && !HX.over) hxStop(); }, 4500);
-})();
-if (HX.on && !PERF.on) hxStart();
-
-/* THE BAR IS THERE AT FIRST (owner, 2026-10-06: "for both desktop and mobile, have it first start with the entire nav bar so
-   users know that when they scroll the other options are there"). Set here, at the top level, before the first paint: the
-   page opens with the whole bar down (app.css .hx-bar-intro). It goes up as the x lifts away from the logo (perform), or on
-   any interrupt (the snap), or 2.2s after load where the x does not perform at all. Scrolled already (a link to a #section,
-   or a reload while signed in): nothing to do, the bar is down anyway. */
-const BAR_INTRO = document.querySelector("body.home .lp-bar");
-const barIntroEnd = () => { if (BAR_INTRO) BAR_INTRO.classList.remove("hx-bar-intro"); };
-if (BAR_INTRO && scrollY <= 8) {
-  BAR_INTRO.classList.add("hx-bar-intro");
-  if (!PERF.on) addEventListener("DOMContentLoaded", () => setTimeout(barIntroEnd, 2200));
-}
-/* IT STAYS ONCE IT HAS COME DOWN (owner, 2026-10-07: "once i scroll back up to see the nav bar have it just stay there and
-   not disappear"). The first time the page scrolls past 8px (site.js's .is-scrolled, same threshold) the bar is marked
-   .hx-bar-stay for the rest of the page view, and app.css keeps it down from then on, at the top too. The x stays in it
-   with the bar (perform: docked). */
-if (BAR_INTRO) {
-  const stay = () => { if (scrollY > 8) { BAR_INTRO.classList.add("hx-bar-stay"); removeEventListener("scroll", stay); } };
-  addEventListener("scroll", stay, { passive: true });
-  stay();
-}
-
-addEventListener("DOMContentLoaded", () => {
-  if (!PERF.on || HX.over) return;
-  /* avatar.js has to have run, and the scripts after this one (creator.js is ~12k lines) must not
-     have held DOMContentLoaded so long that the card has sat paused in front of a visitor: past
-     600ms from arming, the performance is skipped and the card starts on its own. */
-  if (typeof window.lynxrAvatar !== "function" || typeof window.lynxrGesture !== "function" ||
-      performance.now() - PERF.armed > 600) {
-    PERF.on = false; hxStart(); setTimeout(() => barIntroEnd(), 2200); return;
-  }
-  try { perform(); } catch (ex) { PERF.on = false; if (PERF.end) PERF.end(); else hxStop(); }
-});
-
-function perform() {
-  const reduce = matchMedia("(prefers-reduced-motion: reduce)");
-  const visible = (el) => { const r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0; };
-  const logo = document.querySelector(HX_STORY.from);
-  const card = hxPick(HX_STORY.rest);                       // the right card: where the story ends (home is homeCard, below)
-  const noticeSels = [].concat(HX_STORY.notice);
-  const ni = noticeSels.findIndex((s) => hxPick(s));
-  const noticeCard = hxPick(noticeSels[ni]);
-  const seen = (HX_STORY.see[ni] || []).map((s) => document.querySelector(s)).filter((el) => el && visible(el)).slice(0, 2);
-  const SIZE = innerWidth <= 640 ? 34 : 44;                 // Revision 11: smaller, cute not busy
-  const FOOT = SIZE * 10 / 120;                             // the X's painted bottom sits 10 units above its box
-  const LIFT = 6;                                           // it floats: at rest its feet hover this far above the edge
-  const wrap = document.createElement("div");
-  wrap.className = "hx-perf";
-  wrap.setAttribute("aria-hidden", "true");
-  const sq = document.createElement("div");
-  sq.className = "hx-perf-sq";
-  sq.innerHTML = lynxrAvatar("done");                       // trusted markup from avatar.js, no user input
-  wrap.appendChild(sq);
-  const svg = sq.querySelector("svg.lx");
-  wrap.style.width = wrap.style.height = SIZE + "px";
-  const pops = [];       // the one-shot body moves on the inner box (startle, settle, twirl)
-  const timers = [];
-  const off = new AbortController();
-  let driftRaf = 0;
-
-  /* Positions are FEET (bottom-centre). The wrapper turns and grows about its CENTRE, so the translate
-     lifts the box by the size it has not grown into yet and the feet stay put. */
-  const pose = (x, y, s, r = 0) => `translate(${(x - SIZE / 2).toFixed(2)}px, ${(y - SIZE + (SIZE - s) / 2).toFixed(2)}px) rotate(${r.toFixed(1)}deg) scale(${(s / SIZE).toFixed(4)})`;
-
-  /* WHAT IT MAY NOT COVER, MEASURED ON THE PAINTED PAGE: a box (viewport px) is blocked if any control
-     is under the painted x or any line of text comes within PAD of it, or if it is off screen. A 5x5 grid of elementsFromPoint finds what
-     is under it; a control under any point blocks; an element's own text blocks if a rect of it comes
-     within PAD of the box. The x itself never counts. */
-  const PAD = 6;
-  const CONTROL = "a, button, input, select, textarea, label, summary, [role=button], [tabindex]";
-  const blocked = (left, top, size = SIZE) => {
-    if (left < 2 || top < 2 || left + size > innerWidth - 2 || top + size > innerHeight - 2) return true;
-    // sample the box grown by PAD, so a shrink-wrapped line of text just beside it is found too
-    const seenEls = new Set(), L0 = Math.max(0, left - PAD), T0 = Math.max(0, top - PAD), W = size + 2 * PAD;
-    for (let i = 0; i < 5; i++) for (let j = 0; j < 5; j++) {
-      for (const el of document.elementsFromPoint(Math.min(innerWidth - 1, L0 + W * i / 4), Math.min(innerHeight - 1, T0 + W * j / 4))) {
-        if (!wrap.contains(el)) seenEls.add(el);
-      }
-    }
-    for (const el of seenEls) {
-      /* A control blocks if it is under the painted x itself — not the pad, and not the empty FOOT strip
-         under the X's feet, which is meant to sit on the edge of whatever it perches on. */
-      const ctl = el.closest(CONTROL);
-      if (ctl) {
-        const q = ctl.getBoundingClientRect();
-        if (left < q.right && left + size > q.left && top < q.bottom && top + size - FOOT - 1 > q.top) return true;
-      }
-      for (const n of el.childNodes) {
-        if (n.nodeType !== 3 || !n.nodeValue.trim()) continue;
-        const rg = document.createRange(); rg.selectNodeContents(n);
-        for (const r of rg.getClientRects()) {
-          if (r.width && left - PAD < r.right && left + size + PAD > r.left && top - PAD < r.bottom && top + size + PAD > r.top) return true;
-        }
-      }
-    }
-    return false;
-  };
-  /* A PERCH: feet `lift` px above `el`'s top edge, as near `prefer` (an x) as the page allows, walking
-     outward right first, between lo and hi. null if every spot is blocked. */
-  const spotOn = (el, prefer, lo, hi, lift = 0) => {
-    const c = el.getBoundingClientRect();
-    const top = c.top + FOOT - SIZE - lift;
-    for (let d = 0; d <= Math.max(prefer - lo, hi - prefer); d += 4) {
-      for (const x of [prefer + d, prefer - d]) {
-        if (x < lo || x > hi) continue;
-        if (!blocked(x - SIZE / 2, top)) return x;
-      }
-    }
-    return null;
-  };
-  /* WHERE IT GOES ON A TOUCH SCREEN: THE OWNER'S TARGETS (owner, 2026-10-05: "i essentially want this
-     main x to direct the users attention to what i want"; plan Revision 8). Any element in index.html
-     marked data-lx-spot is a target — a STATION of the touch guide (THE COMPANION, below), visited as it
-     comes into the reading band. Optional: data-lx-side="left|right|top" (where it stands; default the
-     first clear side, measured) and data-lx-mood (its face there; default idle). See the comment at the
-     top of <main> in index.html. (With a mouse it follows the cursor instead.)
-     A PLACE is { el, target, spot() -> { x, dy } | null }: feet at viewport x, and dy below el's top edge.
-       the HERO's place, for every hero target, is HOME: peeking from behind the sign-up card's top-right
-         corner, looking at that card's first target (the Google button);
-       any other target: BESIDE it — on its top edge near its right end, or standing on its baseline
-         to its right or left — the first side that covers nothing (blocked). */
-  const anchorOf = (el) => {
-    /* Never INSIDE a control (a link or a button would take the x into its own hit area and click),
-       and never inside a box that clips it: walk up to the first ancestor that is neither. */
-    let a = el;
-    while (a.parentElement && (a.closest(CONTROL) || getComputedStyle(a).overflow !== "visible")) a = a.parentElement;
-    if (getComputedStyle(a).position === "static") a.classList.add("hx-perf-host");
-    return a;
-  };
-  const heroSec = document.querySelector("#lp-main > .hx");
-  const homeCard = hxPick([].concat(HX_STORY.home, HX_STORY.rest));   // the sign-up card (the story's end card if it is not drawn)
-  const homeTarget = () => { for (const t of homeCard.querySelectorAll("[data-lx-spot]")) if (visible(t)) return t; return homeCard; };
-  /* HOME (owner, 2026-10-08: "have the lynxr be peeking at the top right corner of the left bubble"): it PEEKS from behind
-     the sign-up card's TOP-RIGHT CORNER — at every width, the phone included. Its centre rests a little above the card's
-     top edge and a little in from the right end, so its face, both upper arms and the tip of its down-right arm (round
-     the corner's curve) show, and its lower half is behind the card, leaning in over it (app.css .hx-perf-peek).
-     IT TUCKS: it arrives at a clear spot up and to the right of that, then sinks `peek` ({ x, y } px) down and in, behind
-     the card — sit() parents it to the card's PARENT just before the card, so the card paints over it. Only the arrival
-     spot is measured for text and controls: the tucked part lies under the card, so it covers nothing.
-     Superseded: tucked behind the VIDEO card's left edge (owner, 2026-10-06/07: "have the lynxr peek behind the right
-     bubble"), and on a phone floating on the Google button's top edge (2026-10-07: "have him at the top of the continue
-     with google") — that perch is now only the fallback when the corner is not clear. */
-  const heroPlace = { el: homeCard, hero: true, host: true, get target() { return homeTarget(); }, spot: () => {
-    const c = homeCard.getBoundingClientRect();
-    const peek = { x: -SIZE * 0.12, y: SIZE * 0.32 };
-    const tx = c.right - SIZE * 0.22, ty = c.top - SIZE * 0.06;          // its centre, tucked
-    const ax = tx - peek.x, ay = ty - peek.y;                             // its centre, arriving (clear of the card)
-    if (!blocked(ax - SIZE / 2, ay - SIZE / 2)) return { x: ax, dy: ay + SIZE / 2 - c.top, side: "corner", peek, arm: "r" };
-    // The corner is not clear (off screen, or something on it): perched on the Google button's top edge near its right end.
-    const g = homeCard.querySelector(HX_STORY.see[0][0]), b = g && g.getBoundingClientRect();
-    if (b && b.width) {
-      const gx = spotOn(g, b.right - SIZE * 0.9, b.left + b.width * 0.5, b.right - SIZE / 2, LIFT);
-      if (gx != null) return { x: gx, dy: b.top - c.top + FOOT - LIFT, side: "top" };
-    }
-    const x = spotOn(homeCard, c.left + SIZE / 2 + 8, c.left + SIZE / 2 + 2, c.left + c.width * 0.5, LIFT);
-    return x == null ? null : { x, dy: FOOT - LIFT, side: "top" };
-  } };
-  const besideSpot = (t) => {
-    const b = t.getBoundingClientRect();
-    if (!b.width) return null;
-    const want = t.getAttribute("data-lx-side");
-    const tries = {
-      top: () => { const x = spotOn(t, b.right - SIZE * 0.7, b.left + SIZE / 2, b.right - SIZE * 0.2); return x == null ? null : { x, dy: FOOT }; },
-      right: () => { const x = b.right + SIZE / 2 + 8, y = b.bottom + FOOT; return blocked(x - SIZE / 2, y - SIZE) ? null : { x, dy: y - b.top }; },
-      left: () => { const x = b.left - SIZE / 2 - 8, y = b.bottom + FOOT; return blocked(x - SIZE / 2, y - SIZE) ? null : { x, dy: y - b.top }; },
-    };
-    for (const side of want && tries[want] ? [want] : ["top", "right", "left"]) {
-      const sp = tries[side]();
-      if (sp) return { ...sp, side };
-    }
-    return null;
-  };
-  const places = new Map();
-  const placeFor = (t) => {
-    if (!t) return null;
-    if (heroSec && heroSec.contains(t) && card.isConnected) return heroPlace;
-    if (!places.has(t)) places.set(t, { el: t, target: t, spot: () => besideSpot(t) });
-    return places.get(t);
-  };
-  let place = heroPlace;
-  /* THE SHOWCASE MAY SWAP THE CARD'S CONTENT (showcase.js, plan lynxr-showcase.md): home's target is read
-     fresh each time (heroPlace.target), and the guide's measured stations are dropped and re-measured. */
-  document.addEventListener("lx:spots", () => { if (C.started) onScroll(); });
-  /* ONE soft ring per target per page view: a ring element laid over the target (its own radius),
-     transform and opacity only, removed when it has played. The target itself is never touched. */
-  const rung = new WeakSet();
-  const ring = (t) => {
-    if (!t || rung.has(t) || reduce.matches) return;
-    rung.add(t);
-    const r = t.getBoundingClientRect();
-    const el = document.createElement("i");
-    el.className = "hx-perf-ring";
-    el.setAttribute("aria-hidden", "true");
-    el.style.left = r.left + "px"; el.style.top = r.top + "px";
-    el.style.width = r.width + "px"; el.style.height = r.height + "px";
-    el.style.borderRadius = getComputedStyle(t).borderRadius;
-    document.body.appendChild(el);
-    el.animate([{ opacity: 1, transform: "scale(1)" }, { opacity: 0, transform: "scale(1.05, 1.32)" }],
-      { duration: 900, easing: "cubic-bezier(.2, .7, .3, 1)", fill: "forwards" }).finished.then(() => el.remove()).catch(() => el.remove());
-  };
-  /* SIT: parented to the place's anchor at the measured spot, transform cleared — the page scrolls it. A spot with a
-     `peek` ({ x, y }) sits that much further on, behind the card; `tuck` slides it there from the spot it arrived at (the
-     slide starts clear of the card, so going behind it shows nothing jump).
-     HOME (pl.host) is parented to the card's PARENT, immediately BEFORE the card, never inside it: the sign-up card's
-     backdrop-filter makes it a stacking context, so a child of it paints over the card's own glass whatever its z-index.
-     As the card's previous sibling at z-index 0 (app.css .hx-perf-peek) it paints after the column's box (so it still
-     takes the pointer for the tickle) and before the card (so the card covers its tucked half). */
-  let tuckAnim = null;
-  let waveArm = "r";   // the arm it waves with at rest: the one in the open (home says which)
-  const hostOf = (el) => {
-    const a = el.parentElement;
-    if (getComputedStyle(a).position === "static") a.classList.add("hx-perf-host");
-    return a;
-  };
-  const sit = (pl = place, at = null, tuck = false) => {
-    if (F.raf) { cancelAnimationFrame(F.raf); F.raf = 0; }
-    place = pl;
-    const sp = at || pl.spot() || { x: pl.el.getBoundingClientRect().right - SIZE, dy: FOOT - LIFT };
-    const pk = sp.peek || { x: 0, y: 0 };
-    waveArm = sp.arm || "r";
-    const a = pl.host ? hostOf(pl.el) : anchorOf(pl.el);
-    const ar = a.getBoundingClientRect(), c = pl.el.getBoundingClientRect();
-    if (tuckAnim) { tuckAnim.cancel(); tuckAnim = null; }
-    wrap.style.transform = "";
-    wrap.classList.add("hx-perf-sat");
-    wrap.classList.remove("hx-perf-moving", "hx-perf-follow");
-    wrap.classList.toggle("hx-perf-peek", !!sp.peek);
-    wrap.style.right = "auto";
-    wrap.style.left = (sp.x + pk.x - SIZE / 2 - ar.left - a.clientLeft).toFixed(1) + "px";
-    wrap.style.top = (c.top + sp.dy + pk.y - SIZE - ar.top - a.clientTop).toFixed(1) + "px";
-    // moved only when it is not already there: re-inserting would restart its float
-    if (pl.host) { if (wrap.parentElement !== a || wrap.nextElementSibling !== pl.el) a.insertBefore(wrap, pl.el); }
-    else if (wrap.parentElement !== a) a.appendChild(wrap);
-    // one keyframe at offset 0: it eases from the arrival spot into whatever app.css draws it as when peeking (the lean)
-    if (sp.peek && tuck && !reduce.matches) {
-      tuckAnim = wrap.animate([{ transform: `translate(${(-pk.x).toFixed(1)}px, ${(-pk.y).toFixed(1)}px)`, offset: 0 }], { duration: 560, easing: "cubic-bezier(.3, .7, .3, 1)" });
-    }
-  };
-  // its face at rest: the target's data-lx-mood, else idle — nearly still, it blinks (Revision 11)
-  const moodAt = () => (place && place.target && place.target.getAttribute("data-lx-mood")) || "idle";
-  /* Where the eyes rest. The pointer-follow leans them off this and back; everything that looks
-     somewhere writes it through look(). */
-  let faceBase = "";
-  const face = svg.querySelector(".lx-face");
-  const look = (tr) => { faceBase = tr; if (face) face.style.transform = tr; };
-  const LOOK = { l: "translate(-4px, 2px)", r: "translate(4px, 2px)", d: "translate(1px, 5px)", dl: "translate(-2px, 5px)" };
-  /* POINT toward an element: the arm on its side reaches toward it for ~0.5s (avatar.js "point"), the
-     eyes look at it. pointAt(sp) points at the place's own target. */
-  const pointToward = (el, side) => {
-    if (!el) return;
-    const b = el.getBoundingClientRect(), f = wrap.getBoundingClientRect();
-    const dx = b.left + b.width / 2 - (f.left + f.width / 2), below = b.top > f.bottom - 4;
-    const dir = Math.abs(dx) > 60 || !below ? (dx < 0 ? "l" : "r") : (side === "top" && dx < 0 ? "dl" : "d");
-    lynxrMood(svg, moodAt());
-    look(LOOK[dir]);
-    if (!reduce.matches) {
-      lynxrGesture(svg, "point", dir);
-      later(520, () => lynxrGesture(svg, null));
-    }
-  };
-  const pointAt = (sp) => {
-    const t = place && place.target;
-    if (!t) return;
-    pointToward(t, sp && sp.side);
-    ring(t);
-  };
-  /* The nav's spot closes (app.css .hx-perf-gone: the mark's width and the link's gap go to 0) and the
-     instant-hide class comes off in the same frame, so nothing flashes. It never comes back while the
-     x is on the page (Revision 7). On a phone the bar shows the mark ONLY (no word), so closing it would
-     leave a link with nothing in it: there the home link leaves the bar's layout altogether (on the home
-     page it is redundant) and "get started" glides from the right end into its spot, a FLIP on transform
-     (~280ms), so nothing reflows under a finger mid-tap; the menu button stays right (owner, Revision 10:
-     "have the get started button go to the left where it was"). */
-  const mark = logo.parentElement;
-  const word = mark.querySelector("span");
-  /* THE NAME LEAVES WITH THE X (owner, 2026-10-06: "once the lynxr x leaves, have this text also leave but smoothly and
-     tastefully like it was by design"). On a desktop, where the top of the page has no bar, the letters of "lynxr"
-     dissolve one after another, left to right, drifting a little after the x as it goes (app.css .hx-wl); they come back
-     the same way whenever the bar comes down (scrolled, or focus in it) and leave again at the top. The mark's spot is
-     closed only once the letters are gone, so nothing visibly slides. The link keeps its name for assistive tech. On a
-     phone the bar is always there (owner), so the word stays. */
-  let wordOut = false;
-  const nameLeaves = () => {
-    if (wordOut || !word) return false;
-    wordOut = true;
-    const text = word.textContent;
-    mark.setAttribute("aria-label", text);
-    word.textContent = "";
-    for (const ch of text) { const l = document.createElement("span"); l.className = "hx-wl"; l.textContent = ch; l.setAttribute("aria-hidden", "true"); word.appendChild(l); }
-    void word.offsetWidth;                         // the letters' visible state is painted before they are told to go
-    mark.classList.add("hx-word-out");
-    timers.push(setTimeout(() => { mark.classList.add("hx-perf-gone"); logo.classList.remove("hx-perf-src"); }, 760));
-    return true;
-  };
-  const closeSpot = () => {
-    if (word && word.getBoundingClientRect().width) {
-      if (nameLeaves()) return;
-      mark.classList.add("hx-perf-gone"); logo.classList.remove("hx-perf-src"); return;
-    }
-    const bar = mark.closest(".lp-bar-in"), cta = bar && bar.querySelector(".lp-actions > .btn");
-    if (!bar || !cta || bar.classList.contains("hx-bar-left")) return;
-    const before = cta.getBoundingClientRect();
-    bar.classList.add("hx-bar-left");                  // app.css: the link leaves the layout, the CTA goes left
-    const after = cta.getBoundingClientRect();
-    if (!reduce.matches && cta.animate) {
-      cta.animate([{ transform: `translateX(${(before.left - after.left).toFixed(1)}px)` }, { transform: "none" }],
-        { duration: 280, easing: "cubic-bezier(.3, .7, .3, 1)" });
-    }
-  };
-  let watch = null;
-  const cleanup = () => {
-    off.abort();
-    if (watch) watch.disconnect();
-    for (const t of timers) clearTimeout(t);
-    timers.length = 0;
-    cancelAnimationFrame(driftRaf); driftRaf = 0;
-    PERF.end = null;
-  };
-  const later = (ms, fn) => timers.push(setTimeout(fn, ms));
-  // the landing is gone (signed in: enterApp removed #lp-main) — so is the x
-  const gone = () => !card.isConnected || !document.body.classList.contains("home");
-
-  /* ONCE IT IS HOME, IT IS ALIVE (owner, 2026-10-05: "when i hover over the lynxr once its in place,
-     have it be like im tickling it and he laughs or something cute. also have it wave from time to
-     time"). Only after the story, or after the snap; never in flight, never while it follows the cursor
-     (it takes no pointer then: every click goes straight through).
-     TICKLE. The x itself takes the pointer while it rests (.hx-perf-live: pointer-events on the mascot
-     only — it floats above the card's edge, clear of every control and line of text, measured). Pointer
-     in: a ~1.1s giggle — the "giggle" face, a wiggle with a little squash, three tiny hearts popping off.
-     Kept there: a softer giggle loop. Out: idle again at once. A burst within 600ms of the last one does
-     not restart (no flicker on a jittery edge). A TAP (touch or pen) gives one burst and nothing else.
-     WAVE. While settled, the intro's hello every 30-45s — only with the tab visible, the pointer
-     elsewhere and no field focused, and at most 3 times a page view (Revision 11: rare).
-     EYES. On a desktop, resting at home, the eyes lean toward the pointer when it is within ~300px.
-     Reduced motion: no wiggle, hearts or waves; only the face changes while hovered. */
-  let alive = false;
-  const live = () => {
-    if (alive || gone()) return;
-    alive = true;
-    wrap.classList.add("hx-perf-live");
-    const still = () => reduce.matches;
-    let hovered = false, lastBurst = -1e9, soft = null, burst = [];
-    const restFace = () => { lynxrMood(svg, C.mode === "dock" ? "idle" : moodAt()); };
-    const hearts = () => {
-      for (let k = 0; k < 3; k++) {
-        const h = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        h.setAttribute("viewBox", "0 0 24 24");
-        h.setAttribute("class", "hx-perf-heart");
-        h.setAttribute("aria-hidden", "true");
-        const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        p.setAttribute("d", "M12 21s-7.5-4.6-9.6-9.2A5.2 5.2 0 0 1 12 6.3a5.2 5.2 0 0 1 9.6 5.5C19.5 16.4 12 21 12 21z");
-        p.setAttribute("fill", ["#ff7eb8", "#7b61ff", "#ffa078"][k]);
-        h.appendChild(p);
-        wrap.appendChild(h);
-        const dx = (k - 1) * 22, rise = 26 + (k === 1 ? 10 : 0);
-        h.animate([
-          { opacity: 0, transform: "translate(-50%, 0) scale(.3)" },
-          { opacity: 1, transform: `translate(calc(-50% + ${dx * 0.5}px), -${rise * 0.5}px) scale(1)`, offset: 0.3 },
-          { opacity: 0, transform: `translate(calc(-50% + ${dx}px), -${rise}px) scale(.8)` },
-        ], { duration: 760, delay: k * 90, easing: "ease-out", fill: "both" }).finished.then(() => h.remove()).catch(() => h.remove());
-      }
-    };
-    const wiggle = (amp, ms, iterations = 1) => sq.animate([
-      { transform: "none" },
-      { transform: `rotate(${-amp}deg) scale(1.06, .92)`, offset: 0.2 },
-      { transform: `rotate(${amp}deg) scale(.97, 1.04)`, offset: 0.45 },
-      { transform: `rotate(${-amp * 0.6}deg) scale(1.04, .95)`, offset: 0.7 },
-      { transform: "none" },
-    ], { duration: ms, iterations, easing: "ease-in-out" });
-    const stopSoft = () => { if (soft) { soft.cancel(); soft = null; } };
-    const giggle = (touch) => {
-      lynxrMood(svg, "giggle");
-      if (still()) return;
-      const now = performance.now();
-      if (now - lastBurst < 600) return;
-      lastBurst = now;
-      stopSoft();
-      burst.forEach((a) => a.cancel());
-      burst = [wiggle(9, 1100)];
-      hearts();
-      burst[0].finished.then(() => {
-        burst = [];
-        if (hovered && !touch) soft = wiggle(4, 900, Infinity);   // still being tickled: a softer giggle
-        else restFace();
-      }).catch(() => {});
-    };
-    wrap.addEventListener("pointerenter", (e) => {
-      if (e.pointerType !== "mouse" || C.mode !== "sat") return;   // touch and pen: the tap below; only at home
-      hovered = true;
-      giggle(false);
-    });
-    wrap.addEventListener("pointerleave", (e) => {
-      if (e.pointerType !== "mouse") return;
-      hovered = false;
-      stopSoft();
-      if (!burst.length) restFace();
-    });
-    // it starts following the cursor: whatever tickle was going on stops
-    wrap.addEventListener("lx:unhover", () => { hovered = false; stopSoft(); burst.forEach((a) => a.cancel()); burst = []; });
-    wrap.addEventListener("pointerdown", (e) => {
-      if (e.pointerType === "mouse") return;
-      e.preventDefault();                                  // a tap on decoration does nothing else
-      giggle(true);
-    });
-
-    // IT WAVES WHILE IT IDLES (owner, 2026-10-07: "have the lynxr wave while it idles"; it was every 30-45s, at most 3
-    // a page view; then "have it wave more frequently"): resting at home, a wave ~1s after it settles and then every
-    // 2-3.5s, for as long as it rests there —
-    // not in the bar (there it is the logo), and only on screen, not hovered, and nobody typing anywhere on the page.
-    // It waves with the arm home says is in the open (sit: waveArm) — peeking from the sign-up card's top-right corner
-    // that is the up-right one, pointing away from the card (it was the up-left one while it peeked from the video card).
-    const settled = () => C.still && C.mode === "sat" && !wrap.classList.contains("hx-perf-duck") && sitOrCornerVisible();
-    const sitOrCornerVisible = () => { const r = wrap.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; };
-    const typing = () => { const a = document.activeElement; return !!(a && a.matches("input, textarea, [contenteditable]")); };
-    const next = (ms = 2000 + Math.random() * 1500) => setTimeout(tryWave, ms);
-    const tryWave = () => {
-      if (gone()) return;
-      if (!still() && !document.hidden && settled() && !hovered && !burst.length && !typing()) {
-        lynxrGesture(svg, "hello", waveArm);
-        setTimeout(() => { if (svg.classList.contains("lx-g-hello")) lynxrGesture(svg, null); }, 750);
-      }
-      next();
-    };
-    next(1000);
-    /* EYES ON THE POINTER while it rests at home (desktop, Revision 11): within ~300px the eyes lean
-       toward it, at most 3 units of the 120 box; further away they go back to wherever they were
-       looking. No body movement. Only while it is home. */
-    if (matchMedia("(hover: hover)").matches) {
-      addEventListener("pointermove", (e) => {
-        if (!face || still() || hovered || C.mode !== "sat" || !wrap.isConnected) return;
-        const r = wrap.getBoundingClientRect();
-        const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2), d = Math.hypot(dx, dy);
-        if (d > 300 || d < 1) { if (face.style.transform !== faceBase) face.style.transform = faceBase; return; }
-        face.style.transform = `translate(${(dx / d * 3).toFixed(2)}px, ${(dy / d * 3).toFixed(2)}px)`;
-      }, { passive: true });
-    }
-  };
-
-  /* THE COMPANION, AFTER THE STORY (or the snap). It is the page's one moving x. When the bar comes down it flies up into
-     it and is the logo again; when the bar goes up it flies home to the sign-up card's corner (see dock, below). The same on every
-     device (owner, 2026-10-06: first for phones, then "the lynxr x going back to the top for mobile, do the same for
-     desktop" — it replaced a cursor-follow on desktop and a station-hopping guide on phones, both from earlier that day).
-     One spring motor moves it (step); a rAF loop runs only while it moves. Not armed under reduced motion (HX.on false). */
-  const C = { mode: "sat", p: null, dest: null, still: true, started: false, quietT: 0 };
-  const vv = window.visualViewport;
-  const viewH = () => (vv ? vv.height : innerHeight);
-  const barBottom = () => { const b = document.querySelector(".lp-bar"); const r = b && b.getBoundingClientRect(); return r && r.bottom > 0 ? r.bottom : 0; };
-  const feetNow = () => { const r = wrap.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.bottom }; };
-  // a place's spot, if the place is fully on screen below the bar: { x, dy, side } or null
-  const spotInView = (pl) => {
-    if (!pl || !pl.el.isConnected) return null;
-    const c = pl.el.getBoundingClientRect();
-    // the bar only counts while it is down: at the top it is not there, and the hero (centred) may start inside its 64px
-    if (!c.width || c.top - SIZE < (scrollY > 8 ? barBottom() : 0) + 8 || c.bottom + FOOT > viewH() - 8) return null;
-    return pl.spot();
-  };
-  const put = (x, y, r = 0) => { wrap.style.transform = pose(x, y, SIZE, r); };
-  const unsit = () => {   // from sitting (in the page) to fixed in the viewport, at the same spot
-    const f = feetNow();
-    if (tuckAnim) { tuckAnim.cancel(); tuckAnim = null; }
-    wrap.classList.remove("hx-perf-sat", "hx-perf-peek");
-    wrap.style.left = wrap.style.top = wrap.style.right = "";
-    document.body.appendChild(wrap);
-    C.p = f;
-    put(f.x, f.y);
-  };
-  // arrival: a tiny twirl — the x turns once about its upright axis (a squeeze to edge-on and back)
-  const twirl = () => {
-    if (reduce.matches) return;
-    pops.push(sq.animate([{ transform: "none" }, { transform: "scale(-1, 1)", offset: 0.5 }, { transform: "none" }],
-      { duration: 420, easing: "ease-in-out" }));
-  };
-
-  /* THE MOTOR. F is the x's feet in viewport px and their velocity. Modes:
-       fly     chasing C.dest — { pl, dx, dy, side, t }: feet at pl.el's rect + (dx, dy), read fresh every
-               frame so a target that scrolls is chased where it is now — or "dock" (the bar's logo spot)
-       sat     landed in the page (sit), the browser scrolls it
-       dock    in the bar beside the word, at the logo's size, fixed */
-  const F = { x: 0, y: 0, vx: 0, vy: 0, t: 0, raf: 0, lean: 0, moving: false };
-  /* IT GOES BACK TO THE BAR (owner, 2026-10-06: "for mobile have the same top nav bar things where it goes away and only
-     appears when i scroll down and then as i scroll down bring the lynxr x back to the top next to lynxr", then the same
-     for desktop).
-     Past 8px the bar comes down (site.js, same threshold); the x flies up into it and takes its old place beside the word
-     "lynxr" — the logo again, shrinking to the logo's size as it arrives, with a little wave — and rides there (both are
-     fixed to the screen, so nothing lags). Back at the top the bar goes up and the x flies home to its corner. No pointer
-     while it is in the bar: a tap there is a tap on the home link. This replaces the guide that hopped between stations
-     (earlier the same day); the plans have x's of their own now (planBuddies, below).
-     IT STAYS IN THE BAR TOO (owner, 2026-10-07: "have the x stay in the nav bar too"): once the bar stays down
-     (.hx-bar-stay, above) the x counts as docked even at the top, so it never flies home again this page view. */
-  const docked = () => scrollY > 8 || !!BAR_INTRO?.classList.contains("hx-bar-stay");
-  const dockPos = () => { const r = logo.getBoundingClientRect(); return { x: r.left + r.height / 2, y: r.bottom, s: r.height }; };
-  const destPos = (d) => {
-    if (d === "dock") return dockPos();
-    const r = d.pl.el.getBoundingClientRect();
-    return { x: r.left + d.dx, y: r.top + d.dy };
-  };
-  const land = () => {
-    const d = C.dest;
-    wrap.classList.remove("hx-perf-moving");
-    C.still = true;
-    F.moving = false;
-    if (d === "dock") {
-      C.mode = "dock";
-      const p = dockPos();
-      F.x = p.x; F.y = p.y; F.lean = 0;
-      wrap.style.transform = pose(p.x, p.y, p.s);
-      wrap.classList.add("hx-perf-docked");
-      lynxrMood(svg, "done");
-      look("");
-      if (!reduce.matches) { lynxrGesture(svg, "hello"); later(750, () => lynxrGesture(svg, null)); }
-      later(1500, () => { if (C.mode === "dock") lynxrMood(svg, "idle"); });
-      return;
-    }
-    const pos = destPos(d);
-    sit(d.pl, { x: pos.x, dy: d.dy, peek: d.peek, arm: d.arm }, true);
-    C.mode = "sat";
-    lynxrMood(svg, moodAt());
-    look("");
-    twirl();
-    later(200, () => { if (C.mode === "sat" && place === d.pl) pointAt({ side: d.side }); });   // points; the target rings once
-  };
-  const step = (t) => {
-    F.raf = 0;
-    if (C.mode !== "fly") return;
-    if (gone()) { wrap.remove(); return; }
-    const dt = Math.min(0.05, Math.max(0.001, (t - F.t) / 1000));
-    F.t = t;
-    const g = destPos(C.dest);
-    // a soft spring a touch under critical damping: it floats after its goal and settles with no bounce to speak of
-    const K = 85, D = 2 * Math.sqrt(K) * 0.9;
-    F.vx += (K * (g.x - F.x) - D * F.vx) * dt;
-    F.vy += (K * (g.y - F.y) - D * F.vy) * dt;
-    F.x += F.vx * dt; F.y += F.vy * dt;
-    const speed = Math.hypot(F.vx, F.vy), dist = Math.hypot(g.x - F.x, g.y - F.y);
-    F.lean += (Math.max(-14, Math.min(14, F.vx * 0.02)) - F.lean) * 0.25;
-    C.p = { x: F.x, y: F.y };
-    // into the bar it shrinks to the logo's size over its last 120px
-    const s = C.dest === "dock" ? SIZE + (g.s - SIZE) * Math.max(0, 1 - dist / 120) : SIZE;
-    wrap.style.transform = pose(F.x, F.y, s, F.lean);
-    if (face && speed > 40) {   // flying: eyes where it is going
-      face.style.transform = `translate(${(F.vx / speed * 3).toFixed(2)}px, ${(F.vy / speed * 2.5).toFixed(2)}px)`;
-    }
-    // a happy face while it moves, idle (blinking) once it has caught up — with a little hysteresis
-    if (!F.moving && speed > 90) { F.moving = true; lynxrMood(svg, "done"); }
-    if (dist < 0.6 && speed < 6) {
-      F.x = g.x; F.y = g.y; F.vx = F.vy = 0;
-      C.p = { x: F.x, y: F.y };
-      land();
-      return;
-    }
-    C.still = false;
-    wrap.classList.add("hx-perf-moving");
-    F.raf = requestAnimationFrame(step);
-  };
-  const wake = () => { if (!F.raf && C.mode === "fly") { F.t = performance.now(); F.raf = requestAnimationFrame(step); } };
-  // leave wherever it is (home, the bar, mid-flight) and chase a destination
-  const flyTo = (d) => {
-    if (C.mode === "dock") { wrap.classList.remove("hx-perf-docked"); if (d !== "dock") mark.classList.add("hx-perf-gone"); }
-    if (C.mode === "sat") unsit();
-    if (C.mode !== "fly") { const f = C.p || feetNow(); F.x = f.x; F.y = f.y; F.vx = F.vy = 0; }
-    C.dest = d;
-    C.mode = "fly";
-    C.still = false;
-    lynxrGesture(svg, null);
-    wrap.dispatchEvent(new Event("lx:unhover"));
-    wrap.classList.remove("hx-perf-duck");
-    wrap.classList.add("hx-perf-follow");   // no pointer while it flies or sits in the bar
-    wake();
-  };
-  const homeDest = () => {
-    const sp = spotInView(heroPlace);
-    return sp ? { pl: heroPlace, dx: sp.x - heroPlace.el.getBoundingClientRect().left, dy: sp.dy, side: sp.side, peek: sp.peek, arm: sp.arm, t: null } : null;
-  };
-
-  // into the bar: the logo's spot opens again (still invisible under the x); out of it: home, and the spot closes behind it
-  const dock = () => { mark.classList.remove("hx-perf-gone"); logo.classList.add("hx-perf-src"); flyTo("dock"); };
-  const undock = () => { const d = homeDest(); if (d) flyTo(d); };
-  const inDock = () => C.mode === "dock" || (C.mode === "fly" && C.dest === "dock");
-
-  const onScroll = () => {
-    if (gone()) return;
-    if (document.body.classList.contains("lp-menu-open")) return;   // the open phone menu pins the page at 0: not a real return to the top
-    clearTimeout(C.quietT);
-    if (docked()) { if (!inDock()) dock(); }
-    else if (inDock()) C.quietT = setTimeout(() => { if (!docked() && inDock()) undock(); }, 120);
-  };
-  const follow = () => {
-    if (C.started) return;
-    C.started = true;
-    addEventListener("scroll", onScroll, { passive: true });
-    addEventListener("resize", () => {
-      if (C.mode === "sat" && place) sit(place);   // re-measure the spot for the new layout
-      if (C.mode === "fly") wake();
-      if (C.mode === "dock") { const p = dockPos(); wrap.style.transform = pose(p.x, p.y, p.s); }
-      onScroll();
-    }, { passive: true });
-    document.addEventListener("visibilitychange", () => { if (!document.hidden) onScroll(); });
-  };
-
-  /* THE SNAP — any input, the watchdog, or a thrown error. If the hero has gone (signed in: enterApp
-     removed #lp-main) the performer goes with it and the nav keeps its x; otherwise it is home, peeking
-     from the sign-up card's corner, and the nav's spot is closed. */
-  PERF.end = () => {
-    cleanup();
-    barIntroEnd();
-    for (const a of pops) a.cancel();
-    if (gone()) { wrap.remove(); logo.classList.remove("hx-perf-src"); mark.classList.remove("hx-perf-gone"); mark.closest(".lp-bar-in")?.classList.remove("hx-bar-left"); return; }
-    closeSpot();
-    lynxrGesture(svg, null);
-    sit(heroPlace);
-    lynxrMood(svg, moodAt());
-    look("");
-    for (const t of seen) rung.add(t);           // an interrupted story does not ring later either
-    rung.add(heroPlace.target);
-    follow();
-    live();
-    if (scrollY > 2) onScroll();                  // a scroll ended it: start following straight away
-  };
-
-  // MOUNT, exactly over the nav logo.
-  const L = logo.getBoundingClientRect();
-  const start = { x: L.left + L.width / 2, y: L.bottom, s: L.width };
-  wrap.style.transform = pose(start.x, start.y, start.s);
-  document.body.appendChild(wrap);
-  logo.classList.add("hx-perf-src");
-
-  // Every interruption is an hxStop, from anywhere on the page, once. (A mouse that only moves is not one.)
-  const stop = () => hxStop();
-  for (const ev of ["pointerdown", "focusin", "keydown", "paste", "wheel", "touchstart"]) {
-    document.addEventListener(ev, stop, { capture: true, passive: true, signal: off.signal });
-  }
-  /* ONLY A SCROLL OR RESIZE THE VISITOR MADE (owner, 2026-10-07, Brave on a phone: "when i refresh it doesnt
-     do the full animation"). A phone fires both on its own around a refresh: the pull-to-refresh spinner
-     easing the page back to 0, the toolbar sliding in or out (height only — the hero is sized in svh, so
-     nothing moves). So a scroll counts once the page has really left the top (8px, site.js's .is-scrolled),
-     and a resize only when the width changed. */
-  const W0 = innerWidth;
-  addEventListener("scroll", () => { if (scrollY > 8) stop(); }, { passive: true, signal: off.signal });
-  addEventListener("resize", () => { if (innerWidth !== W0) stop(); }, { signal: off.signal });
-  document.addEventListener("visibilitychange", stop, { signal: off.signal });
-  reduce.addEventListener?.("change", stop, { signal: off.signal });
-  // The gate opening, or the app replacing the page, mid-flight.
-  watch = new MutationObserver(() => {
-    if (document.body.classList.contains("gate-on") || !document.body.classList.contains("home")) hxStop();
-  });
-  watch.observe(document.body, { attributes: true, attributeFilter: ["class"] });
-
-  /* A DRIFT: one smooth, weightless curve through feet positions (Catmull-Rom, resampled by ARC LENGTH
-     so the pace is even), played on rAF under one ease-in-out (sine), with a lean into the direction of
-     travel and the eyes looking where it goes. The size grows from the nav logo's to SIZE over the
-     first quarter of the first drift. The bob is the CSS float on the inner box (app.css). */
-  const pathOf = (P) => {
-    const Q = [P[0], ...P, P[P.length - 1]], out = [];
-    const cr = (a, b, c, d, t) => 0.5 * (2 * b + (c - a) * t + (2 * a - 5 * b + 4 * c - d) * t * t + (3 * b - a - 3 * c + d) * t * t * t);
-    for (let i = 1; i < Q.length - 2; i++) {
-      for (let k = 0; k < 24; k++) {
-        const t = k / 24;
-        out.push({ x: cr(Q[i - 1].x, Q[i].x, Q[i + 1].x, Q[i + 2].x, t), y: cr(Q[i - 1].y, Q[i].y, Q[i + 1].y, Q[i + 2].y, t) });
-      }
-    }
-    out.push(P[P.length - 1]);
-    const len = [0];
-    for (let i = 1; i < out.length; i++) len.push(len[i - 1] + Math.hypot(out[i].x - out[i - 1].x, out[i].y - out[i - 1].y));
-    return { out, len, L: len[len.length - 1] || 1 };
-  };
-  const posAt = (path, s) => {
-    let i = 1;
-    while (i < path.len.length - 1 && path.len[i] < s) i++;
-    const a = path.out[i - 1], b = path.out[i], seg = (path.len[i] - path.len[i - 1]) || 1, u = Math.min(1, Math.max(0, (s - path.len[i - 1]) / seg));
-    return { x: a.x + (b.x - a.x) * u, y: a.y + (b.y - a.y) * u };
-  };
-  const drift = (P, pace, done, s0 = SIZE) => {
-    const path = pathOf(P);
-    const ms = Math.round(Math.min(pace[2], Math.max(pace[1], pace[0] * path.L)));
-    const t0 = performance.now();
-    let last = null, lean = 0;
-    wrap.classList.add("hx-perf-moving");
-    const frame = (t) => {
-      driftRaf = 0;
-      if (!PERF.end) return;
-      const u = Math.min(1, (t - t0) / ms);
-      const e = 0.5 - 0.5 * Math.cos(Math.PI * u);
-      const p = posAt(path, e * path.L);
-      if (last) {
-        const dt = Math.max(1, t - last.t) / 1000, vx = (p.x - last.x) / dt, vy = (p.y - last.y) / dt, v = Math.hypot(vx, vy);
-        lean += (Math.max(-10, Math.min(10, vx * 0.02)) - lean) * 0.2;
-        if (v > 40) look(`translate(${(vx / v * 3).toFixed(2)}px, ${(vy / v * 2.5).toFixed(2)}px)`);
-      }
-      last = { x: p.x, y: p.y, t };
-      wrap.style.transform = pose(p.x, p.y, s0 + (SIZE - s0) * Math.min(1, e * 4), lean);
-      if (u >= 1) { done(); return; }
-      driftRaf = requestAnimationFrame(frame);
-    };
-    driftRaf = requestAnimationFrame(frame);
-  };
-
-  /* THE STORY, measured once, now. Feet positions in viewport coordinates. */
-  const vw = innerWidth;
-  const nc = noticeCard.getBoundingClientRect(), cc = card.getBoundingClientRect(), hc = homeCard.getBoundingClientRect();
-  const top0 = barBottom() + SIZE + 14;                                   // its box stays clear of the bar
-  // the headline's INK — its text lines, not its box: the box is as wide as the column and the text is centred in it
-  const ink = (() => {
-    const h = hxPick(HX_STORY.clear);
-    if (!h) return null;
-    const rg = document.createRange(); rg.selectNodeContents(h);
-    const rs = [...rg.getClientRects()].filter((r) => r.width);
-    if (!rs.length) return null;
-    return { left: Math.min(...rs.map((r) => r.left)), right: Math.max(...rs.map((r) => r.right)),
-      top: Math.min(...rs.map((r) => r.top)), bottom: Math.max(...rs.map((r) => r.bottom)) };
-  })();
-  const two = noticeCard !== card && !!ink;    // both cards on screen (not a phone)
-  /* WHERE IT GASPS: floating on the "continue with Google" button's top edge near its RIGHT end, beside "create your
-     account" (owner, 2026-10-07: "the x is stopping at the top of the left bubble, i want it on the top of the continue
-     with google button"; it was the card's own top edge), just clear of the headline's ink so the drop onto it misses
-     the headline (the owner's redrawn route, 2026-10-06). Without that button on screen: the card's top edge, as before.
-     A phone: the right card, near its right end. */
-  const gBtn = two ? noticeCard.querySelector(HX_STORY.see[0][0]) : null;
-  const nb = gBtn && visible(gBtn) ? gBtn.getBoundingClientRect() : nc;
-  const nPrefer = two ? Math.min(nb.right - SIZE / 2 - 10, Math.max(nb.left + nb.width * 0.85, ink.right + SIZE / 2 + 12)) : nc.left + nc.width * 0.75;
-  const nx = spotOn(nb === nc ? noticeCard : gBtn, nPrefer, nb.left + SIZE / 2, nb.right - SIZE / 2, LIFT);
-  const N = { x: nx ?? nPrefer, y: nb.top + FOOT - LIFT };
-  const Rsp = heroPlace.spot() || { x: hc.left + SIZE / 2 + 8, dy: FOOT - LIFT };
-  const R = { x: Rsp.x, y: hc.top + Rsp.dy };
-  /* THE ROUTE, as the owner drew it (2026-10-06, second drawing): out of the logo with a curve, a long sweep right across
-     the open band between the bar and the headline, a turn, then straight DOWN just right of the headline's ink onto N.
-     `band` is that sweep's height: halfway between the bar and the ink's top (feet, so the box sits inside the gap). */
-  const sweep = two ? Math.max(top0, (barBottom() + ink.top) / 2 + SIZE / 2) : 0;
-  const W = two
-    ? [start, { x: start.x + 26, y: start.y + (sweep - start.y) * 0.6 }, { x: start.x + (N.x - start.x) * 0.3, y: sweep },
-       { x: N.x - 70, y: sweep + 2 }, { x: N.x, y: sweep + 64 }, { x: N.x, y: Math.max(sweep + 90, ink.bottom) }, N]
-    : [start, { x: vw * 0.55, y: (start.y + N.y) / 2 }, N];
-  // THEN A SHORT HOP up and to the right, to home: the sign-up card's top-right corner, where it tucks in and peeks
-  const ARC = two
-    ? [N, { x: N.x + (R.x - N.x) * 0.35, y: Math.max(top0, Math.min(N.y, R.y) - 36) }, R]
-    : [N, { x: (N.x + R.x) / 2, y: Math.max(top0, Math.min(N.y, R.y) - 24) }, R];
-
-  /* BOUNCING ON THE NAME (owner, 2026-10-07: "on the lynxr x's way down, have it bounce on the l y n x and swoop of the r
-     and end up where it goes right now at the continue with google and do the same route from there"; then "make it more
-     fluid and where is the swoop off the r to get to the google button", then "have it just go from the L to the R"). ONE
-     CONTINUOUS MOTION, never a stop: out of the logo it drops onto the big "lynxr"'s l and bounces from there in one long
-     hop over the y, n and x straight onto the r — real hops under one gravity, so each touch is a bounce, not a landing
-     (the squash plays as it pushes off) — bounces off the r's shoulder, and that bounce launches THE SWOOP: up and out past the end of the name, then a hook back down onto N (the Google button), braking into
-     a soft landing. The story goes on from there. Desktop only (a phone still drops straight down).
-     A letter's top is its INK, not its box: the baseline from a zero-size inline-block put into the headline for one
-     measurement, each letter's ascent and ink width from the canvas (measureText, the headline's computed font). null
-     (unmeasurable): the sweep W instead. */
-  const letters = () => {
-    const h = two && hxPick(HX_STORY.clear), tn = h && h.firstChild;
-    if (!tn || tn.nodeType !== 3) return null;
-    const text = tn.nodeValue, i0 = text.length - text.trimStart().length;
-    if (text.trim().length < 5) return null;
-    const ctx = document.createElement("canvas").getContext("2d");
-    if (!ctx) return null;
-    const cs = getComputedStyle(h);
+  const dur = () => (Number.isFinite(v.duration) && v.duration > 0 ? v.duration : 0);
+  const clock = (s) => { s = Math.max(0, Math.floor(s || 0)); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; };
+  /* THE READOUT NEVER CHANGES WIDTH. This font's digits are not all one width, so "0:01" and "0:00" differ by a
+     few px, which resized the slider beside it (another layout shift). Once the duration and the web font are
+     known, the readout gets a min-width for its widest possible text: every digit as the font's widest digit.
+     Measured with a canvas, so no layout is forced. */
+  let timeFit = false;
+  const fitTime = () => {
+    if (timeFit || !dur() || (document.fonts && document.fonts.status !== "loaded")) return;
+    const cs = getComputedStyle(time), ctx = document.createElement("canvas").getContext("2d");
+    if (!ctx) return;
     ctx.font = `${cs.fontStyle} ${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
-    const mk = document.createElement("span");
-    mk.style.display = "inline-block"; mk.style.width = mk.style.height = "0";
-    h.appendChild(mk);
-    const baseline = mk.getBoundingClientRect().bottom;
-    mk.remove();
-    const rg = document.createRange(), out = [];
-    for (let i = i0; i < i0 + 5; i++) {
-      rg.setStart(tn, i); rg.setEnd(tn, i + 1);
-      const r = rg.getBoundingClientRect(), m = ctx.measureText(text[i]);
-      if (!r.width) return null;
-      out.push({ x: r.left + (m.actualBoundingBoxRight - m.actualBoundingBoxLeft) / 2, y: baseline - m.actualBoundingBoxAscent + FOOT,
-        right: r.left + m.actualBoundingBoxRight });
-    }
-    return out;
+    if ("letterSpacing" in ctx && cs.letterSpacing !== "normal") ctx.letterSpacing = cs.letterSpacing;
+    const wide = Math.max(...[..."0123456789"].map((n) => ctx.measureText(n).width));
+    const tpl = `${clock(dur())} / ${clock(dur())}`;
+    let w = 0;
+    for (const ch of tpl) w += /\d/.test(ch) ? wide : ctx.measureText(ch).width;
+    time.style.minWidth = `${Math.ceil(w) + 1}px`;
+    timeFit = true;
   };
-  const G = 2600;   // px/s²: one gravity for every hop, so the five read as one motion
-  // A HOP from a to b, its apex `lift` px over the higher end: feet at(t), and the velocity it arrives with (vEnd)
-  const hopSeg = (a, b, lift) => {
-    const dy = b.y - a.y, hA = Math.max(0, -dy) + lift;
-    const up = Math.sqrt(2 * hA / G), T = up + Math.sqrt(2 * (hA + dy) / G), vx = (b.x - a.x) / T, vy0 = -G * up;
-    return { T, at: (t) => ({ x: a.x + vx * t, y: a.y + vy0 * t + G * t * t / 2 }), vEnd: { x: vx, y: vy0 + G * T } };
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => sync());
+  let dragging = false;
+  const sync = () => {                                            // the one writer of position: fill, readout, slider
+    const d = dur(), t = Math.min(v.currentTime || 0, d || Infinity);
+    card.classList.toggle("is-idle", !d);
+    seek.disabled = !d;
+    if (d && Number(seek.max) !== d) seek.max = String(d);
+    place(d ? t / d : 0);
+    fitTime();
+    const label = d ? `${clock(t)} / ${clock(d)}` : clock(t);     // no duration yet: say only what is known
+    if (time.textContent !== label) time.textContent = label;
+    if (dragging || document.activeElement === seek) return;      // a focused slider is not re-announced 4x a second
+    if (d) seek.value = String(t);
+    const vt = d ? `${clock(t)} of ${clock(d)}` : `${clock(t)}`;
+    if (seek.getAttribute("aria-valuetext") !== vt) seek.setAttribute("aria-valuetext", vt);
   };
-  /* THE SWOOP: a cubic Bezier through P[0..3], timed by a Hermite curve that leaves at `a` (the launch speed, matched to the
-     bounce off the r) and arrives at 0, so it brakes into the landing. */
-  const swoopSeg = (P, T, a) => {
-    const B = (u) => {
-      const m = 1 - u, k0 = m * m * m, k1 = 3 * m * m * u, k2 = 3 * m * u * u, k3 = u * u * u;
-      return { x: k0 * P[0].x + k1 * P[1].x + k2 * P[2].x + k3 * P[3].x, y: k0 * P[0].y + k1 * P[1].y + k2 * P[2].y + k3 * P[3].y };
-    };
-    const U = (s) => -2 * s * s * s + 3 * s * s + a * (s * s * s - 2 * s * s + s);
-    return { T, at: (t) => B(U(Math.min(1, t / T))) };
+  const keyFocus = () => !!card.querySelector(":focus-visible");  // keyboard focus holds the bar; a mouse click does not
+  const paint = () => {                                           // play/pause/ended state, from the element itself
+    const playing = !v.paused && !v.ended;
+    const wasFresh = card.classList.contains("is-fresh");
+    if (playing || v.currentTime > 0) card.classList.remove("is-fresh");
+    card.classList.toggle("is-playing", playing);
+    card.classList.toggle("is-ended", v.ended);
+    if (cta) cta.classList.toggle("onb-shim", !playing);          // it moves only while the video does not (one thing moves at a time)
+    const [lab, tip] = playing ? ["Pause the video", "Pause"] : v.ended ? ["Play the video again", "Play again"] : ["Play the video", "Play"];
+    toggle.setAttribute("aria-label", lab); toggle.title = tip;
+    if (!playing) show(false);                                    // paused or ended: the bar stays up
+    else if (wasFresh && !card.matches(":hover") && !keyFocus()) card.classList.remove("is-shown");   // autoplay: no flash
+    else hideSoon();
+    tick();
   };
-  // the push-off: a squash about the feet
-  const squash = (k) => pops.push(sq.animate([{ transform: "none" }, { transform: `scale(${1 + 0.18 * k}, ${1 - 0.18 * k})`, offset: 0.3 }, { transform: "none" }],
-    { duration: 220, easing: "ease-out" }));
-  /* RIDE segments end to end on ONE clock (no frame lost at a join); a segment's `end` fires as the next begins. It grows
-     from the logo's size to SIZE over the first segment, leans into its horizontal speed and looks where it goes. */
-  const ride = (segs, s0, done) => {
-    const T0 = performance.now();
-    let i = 0, base = 0, last = null, lean = 0;
-    wrap.classList.add("hx-perf-moving");
-    const frame = (now) => {
-      driftRaf = 0;
-      if (!PERF.end) return;
-      const t = (now - T0) / 1000;
-      while (i < segs.length && t - base >= segs[i].T) { base += segs[i].T; if (segs[i].end) segs[i].end(); i++; }
-      const fin = i >= segs.length, seg = segs[fin ? segs.length - 1 : i], p = seg.at(fin ? seg.T : t - base);
-      if (last) {
-        const dt = Math.max(1, now - last.t) / 1000, vx = (p.x - last.x) / dt, vy = (p.y - last.y) / dt, v = Math.hypot(vx, vy);
-        lean += (Math.max(-12, Math.min(12, vx * 0.025)) - lean) * 0.3;
-        if (v > 40) look(`translate(${(vx / v * 3).toFixed(2)}px, ${(vy / v * 2.5).toFixed(2)}px)`);
-      }
-      last = { x: p.x, y: p.y, t: now };
-      wrap.style.transform = pose(p.x, p.y, s0 + (SIZE - s0) * Math.min(1, t / segs[0].T), fin ? 0 : lean);
-      if (fin) { done(); return; }
-      driftRaf = requestAnimationFrame(frame);
-    };
-    driftRaf = requestAnimationFrame(frame);
-  };
-  const bounce = () => {
-    const Ls = letters();
-    if (!Ls) { drift(W, [2.4, 1500, 2400], notice, start.s); return; }
-    // logo → l (it drops off the bar), then l → r in one long hop over the y, n and x
-    const segs = [hopSeg(start, Ls[0], 10), hopSeg(Ls[0], Ls[4], 55)];
-    segs[0].end = () => { squash(1); lynxrMood(svg, "done"); };
-    segs[1].end = () => squash(0.8);
-    // the swoop leaves the r up and to the right as fast as it came down onto it, swings out past the name (short of the
-    // video card), and hooks back down and in onto N
-    const r = Ls[4], out = Math.min(Math.max(N.x, r.right) + 150, cc.left - 16);
-    const P = [r, { x: r.x + 80, y: r.y - 130 }, { x: out, y: Math.max(r.y, N.y - 150) }, N];
-    const hit = segs[1].vEnd, T = 1.15;
-    const a = Math.max(0.6, Math.min(2.4, 0.9 * Math.hypot(hit.x, hit.y) * T / (3 * Math.hypot(P[1].x - P[0].x, P[1].y - P[0].y))));
-    segs.push(swoopSeg(P, T, a));
-    ride(segs, start.s, notice);
+  let raf = 0;                                                    // a smooth fill while it plays and the bar is up
+  const tick = () => {
+    cancelAnimationFrame(raf);
+    if (!v.paused && !v.ended && card.classList.contains("is-shown")) raf = requestAnimationFrame(() => { sync(); tick(); });
   };
 
-  /* THE DOUBLE-TAKE: a gasp and a little startle jump; the first button rings, then its eyes drop to the second. */
-  const notice = () => {
-    if (!PERF.end) return;
-    wrap.classList.remove("hx-perf-moving");
-    lynxrMood(svg, "shock");
-    look(two ? "translate(-2px, 5px)" : "translate(2px, 4px)");    // down at the buttons (below-left of the corner)
-    pops.push(sq.animate([
-      { transform: "none" },
-      { transform: "translateY(-12px) scale(.94, 1.08)", offset: 0.35 },
-      { transform: "translateY(0) scale(1.08, .92)", offset: 0.7 },
-      { transform: "none" },
-    ], { duration: 420, easing: "ease-out" }));
-    later(80, () => ring(seen[0]));
-    if (seen[1]) later(560, () => { if (PERF.end) { look("translate(1px, 6px)"); ring(seen[1]); } });
-    later(1200, toRight);
+  /* SHOW / HIDE. Up while paused, ended, focused inside or dragged; during playback it goes ~2 s after the
+     pointer last moved over the card (or at once when the pointer leaves). Autoplay starting does not raise it:
+     nothing should appear on the page because of a scroll. The fade is CSS, and off under reduced motion. */
+  let hideTimer = 0;
+  const show = (thenHide) => {
+    clearTimeout(hideTimer);
+    card.classList.add("is-shown");
+    tick();
+    if (thenHide) hideSoon();
   };
-  /* HOME: the short hop up from the Google button to the clear spot over the sign-up card's top-right corner, arriving
-     with a soft dip; react() tucks it in behind the corner. (It was the big arc over to the video card until 2026-10-08.) */
-  const toRight = () => {
-    if (!PERF.end) return;
-    lynxrMood(svg, "idle");
-    /* Measure home again now: the layout may have moved since the route was measured (the showcase, showcase.js,
-       swaps the video card's shape beside it), and the x must land on the corner that is actually there. */
-    const fresh = heroPlace.spot();
-    if (fresh) {
-      Object.assign(Rsp, { side: undefined, peek: undefined, arm: undefined }, fresh); R.x = fresh.x; R.y = homeCard.getBoundingClientRect().top + fresh.dy;
-      if (two && ARC.length === 3) ARC[1] = { x: N.x + (R.x - N.x) * 0.35, y: Math.max(top0, Math.min(N.y, R.y) - 36) };
-    }
-    drift(ARC, [1.6, 900, 1700], react);
+  const hideSoon = (ms = 2000) => {
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(() => {
+      if (v.paused || v.ended || dragging || keyFocus()) return;
+      card.classList.remove("is-shown");
+    }, ms);
   };
-  /* "mmm, interesting" — then "that's cool" — then it is home. IT GOES STRAIGHT TO PEEKING (owner, 2026-10-07: "have the
-     lynxr x go straight peeking dont have him stall next to the right bubble"): it tucks behind the card the moment it
-     lands, and the two faces play while it peeks — since 2026-10-08 behind the sign-up card's top-right corner. */
-  const react = () => {
-    if (!PERF.end) return;
-    wrap.classList.remove("hx-perf-moving");
-    sit(heroPlace, Rsp, true);
-    pops.push(sq.animate([{ transform: "none" }, { transform: "translateY(3px) scale(1.04, .96)", offset: 0.4 }, { transform: "none" }],
-      { duration: 380, easing: "ease-out" }));
-    lynxrMood(svg, "hmm");
-    look(Rsp.side === "corner" ? "translate(-3px, 4px)" : "translate(3px, 4px)");   // down and in at the card it peeks over / below it
-    later(1300, () => {
-      if (!PERF.end) return;
-      lynxrMood(svg, "cool");
-      look("");
-      later(1200, () => {
-        if (!PERF.end) return;
-        cleanup();
-        lynxrMood(svg, moodAt());
-        rung.add(heroPlace.target);
-        follow();
-        later(300, live);
-      });
-    });
-  };
+  const playing = () => !v.paused && !v.ended;
+  card.addEventListener("pointermove", (e) => { if (e.pointerType === "mouse") show(playing()); });
+  card.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse" && playing()) hideSoon(0); });
+  card.addEventListener("focusin", () => show(false));
+  card.addEventListener("focusout", () => { if (playing()) hideSoon(); });
 
-  /* HELLO at the nav (0.6s), then it simply lifts off and wanders — or, on a phone (no sign-up card beside it), JUST DROPS
-     STRAIGHT DOWN from the logo to its spot (owner, 2026-10-06: "for mobile lynxr x have it just go straight down") — now
-     over the sign-up card's top-right corner, where it tucks in — and does its "hmm… cool" there. */
-  lynxrGesture(svg, "hello");
-  later(600, () => {
-    if (!PERF.end) return;
-    lynxrGesture(svg, null);
-    lynxrMood(svg, "idle");
-    hxStart();                                     // the right card writes itself while the x wanders
-    later(60, closeSpot);                          // it has left the logo's box by now
-    later(420, barIntroEnd);                       // ...and the bar it left goes up, the name dissolving with it
-    if (two) { bounce(); return; }
-    const fresh = heroPlace.spot();                // the showcase may have changed the card since the route was measured
-    if (fresh) { Object.assign(Rsp, { side: undefined, peek: undefined, arm: undefined }, fresh); R.x = fresh.x; R.y = homeCard.getBoundingClientRect().top + fresh.dy; }
-    drift([start, R], [2.2, 900, 1600], react, start.s);
+  /* SOUND ON, FROM THE START: the one way out of the browser's muted autoplay (SOUND below). Unmuted, back to 0:00 so
+     the visitor hears it from the beginning, playing. Must run inside the visitor's press (the browser allows sound
+     only then). Setting currentTime is a seek the visitor caused, so `theirs` flips and autoplay keeps its hands off. */
+  const soundFromStart = () => {
+    setAuto(false);
+    v.muted = false;
+    v.currentTime = 0;
+    if (v.paused || v.ended) v.play().catch(() => {});
+    show(playing());
+  };
+  const flip = () => {                                            // the visitor's play / pause / replay
+    if (v.paused || v.ended) {
+      if (autoMuted) { soundFromStart(); return; }                // a press to play a muted-by-the-browser video means "with sound"
+      v.play().catch(() => {});                                   // refused: the poster and the play button stay
+    } else v.pause();
+  };
+  big.addEventListener("click", () => { flip(); v.focus({ preventScroll: true }); });
+  toggle.addEventListener("click", flip);
+  /* A CLICK OR TAP ANYWHERE ON THE FRAME TOGGLES PLAY / PAUSE, like YouTube, on a desktop AND a phone (owner,
+     2026-11-14: "when i tap it pauses like youtube"). It also brings the bar up so the new state shows (paused: the
+     big play button and the bar stay; playing: the bar fades ~2 s later). ONE EXCEPTION: while it plays muted only
+     because the browser refused sound, the first tap turns the sound on and starts it again from 0:00 instead of
+     pausing (owner, 2026-11-14: "the launch video doesnt start with the audio, fix that so it plays with audio as
+     default"), as YouTube and Instagram do with a muted autoplay. Every tap after that pauses / plays. */
+  v.addEventListener("click", () => {
+    if (autoMuted && playing()) { soundFromStart(); return; }
+    flip(); show(playing());
   });
-}
-
-/* THE PLANS' OWN X'S (owner, 2026-10-06: "bring the x's back to the payment options on the deadspace next to the price",
-   then "have the most premium package be happier and the free is normal"). One live avatar per plan, beside its price
-   (index.html .lp-plan-x; avatar.js draws it from data-lx-mood), and its mood climbs with the plan: free "idle" (calm,
-   blinking), pro "done" (happy), max "hyped" (star eyes, sparkles, a bouncy hop). So does its greeting the first time its
-   card is mostly on screen — free a wave, pro a hop and a wave, max a hop, a spin and a wave — the three a beat apart; then
-   they float (app.css), and every 5-8s one of those on screen waves. Decorative. Reduced motion: their faces only. */
-(function planBuddies() {
-  addEventListener("DOMContentLoaded", () => {
-    if (!document.body.classList.contains("home") || typeof window.lynxrAvatar !== "function") return;
-    const xs = [...document.querySelectorAll(".lp-plan-x")];
-    for (const x of xs) if (!x.querySelector("svg.lx")) { x.innerHTML = lynxrAvatar("done"); x.setAttribute("data-lx-done", ""); }   // trusted markup
-    if (!xs.length || matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
-    const wave = (x) => {
-      const svg = x.querySelector("svg.lx");
-      if (!svg) return;
-      lynxrGesture(svg, "hello");
-      setTimeout(() => lynxrGesture(svg, null), 750);
-    };
-    const party = (x) => {
-      const svg = x.querySelector("svg.lx");
-      if (!svg) return;
-      const mood = x.getAttribute("data-lx-mood") || "done";
-      if (mood === "idle") { wave(x); return; }                              // free: a plain hello
-      const hop = [
-        { transform: "none" },
-        { transform: "translateY(-12px) rotate(-10deg)", offset: 0.3 },
-        { transform: "translateY(0) scale(1.1, .9)", offset: 0.62 },
-        { transform: "none" },
-      ];
-      const spin = [
-        { transform: "none" },
-        { transform: "translateY(-12px) rotate(-10deg)", offset: 0.18 },
-        { transform: "translateY(0) scale(1.1, .9)", offset: 0.34 },
-        { transform: "translateY(-16px) scaleX(-1)", offset: 0.55 },          // a spin, mid-air
-        { transform: "translateY(0) scale(1.08, .92)", offset: 0.74 },
-        { transform: "none" },
-      ];
-      const big = mood === "hyped";
-      if (!big) lynxrMood(svg, "giggle");
-      x.animate(big ? spin : hop, { duration: big ? 1400 : 800, easing: "ease-in-out" })
-        .finished.then(() => { lynxrMood(svg, mood); wave(x); }).catch(() => {});
-    };
-    const partied = new WeakSet();
-    const io = new IntersectionObserver((list) => {
-      for (const en of list) {
-        const x = en.target;
-        x.lxOn = en.isIntersecting && en.intersectionRatio >= 0.6;
-        if (x.lxOn && !partied.has(x)) { partied.add(x); setTimeout(() => party(x), 160 * xs.indexOf(x)); }
-      }
-    }, { threshold: [0, 0.6, 1] });
-    xs.forEach((x) => io.observe(x));
-    const now = () => {
-      const on = xs.filter((x) => x.lxOn);
-      if (on.length && !document.hidden) wave(on[Math.floor(Math.random() * on.length)]);
-      setTimeout(now, 5000 + Math.random() * 3000);
-    };
-    setTimeout(now, 6000);
+  seek.addEventListener("pointerdown", () => { dragging = true; show(false); });
+  const endDrag = () => { if (!dragging) return; dragging = false; sync(); if (playing()) hideSoon(); };
+  seek.addEventListener("pointerup", endDrag);
+  seek.addEventListener("pointercancel", endDrag);
+  seek.addEventListener("input", () => {
+    const d = dur(); if (!d) return;
+    v.currentTime = Math.min(Number(seek.value), d);
+    place(Number(seek.value) / d);
+    time.textContent = `${clock(Number(seek.value))} / ${clock(d)}`;
+    seek.setAttribute("aria-valuetext", `${clock(Number(seek.value))} of ${clock(d)}`);
   });
+  seek.addEventListener("blur", sync);
+  /* Arrows move by a step a person can use (step="0.01" is for dragging): a tenth of the video, 1 s to 5 s.
+     Home/End stay native. */
+  seek.addEventListener("keydown", (e) => {
+    const dir = { ArrowRight: 1, ArrowUp: 1, ArrowLeft: -1, ArrowDown: -1 }[e.key];
+    const d = dur();
+    if (!dir || !d || e.ctrlKey || e.metaKey || e.altKey) return;
+    e.preventDefault();
+    const t = Math.max(0, Math.min(d, v.currentTime + dir * Math.max(1, Math.min(5, d / 10))));
+    v.currentTime = t; seek.value = String(t);
+    seek.setAttribute("aria-valuetext", `${clock(t)} of ${clock(d)}`);
+    show(playing());
+  });
+  /* KEYBOARD: Space and K toggle anywhere in the card, except that Space on a button presses that button
+     (on the play button that is the same toggle; on full screen it must stay full screen). The slider keeps
+     its native arrows / Home / End. */
+  card.addEventListener("keydown", (e) => {
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    const k = e.key.toLowerCase();
+    if (k !== "k" && !(k === " " && !(e.target instanceof HTMLButtonElement))) return;
+    e.preventDefault();
+    flip();
+    show(playing());
+  });
+
+  /* SOUND. The owner's launch video has its music track (2026-11-14) and index.html says so with data-audio="on",
+     so the sound button is there from the first play. Without data-audio a silent file gets no volume button: the
+     button appears by itself once the FILE says it has an audio track; it starts with sound on where the
+     browser allows it (SOUND FIRST, MUTED IF REFUSED, below). data-audio="on"/"off" on the <video> overrides the sniffing if a browser ever guesses
+     wrong. The sniff: Firefox mozHasAudio, Safari audioTracks.length (both known at loadedmetadata), Chromium
+     webkitAudioDecodedByteCount > 0 (only known once some audio has decoded, so it is re-asked while playing and
+     settled "silent" after a second of playback with nothing decoded). */
+  let audio = v.dataset.audio === "on" ? true : v.dataset.audio === "off" ? false : null;
+  const sniff = () => {
+    if (audio !== null || v.readyState < 1) return;
+    if (typeof v.mozHasAudio === "boolean") audio = v.mozHasAudio;
+    else if (v.audioTracks && typeof v.audioTracks.length === "number") audio = v.audioTracks.length > 0;
+    else if (typeof v.webkitAudioDecodedByteCount === "number") {
+      if (v.webkitAudioDecodedByteCount > 0) audio = true;
+      else if (v.currentTime > 1) audio = false;
+    } else audio = false;
+    if (audio !== null) { sound.hidden = !audio; card.classList.toggle("has-audio", audio); }
+  };
+  if (audio !== null) { sound.hidden = !audio; card.classList.toggle("has-audio", audio); }
+  /* SOUND FIRST, MUTED IF REFUSED (owner, 2026-11-14: "autoplay with the audio and everything"). Autoplay asks for
+     sound first (v.muted = false at the top). Browsers refuse sound before the visitor has pressed something
+     (Chromium allows it for a site the visitor already watches a lot; Safari never), so on a refusal it plays
+     MUTED instead (autoplay, below): the video never sits stopped because sound was refused. Only then
+     (.is-automuted) a labelled "Turn sound on" pill sits in the card's top-right corner: static, no pulse, 44px tall
+     (app.css .lpv-snd). A press turns the sound on AND starts the video again from 0:00, so the visitor hears it
+     from the beginning, and the pill goes. The bar's sound button works as normal throughout, and the visitor's
+     choice sticks. A first tap on the frame does the same as the pill (above), and so does the visitor's FIRST PRESS
+     ANYWHERE ELSE ON THE PAGE (wake, below): sound comes on at the earliest moment any browser allows it. */
+  const pill = document.createElement("button");
+  pill.type = "button"; pill.className = "lpv-snd";
+  pill.innerHTML = svg("i-quiet", '<path d="M4 9v6h4l5 4V5L8 9H4zM17 10l4 4m0-4l-4 4"/>', false) + "<span>Turn sound on</span>";
+  card.append(pill);
+  const setAuto = (on) => { autoMuted = on; card.classList.toggle("is-automuted", on); };
+  const paintSound = () => {
+    card.classList.toggle("is-muted", v.muted);
+    sound.setAttribute("aria-label", v.muted ? "Turn the sound on" : "Turn the sound off");
+    sound.title = v.muted ? "Sound on" : "Sound off";
+    if (!v.muted && autoMuted) setAuto(false);                    // sound is on, however it got there: the pill goes
+  };
+  sound.addEventListener("click", () => { setAuto(false); v.muted = !v.muted; });   // the visitor's choice sticks
+  pill.addEventListener("click", () => {
+    soundFromStart();                                             // hear it from the beginning
+    if (!sound.hidden) sound.focus({ preventScroll: true });     // the pill is gone; focus lands on the bar's sound button
+  });
+  /* THE FIRST PRESS ANYWHERE TURNS THE SOUND ON (owner, 2026-11-14: "fix that so it plays with audio as default").
+     No page can start sound before the visitor has pressed something on it; that is the browser's rule, not ours. So
+     while it plays muted for that reason, the visitor's first click, tap or key ANYWHERE on the page turns the sound
+     on and starts it again from 0:00. pointerup / touchend because a touch only counts once the finger lifts; a
+     scroll swipe never counts, and navigator.userActivation.isActive (where it exists) confirms the browser agrees,
+     so a press it would refuse never unmutes (Chromium PAUSES a video unmuted without one). Left alone: presses
+     inside the video card (its own handlers, above), presses that do something else (a link or button such as "get
+     started" and "sign in", a form field, the sign-up card: no sound arriving under it), and Tab / Escape /
+     shortcuts. Paused or ended (it played out muted, or it is off screen): the sound is simply on for the next play. */
+  const wake = (e) => {
+    if (!autoMuted) return;
+    if (navigator.userActivation ? !navigator.userActivation.isActive : e.type === "touchend") return;
+    if (e.type === "keydown" && (e.key === "Tab" || e.key === "Escape" || e.ctrlKey || e.metaKey || e.altKey)) return;
+    const t = e.target instanceof Element ? e.target : null;
+    if (t && (card.contains(t) || t.closest("a, button, input, select, textarea, label, summary, [contenteditable], [role='button'], [data-gate], #gate"))) return;
+    if (playing()) soundFromStart();
+    else { setAuto(false); v.muted = false; }
+  };
+  for (const ev of ["pointerup", "touchend", "keydown"]) document.addEventListener(ev, wake, { capture: true, passive: true });
+
+  /* FULL SCREEN: THE CARD, not the <video>, so these controls come along. iPhone Safari has no element
+     full screen, only webkitEnterFullscreen() on the video, which hands over to the system player and its own
+     controls; it needs metadata, which exists by the time the bar (hidden until the first play) is reachable. */
+  const fsEl = () => document.fullscreenElement || document.webkitFullscreenElement || null;
+  const elFS = !!(card.requestFullscreen || card.webkitRequestFullscreen) && !!(document.fullscreenEnabled || document.webkitFullscreenEnabled);
+  const vidFS = typeof v.webkitEnterFullscreen === "function";
+  full.hidden = !(elFS || vidFS);
+  full.addEventListener("click", () => {
+    if (fsEl() === card) { (document.exitFullscreen || document.webkitExitFullscreen).call(document); return; }
+    if (elFS) {
+      const r = (card.requestFullscreen || card.webkitRequestFullscreen).call(card);
+      if (r && r.catch) r.catch(() => {});
+    } else if (v.readyState >= 1) v.webkitEnterFullscreen();
+  });
+  const paintFull = () => {
+    const on = fsEl() === card;
+    card.classList.toggle("is-full", on);
+    full.setAttribute("aria-label", on ? "Exit full screen" : "Full screen");
+    full.title = on ? "Exit full screen" : "Full screen";
+  };
+  document.addEventListener("fullscreenchange", paintFull);
+  document.addEventListener("webkitfullscreenchange", paintFull);
+
+  /* SLOW: a stall longer than half a second shows a quiet ring where the big button sits. */
+  let waitTimer = 0;
+  v.addEventListener("waiting", () => { clearTimeout(waitTimer); waitTimer = setTimeout(() => card.classList.add("is-waiting"), 500); });
+  const unwait = () => { clearTimeout(waitTimer); card.classList.remove("is-waiting"); };
+  for (const ev of ["playing", "pause", "ended", "seeked", "canplay"]) v.addEventListener(ev, unwait);
+
+  for (const ev of ["play", "pause", "ended", "playing"]) v.addEventListener(ev, paint);
+  for (const ev of ["timeupdate", "durationchange", "loadedmetadata", "seeked", "emptied"]) v.addEventListener(ev, sync);
+  for (const ev of ["loadedmetadata", "loadeddata", "timeupdate", "playing"]) v.addEventListener(ev, sniff);
+  v.addEventListener("volumechange", paintSound);
+  paintSound(); paintFull(); sync(); paint();
+
+  /* ---- autoplay: unchanged from the first build ---- */
+  const thrifty = !!(navigator.connection && navigator.connection.saveData);
+  let signedIn = false;                                          // a stored session: creator.js is taking the page into the app
+  try { signedIn = !!localStorage.getItem("lynxr_creator_session"); } catch { /* storage blocked: treat as signed out */ }
+  if (calm.matches || thrifty || signedIn || !("IntersectionObserver" in window)) return;
+  const io = new IntersectionObserver((list) => {
+    const en = list[list.length - 1];
+    if (en.isIntersecting && en.intersectionRatio >= 0.5) {
+      if (!theirs && v.paused && !v.ended && !document.hidden) {
+        ours = true;
+        v.play().catch((err) => {
+          ours = false;
+          /* Sound refused (NotAllowedError, no press on the page yet): the same play, muted, with the sound waiting
+             for the first press. Anything else (an AbortError from a pause, or a refusal that was already muted:
+             iOS Low Power Mode, a strict browser) leaves the poster and the play button. */
+          if (!err || err.name !== "NotAllowedError" || v.muted || theirs || !v.paused || document.hidden) return;
+          v.muted = true;
+          setAuto(true);
+          ours = true;
+          v.play().catch(() => { ours = false; });
+        });
+      }
+    } else if (!v.paused && (!theirs || !en.isIntersecting)) {
+      ours = true;
+      v.pause();
+    }
+  }, { threshold: [0, 0.5, 1] });
+  io.observe(v);
+  calm.addEventListener("change", () => {
+    if (!calm.matches) return;
+    io.disconnect();
+    if (!v.paused && !theirs) { ours = true; v.pause(); }
+  });
+})();
+
+/* THE CARDS' PICTURES MOVE WITH THE SCROLL: the FALLBACK (owner, 2026-11-14: "slight animations ... that relates to the
+   scroll ... all displays possible"; app.css "THE CARDS' PICTURES MOVE WITH THE SCROLL"). A browser with CSS
+   scroll-driven animations scrubs them natively and this does nothing. Without them, #lp-how gets .lp-scrub-js, which
+   makes every moving piece a PAUSED 1 s CSS animation, and this script sets each one's currentTime (Web Animations API,
+   no style attribute: CSP-safe) from its card's progress through the screen (0 = the card's top at the bottom of the
+   screen, 1 = its bottom at the top: CSS's `cover` range), mapped through the piece's own --lpm-a / --lpm-b window.
+   Passive scroll / scrollend / resize listeners feeding at most one rAF per frame, and only the cards an IntersectionObserver says
+   are on screen are measured; a card that leaves is pinned at 0 (below) or 1 (above). Nothing runs while the page is
+   still. Under reduced motion it stops (the cards are the static design: app.css gives the pieces no animation then)
+   and starts again if reduced motion is switched back off. Without IntersectionObserver or element.getAnimations it
+   never starts. */
+(function cardScrub() {
+  const how = document.getElementById("lp-how");
+  if (!how || !document.body.classList.contains("home")) return;
+  if (window.CSS && CSS.supports && CSS.supports("animation-timeline: view()")) return;   // native: CSS does it all
+  const calm = matchMedia("(prefers-reduced-motion: reduce)");
+  if (!("IntersectionObserver" in window) || typeof how.getAnimations !== "function") return;
+  const cards = [...how.querySelectorAll(".lp-how-card")];
+  const span = new WeakMap();                                     // animation -> [a, b], read once from its piece's CSS
+  const windowOf = (anim) => {
+    let w = span.get(anim);
+    if (!w) {
+      const fx = anim.effect, cs = getComputedStyle(fx.target, fx.pseudoElement || null);
+      w = [parseFloat(cs.getPropertyValue("--lpm-a")) || 0, parseFloat(cs.getPropertyValue("--lpm-b")) || 1];
+      span.set(anim, w);
+    }
+    return w;
+  };
+  const setCard = (card, p) => {
+    for (const anim of card.getAnimations({ subtree: true })) {
+      const [a, b] = windowOf(anim);
+      anim.currentTime = Math.min(1, Math.max(0, (p - a) / (b - a))) * 1000;
+    }
+  };
+  const live = new Set();
+  let raf = 0;
+  const paint = () => {
+    raf = 0;
+    const vh = innerHeight;
+    for (const c of live) {
+      const r = c.getBoundingClientRect();
+      setCard(c, Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height))));
+    }
+  };
+  const ask = () => { if (!raf) raf = requestAnimationFrame(paint); };
+  const io = new IntersectionObserver((list) => {
+    for (const en of list) {
+      if (en.isIntersecting) live.add(en.target);
+      else { live.delete(en.target); setCard(en.target, en.boundingClientRect.top < 0 ? 1 : 0); }
+    }
+    ask();
+  });
+  const start = () => {                                           // the class first: it creates the paused animations
+    how.classList.add("lp-scrub-js");
+    for (const c of cards) io.observe(c);                         // observing reports every card once, so each gets set
+    addEventListener("scroll", ask, { passive: true });
+    addEventListener("scrollend", ask, { passive: true });        // where supported: one last measure where a smooth scroll lands
+    addEventListener("resize", ask, { passive: true });
+  };
+  const stop = () => {
+    io.disconnect(); live.clear();
+    removeEventListener("scroll", ask);
+    removeEventListener("scrollend", ask);
+    removeEventListener("resize", ask);
+    how.classList.remove("lp-scrub-js");
+  };
+  calm.addEventListener("change", () => (calm.matches ? stop() : start()));
+  if (!calm.matches) start();
 })();
 
 if ($("wait-form")) $("wait-form").addEventListener("submit", async (e) => {

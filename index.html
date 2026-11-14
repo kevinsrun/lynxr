@@ -75,13 +75,13 @@
 <meta name="twitter:description" content="Paste a link. Get a script for your next UGC video, written for the brand you make it for.">
 <meta name="twitter:image" content="https://lynxr.io/og-v3.png">
 <link rel="canonical" href="https://lynxr.io/">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20261105c">
-<link rel="alternate icon" type="image/png" sizes="32x32" href="/favicon.png?v=20261105c">
-<link rel="shortcut icon" href="/favicon.ico?v=20261105c">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20261105c">
-<link rel="stylesheet" href="/app.css?v=20261105c">
-<script src="/theme.js?v=20261105c"></script>
-<script src="/backdrop.js?v=20261105c" defer></script>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20261114d">
+<link rel="alternate icon" type="image/png" sizes="32x32" href="/favicon.png?v=20261114d">
+<link rel="shortcut icon" href="/favicon.ico?v=20261114d">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20261114d">
+<link rel="stylesheet" href="/app.css?v=20261114d">
+<script src="/theme.js?v=20261114d"></script>
+<script src="/backdrop.js?v=20261114d" defer></script>
 <!-- BEGIN SHARED ENTITY JSON-LD -->
 <script type="application/ld+json">
 {
@@ -273,7 +273,7 @@
 {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "dateModified": "2026-10-08",
+  "dateModified": "2026-11-14",
   "@id": "https://lynxr.io/#webpage",
   "url": "https://lynxr.io/",
   "name": "lynxr — the UGC creator tool",
@@ -302,299 +302,153 @@
 <header class="lp-bar">
   <div class="lp-in lp-bar-in">
     <a class="wordmark" href="/"><svg class="mark lx lx-still" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><rect x="-20" y="-20" width="160" height="160" fill="url(#lx-glass)" mask="url(#lx-idle)"/><rect x="-20" y="-20" width="160" height="160" fill="url(#lx-shade)" mask="url(#lx-idle)"/><g class="lx-hl" mask="url(#lx-idle)"><ellipse cx="42" cy="36" rx="30" ry="10" transform="rotate(-40 42 36)" fill="#fff" opacity=".4" filter="url(#lx-soft)"/></g><g class="lx-face"><g><rect x="47" y="48.5" width="8" height="13" rx="4" fill="#fff"/><rect x="65" y="48.5" width="8" height="13" rx="4" fill="#fff"/></g><g transform="translate(60 70)"><path d="M-5 0q5 4 10 0" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g></g></svg><span>lynxr</span></a>
-    <!-- ABSOLUTE, not `#how`. This bar is on every public page, and a bare
-         fragment does nothing from /faq/ or /privacy/ — it appends a hash to
-         the current URL and stays put. -->
-    <nav class="lp-nav" aria-label="Main">
-      <a href="/how-it-works/">how it works</a>
-      <a href="/faq/">faq</a>
-    </nav>
+    <!-- THE LANDING'S BAR IS THE WORDMARK AND "SIGN IN" (owner, 2026-11-13: "The top nav bar is pretty much gone ...
+         There is no need for an FAQ or How It Works tab at the top"; plan ~/.claude/plans/landing-video-first.md).
+         How it works, faq and pricing live in the footer. "sign in" is top right (Jakob) and a text link, not the ink
+         pill: the page's one primary button is under the video. No burger and no phone menu here. site.js needs
+         neither (it checks for both), and every other public page keeps its own bar, links and menu. -->
     <span class="lp-actions">
-    <button type="button" class="theme-toggle" aria-pressed="false" aria-label="Switch between light and dark mode">
-      <svg class="tt-moon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.4 14.2A8.6 8.6 0 0 1 9.8 3.6a8.6 8.6 0 1 0 10.6 10.6z"/></svg>
-      <svg class="tt-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M12 2.8v2.3M12 18.9v2.3M2.8 12h2.3M18.9 12h2.3M5.5 5.5l1.6 1.6M16.9 16.9l1.6 1.6M18.5 5.5l-1.6 1.6M7.1 16.9l-1.6 1.6"/></g></svg>
-      <span class="tt-knob"></span>
-    </button>
-    <!-- Opens #gate in the two modes: sign-in reuses the existing form as-is,
-         "get started" is a real <a href="/"> so it still works with
-         JS off — Step 7b's delegated handler preventDefault()s it once JS is
-         live. Both live INSIDE .lp-actions (a flex row), not beside it: the
-         capsule's grid is a strict 1fr auto 1fr and a fifth item outside this
-         span would wrap to a second row. -->
-    <a class="btn" href="/" data-gate="up">get started</a>
-    <!-- Under 760px the nav and the two controls above are display:none and
-         this takes their place. aria-expanded carries the state to a screen
-         reader AND drives which glyph is drawn, so the two cannot disagree. -->
-    <button class="lp-burger" type="button" id="lp-burger" aria-label="menu"
-            aria-expanded="false" aria-controls="lp-menu">
-      <svg class="ico-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-      <svg class="ico-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
-    </button></span>
+      <a class="lp-signin" href="/" data-gate="in">sign in</a>
+    </span>
   </div>
-  <!-- Inside the bar on purpose: the bar is the sticky element, so a panel
-       parented anywhere else would scroll away from the burger that opened it.
-       `hidden` — not opacity — is what takes these links out of the tab order
-       when it is closed. -->
-  <nav class="lp-menu" id="lp-menu" aria-label="Menu" hidden>
-    <a href="/how-it-works/">how it works</a>
-    <a href="/faq/">faq</a>
-    <!-- The toggle lives HERE on a phone, not in the bar (owner, 2026-08-26:
-         "for mobile put this in the menu when it drops down") — the bar was
-         the crowded place and the menu has room for a labelled row. theme.js
-         wires every .theme-toggle by delegation and keeps all instances'
-         aria-pressed in step, so this second copy needs no script of its own. -->
-    <div class="lp-menu-theme">
-      <button type="button" class="theme-toggle" aria-pressed="false" aria-label="Switch between light and dark mode">
-        <svg class="tt-moon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.4 14.2A8.6 8.6 0 0 1 9.8 3.6a8.6 8.6 0 1 0 10.6 10.6z"/></svg>
-        <svg class="tt-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M12 2.8v2.3M12 18.9v2.3M2.8 12h2.3M18.9 12h2.3M5.5 5.5l1.6 1.6M16.9 16.9l1.6 1.6M18.5 5.5l-1.6 1.6M7.1 16.9l-1.6 1.6"/></g></svg>
-        <span class="tt-knob"></span>
-      </button>
-    </div>
-    <!-- THE FOOT OF THE FULL-SCREEN PHONE MENU (owner, 2026-10-06: "lets do what claude does"): the two ways in, side by
-         side. [data-gate] controls like every other sign-in/up on the page; site.js closes the menu on either. -->
-    <div class="lp-menu-foot">
-      <a class="lp-menu-in" href="/" data-gate="in">sign in</a>
-      <a class="btn" href="/" data-gate="up">get started</a>
-    </div>
-  </nav>
 </header>
 
 <main id="lp-main">
 
-  <!-- WHERE THE X GOES (home.js). On load the nav logo's x floats down (a phone: straight down), gasps at the sign-up
-       buttons (desktop) and settles beside the video card — home. From 2026-10-06, on every device: when the bar comes
-       down on scroll, the x flies up into it and is the logo beside the word again; back at the top, it flies home. Each
-       plan has its own x beside its price (.lp-plan-x). The data-lx-spot / data-lx-tour attributes below are no longer
-       read (they drove a guide that was retired the same day); the hero's still marks the card the x looks at. -->
-
-  <!-- THE BUDDY HERO (owner, 2026-09-23, in three passes: "new design for the landing
-       page, put this lynxr on the bottom right and then have the info above be a speech
-       bubble or something — where the lynxr was, put a sign up box", then "put lynxr
-       inside the box with the info above it", then, on a claude.ai sign-in card as the
-       reference for the sign-up box, "but in our styling".)
-       LEFT  = the headline, and a SIGN-UP BOX (.hxs) where the buddy used to stand.
-       RIGHT = ONE glass panel: the coach row, a hairline, the script row with the live
-       composer. The buddy avatar that sat in a band at the bottom of this card was removed
-       2026-10-05 (owner: "have it just be the one"); the one x on the page is the nav
-       logo, which waves, bounces down and perches on the sign-up box (home.js). The panel
-       glass is on screen from frame 0 — only its two rows and their hairline fade in.
-       THE TWO PILLS ARE NOT DECORATION. A coach-first hero that did not say
-       "coming soon" on the coach and "live now" on the script would be selling
-       something that does not exist: the coach is not built (see #pricing, and
-       /how-it-works/coach/).
-       THE SIGN-UP BOX TAKES ITS SHAPE FROM THE REFERENCE AND ITS LOOK FROM HERE:
-       provider button, a mono "or", the email field, the primary button, the consent
-       line — in the --gl-* glass, the pill radius, the ink .btn and the site's tokens.
-       IT INVENTS NO AUTH. Every control is a data-gate="up" / data-gate="in" control,
-       exactly like the pricing CTAs: creator.js delegates every [data-gate] click to
-       the real gate (#gate) and accepts both modes. home.js adds two hand-offs and
-       nothing else — the typed address is copied into the gate's own email field before
-       it opens, and "continue with Google" puts the visitor on the gate's OWN Google
-       button (the only Google button on the site; OAuth is not re-implemented here).
-       ONLY THE PROVIDER THE GATE ACTUALLY OFFERS: creator.js's OAUTH_ON is
-       { google: true, apple: false }, so Google is the only button.
-       IT IS NOT A <form>, and that is deliberate: nothing on this page may submit an
-       address anywhere, and a field with no form around it cannot implicitly submit, so
-       Enter can never reload the page (home.js routes Enter to the same gate).
-       Every look lives in app.css (.hx-*, .hxs-*) — no inline styles, CSP. -->
-  <section class="hx" aria-labelledby="hx-buddy-h">
-    <div class="hx-wash" aria-hidden="true"></div>
-    <div class="hx-half hx-l">
-      <div class="hx-col">
-        <!-- THE BIG LINE, then the former headline demoted under it (owner, 2026-09-23:
-             keep "your content creation buddy" but "have it smaller and under this text:
-             'every creator's second brain'"). REPOSITIONED 2026-10-03 for UGC creators (owner: "tailor this only for UGC"):
-             the big line is "land your next brand deal." and the subline (owner, 2026-10-04) is "your UGC buddy". The subline is a <p>, not a heading: it says
-             the same thing the h1 does in plainer words, so a second heading level here
-             would be an outline entry with nothing under it. The id stays on the h1 — the
-             section's aria-labelledby points at it. Source case is left alone; the house
-             rule draws both lowercase. -->
-        <!-- THE NAME, HUGE (owner, 2026-10-06: "have this text say [lynxr]", "huge text"); it was "land your next brand deal."
-             The subline under it still says what lynxr is. -->
-        <h1 class="hx-h hx-name" id="hx-buddy-h">lynxr</h1>
-        <p class="hx-sub">your <span class="acr">UGC</span> buddy</p>
-        <!-- THE SIGN-UP BOX. Not animated: it is the thing that converts, so it is on
-             screen at frame 0 and never moves. -->
-        <div class="hxs" role="group" aria-labelledby="hxs-lbl">
-          <p class="hxs-lbl" id="hxs-lbl">create your account</p>
-          <!-- The label keeps its capital G on .oauth-label, the same one-class opt-out
-               of the sitewide lowercase the gate's own Google button uses: Google
-               mandates the wording, and the source string is untouched either way. -->
-          <button type="button" class="hxs-oauth" id="hxs-google" data-gate="up" data-lx-spot>
-            <img src="/assets/google-g-mark.svg" alt="" aria-hidden="true" width="18" height="18">
-            <span class="oauth-label">continue with Google</span>
-          </button>
-          <p class="hxs-or"><span>or</span></p>
-          <label class="sr-only" for="hxs-email">your email address</label>
-          <input class="hxs-mail" id="hxs-email" type="email" placeholder="ilovelynxr@email.com"
-            autocomplete="email" autocapitalize="none" autocorrect="off" spellcheck="false">
-          <a class="btn hxs-go" id="hxs-go" href="/?signup=1" data-gate="up">continue with email</a>
-          <!-- Both pages exist and both are linked from every footer. This claims
-               nothing else: lynxr sends no promotional email, so there is no such
-               consent to ask for here. The gate carries the same line and, since 2026-09-25,
-               no tick box — this line IS the agreement. -->
-          <p class="hxs-fine">by continuing you agree to the <a href="/terms/">terms</a>
-            and <a href="/privacy/">privacy policy</a>.</p>
-          <p class="hxs-alt">already have one? <a class="hxs-in" href="/" data-gate="in">sign in</a></p>
-        </div>
-      </div>
-    </div>
-    <div class="hx-half hx-r">
-      <!-- THE SHOWCASE (plan lynxr-showcase.md): showcase.js may replace this card's content with real
-           "made with lynxr" entries. It does so only with at least 3 approved entries and a real typical
-           figure, within 2.5s of load, and never while the paste box is in use. Otherwise this card is
-           exactly as below. -->
-      <div class="hx-panel">
-        <!-- THE COACH, first, because the buddy is the product and the script is
-             one of its jobs. Not built: the pill says so, and the row's only action
-             is a link to the coach page, which says so at length. -->
-        <div class="hx-row hx-row-coach">
-          <span class="hx-pill hx-pill-soon">coming soon</span>
-          <h2 class="hx-h hx-h2">a coach for every level.</h2>
-          <!-- The coach row's action (owner, 2026-09-23: "have this say learn more and then go to the how it
-               works page"): a plain link to the coach's how-it-works page, in place of the preview bubble
-               that used to sit here. Third child of the row, so the intro's stagger still lands on it. -->
-          <a class="btn hx-learn" href="/how-it-works/coach/">learn more &rarr;</a>
-        </div>
-        <div class="hx-rule" aria-hidden="true"><i></i><i></i><i></i></div>
-        <!-- THE SCRIPT, live today, with THE APP'S OWN COMPOSER moved in with
-             every id, class and data-* intact: creator.js wires every
-             form[data-hero] (wireHeroComposer), site.js's typewriter and the
-             phone keyboard pin key on #lp-composer-url, and say() falls back to
-             #lp-composer-note. `.lp-composer` is a size modifier only. -->
-        <div class="hx-row hx-row-script">
-          <!-- No "live now" pill (owner, 2026-09-25: "you can get rid of this"). The coach row keeps its
-               "coming soon" pill: that one carries information (the coach is not built). With the pill
-               gone the h2 is this row's first child, and the intro still lands on time: nth-child(1)
-               is 1.3s, the same moment the typing starts, and .lp-composer has its own rule (1.62s). -->
-          <h2 class="hx-h hx-h2">paste a link. get your script.</h2>
-          <div class="composer composer-inline lp-composer">
-            <form class="composer-row" id="lp-composer-form" data-hero data-note="lp-composer-note" novalidate data-lx-spot>
-              <input type="url" id="lp-composer-url" placeholder="paste instagram/tiktok link"
-                autocomplete="off" spellcheck="false" aria-label="Paste a video link">
-              <span class="bp-plat" id="lp-composer-plat"></span>
-              <button type="submit" class="composer-send" id="lp-composer-send" aria-label="Get the script">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-              </button>
-            </form>
-            <p class="composer-note" id="lp-composer-note" role="status" aria-live="polite"></p>
-          </div>
-        </div>
-        <!-- THE CARD'S LAST BAND. It held the buddy avatar until 2026-10-05 (owner: "have it
-             just be the one and the visual get rid of the lynxr"); the one x on the page is now
-             the nav logo, which flies to the sign-up card (home.js). The band keeps only the
-             phone's sign-up line and is not drawn above 640px. -->
-        <div class="hx-band">
-          <!-- THE PHONE'S SIGN-UP (owner, 2026-09-25, picked mockup "L": "a quiet link under the
-               paste box"). The desktop has the full .hxs card in the left column, so this is
-               display:none above 640px and only a phone ever shows it. A plain [data-gate="up"]
-               link, like every other sign-up control on the page: creator.js opens the real gate,
-               which shows the same agreement line. -->
-          <p class="hx-new">new here? <a class="hx-new-link" href="/?signup=1" data-gate="up">create your free account</a></p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PRICING (2026-09-21, the day checkout opened). Free / pro / max side by
-       side, the way a SaaS landing normally does it, and a link to /pricing/
-       for the long version.
-
-       EVERY NUMBER HERE MIRRORS lynxr_billing_plans (supabase/billing.sql),
-       which is the ONE place the database enforces them: free 25 lifetime,
-       pro 150 per rolling 30 days + 30 per 24h, max 300 + 40. This is a static
-       page and cannot ask the ledger, so when a cap changes there it changes
-       HERE, on /pricing/, and nowhere else — the Plan view in the app reads the
-       row live. The prices are the provider's (Stripe) and are not in the
-       ledger at all; they live here, on /pricing/ and in creator.js.
-
-       MAX IS ANNOUNCED, NOT SOLD: it has no price id, so nothing can buy it.
-       No button, and the two features it is sold on are said plainly to be
-       unbuilt. Do not give this card a CTA until the Plan view has one.
-
-       The free tier is 3 per rolling 7 days (lynxr_billing_plans 'free', since
-       21 September 2026). If it moves, this card moves with it.
-
-       NO INLINE STYLES (CSP style-src 'self' drops them silently) and no
-       template syntax: this file is static HTML. -->
-  <section class="lp-sec" id="pricing">
+  <!-- THE FIRST SCREEN IS THE LAUNCH VIDEO, AT THE FULL SIZE OF THE SCREEN (owner, 2026-11-13: "I want the new landing page
+       to be the demo video ... the first thing"; 2026-11-14: "Have it so that we use the full display size that is
+       available on the screen"; plans ~/.claude/plans/landing-video-first.md, then the Mist-style restyle). One small
+       heading (the page's only h1), the video, and ONE primary action: "get started" opens the real sign-up gate
+       (creator.js's [data-gate] handler; with JS off it is a plain link to /?signup=1). DESKTOP: the section is exactly
+       one screen tall (svh); the video is the largest 16:9 box that fits between the heading and the button, never
+       cropped (the app window in the second half spans most of the frame, so a cover crop would cut it), and the
+       button sits right under it. PHONE: one evenly spaced group: the video as a rounded card with its controls in
+       a row under the picture, and the full-width button right under that. AT EVERY SIZE the heading, video and
+       button are centred on the screen, equal space above and below (owner, 2026-11-14). The button's shimmer
+       (.onb-shim, the app's one-primary sweep) runs only while the video is not playing (home.js introVideo) and never
+       under reduced motion. The heading is two short lines on purpose (owner: "have our text look more like" Mist's
+       two-line headline); the <br> keeps the break the same at every width, and the space before it keeps the
+       heading's text "...that lives...".
+       THE FILES ARE THE OWNER'S LAUNCH VIDEO (2026-11-14): /assets/intro/intro.mp4 (1280x720, 10 s, with its music
+       track, faststart) and /assets/intro/intro-poster.jpg (the frame at 1.25 s). To replace either, keep the paths and
+       change BOTH ?r= values below: Cloudflare caches assets for 4 hours by full URL. The shape is app.css --intro-ar
+       plus --intro-k (16:9) and the width/height below; change all three together. data-audio="on" tells home.js the
+       file has sound, so the sound button is there from the start. home.js asks to play WITH sound; where the browser
+       refuses sound before a press it plays muted and a "Turn sound on" pill shows, which turns the sound on and
+       starts it again from 0:00; so does the visitor's first tap on the video, or first click, tap or key anywhere
+       else on the page (not on a link or button). After that a tap on the video pauses it, like YouTube. home.js plays it once when half of it is on screen (here, on load), never
+       under reduced motion, Save-Data or a stored session. There is no autoplay and no loop attribute on purpose.
+       No inline styles (CSP). -->
+  <section class="lp-sec lp-intro lp-first" id="lp-intro" aria-labelledby="lp-intro-h">
     <div class="lp-in">
-      <h2 class="lp-h2">free to start, one plan to pay for</h2>
-      <p class="lp-seclede">no card to sign up. when you want more, upgrade from inside the app.</p>
-      <!-- CARD LAYOUT (owner, 2026-09-23, second pass: "make it look like the options in the plan
-           tab"). The creator app's Plan view cards (creator.js renderPlan) are the reference: ONE head
-           row (.lp-plan-head, the Plan view's own class) holding the name, with the
-           tagline tucked under it (the per-card x marks went 2026-10-05, owner: "remove the other x
-           marks", and came BACK 2026-10-06 in the empty space beside each price: .lp-plan-x, home.js planBuddies) -> price with the period inline -> note -> the action -> the
-           commitment line -> a rule -> "everything in X, plus:" -> the Plan view's dot list. Same
-           facts as before; every number still mirrors lynxr_billing_plans. -->
-      <ul class="lp-plans">
-        <li class="lp-plan">
-          <div class="lp-plan-head">
-            <div class="lp-plan-id">
-              <h3 class="lp-h3 lp-plan-name">free</h3>
-              <p class="lp-plan-tag">try lynxr</p>
-            </div>
-          </div>
-          <p class="lp-plan-price"><strong>$0</strong><span class="lp-plan-x" data-lx-mood="idle" aria-hidden="true"></span></p>
-          <p class="lp-plan-tax">no card needed</p>
-          <a class="btn lp-plan-cta" href="/" data-gate="up" data-lx-spot data-lx-tour="pricing" data-lx-order="1">try for free</a>
-          <p class="lp-plan-note">no commitment</p>
-          <hr class="lp-plan-hr">
-          <ul class="lp-plan-list">
-            <li>3 scripts in any 7 days</li>
-            <li>post tracking of the tiktok and instagram accounts you link</li>
-            <li>basic coaching tips &mdash; coming soon</li>
-          </ul>
-        </li>
-        <li class="lp-plan lp-plan-pro">
-          <div class="lp-plan-head">
-            <div class="lp-plan-id">
-              <h3 class="lp-h3 lp-plan-name">lynxr pro</h3>
-              <p class="lp-plan-tag">for everyday creating</p>
-            </div>
-          </div>
-          <p class="lp-plan-price"><strong>$24.99</strong> <span class="lp-plan-per">a month</span><span class="lp-plan-x" data-lx-mood="done" aria-hidden="true"></span></p>
-          <p class="lp-plan-tax">plus tax where applicable</p>
-          <a class="btn lp-plan-cta" href="/" data-gate="up" data-lx-spot data-lx-tour="pricing" data-lx-order="2">start free, upgrade in the app</a>
-          <hr class="lp-plan-hr">
-          <p class="lp-plan-plus">everything in free, plus:</p>
-          <ul class="lp-plan-list">
-            <li>150 scripts in any rolling 30 days, 30 in any 24 hours</li>
-            <li>advanced coaching tips &mdash; coming soon</li>
-            <li>stop renewing any time; you keep pro to the end of the period you've paid for</li>
-          </ul>
-        </li>
-        <li class="lp-plan lp-plan-soon">
-          <div class="lp-plan-head">
-            <div class="lp-plan-id">
-              <h3 class="lp-h3 lp-plan-name">lynxr max <span class="lp-plan-chip">coming soon</span></h3>
-              <p class="lp-plan-tag">for creators who want a coach</p>
-            </div>
-          </div>
-          <p class="lp-plan-price" data-lx-spot data-lx-tour="pricing" data-lx-order="3"><strong>$74.99</strong> <span class="lp-plan-per">a month</span><span class="lp-plan-x" data-lx-mood="hyped" aria-hidden="true"></span></p>
-          <p class="lp-plan-tax">plus tax where applicable</p>
-          <p class="lp-plan-off">not on sale yet</p>
-          <hr class="lp-plan-hr">
-          <p class="lp-plan-plus">everything in pro, plus:</p>
-          <ul class="lp-plan-list">
-            <li>a higher ceiling: 300 in any rolling 30 days, 40 in any 24 hours</li>
-            <li>the full coaching and advice, reading how your tracked videos did &mdash; not built yet</li>
-          </ul>
-        </li>
-      </ul>
+      <div class="lp-first-mid">
+        <h1 class="lp-first-h" id="lp-intro-h">A content coach that <br>lives on your phone.</h1>
+        <div class="lp-intro-card">
+          <video class="lp-intro-video" id="lp-intro-video" width="1280" height="720"
+            poster="/assets/intro/intro-poster.jpg?r=20261114b"
+            controls muted playsinline preload="none" data-audio="on"
+            controlslist="nodownload noplaybackrate noremoteplayback" disablepictureinpicture disableremoteplayback
+            aria-label="lynxr intro video">
+            <source src="/assets/intro/intro.mp4?r=20261114b" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="lp-first-go">
+        <a class="btn lp-first-cta onb-shim" id="lp-first-cta" href="/?signup=1" data-gate="up">Get started</a>
+      </div>
     </div>
   </section>
 
+  <!-- WHAT IT IS AND HOW IT WORKS, ONE IDEA PER CARD (owner, 2026-11-14: "the sections on the bottom that are very clean,
+       minimalistic, and explain what it does and what it is"; "make the bottom parts more like" getmistapp.com).
+       Mist's STRUCTURE only: wide rounded cards stacked with small gaps, a few bold words on one side and a picture on
+       the other, alternating sides on a desktop (picture first on a phone), no paragraphs. The pictures are drawn in
+       HTML/CSS in the app's own look and are decorative (aria-hidden); where one is cut off, it is cut by the CARD's
+       edge (top or outer side), never by the words. Facts only: no invented creators, numbers, reviews, results or
+       scripts, and the coach (still "coming soon" in the app) is not claimed. The heading is for screen readers; the
+       cards speak for themselves on screen. id="lp-how", NOT "how": body.home #how carries old padding rules. -->
+  <section class="lp-sec lp-how" id="lp-how" aria-labelledby="lp-how-h">
+    <div class="lp-in">
+      <h2 class="sr-only" id="lp-how-h">What lynxr is and how it works</h2>
+      <ol class="lp-how-list">
+        <li class="lp-how-card">
+          <div class="lp-how-art lp-art-phone" aria-hidden="true">
+            <span class="lp-ph">
+              <span class="lp-ph-screen">
+                <span class="lp-ph-msg lp-ph-link">tiktok.com/@name/video/…</span>
+                <span class="lp-ph-script">
+                  <span class="lp-ph-row"><b>say</b><i class="lp-lead"></i></span>
+                  <span class="lp-ph-row"><b>do</b><i></i></span>
+                  <span class="lp-ph-row"><b>show</b><i></i></span>
+                </span>
+                <span class="lp-ph-compose"><span>paste a link</span><span class="lp-ph-send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span></span>
+              </span>
+            </span>
+          </div>
+          <div class="lp-how-text">
+            <h3 class="lp-how-t">Turn videos into <span class="acr">UGC</span> scripts.</h3>
+            <p class="lp-how-p">Works in your phone's browser. Nothing to install.</p>
+          </div>
+        </li>
+        <li class="lp-how-card">
+          <div class="lp-how-art lp-art-links" aria-hidden="true">
+            <svg class="mark lx lx-still" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><rect x="-20" y="-20" width="160" height="160" fill="url(#lx-glass)" mask="url(#lx-idle)"/><rect x="-20" y="-20" width="160" height="160" fill="url(#lx-shade)" mask="url(#lx-idle)"/><g class="lx-hl" mask="url(#lx-idle)"><ellipse cx="42" cy="36" rx="30" ry="10" transform="rotate(-40 42 36)" fill="#fff" opacity=".4" filter="url(#lx-soft)"/></g><g class="lx-face"><g><rect x="47" y="48.5" width="8" height="13" rx="4" fill="#fff"/><rect x="65" y="48.5" width="8" height="13" rx="4" fill="#fff"/></g><g transform="translate(60 70)"><path d="M-5 0q5 4 10 0" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g></g></svg>
+            <span class="lp-lks">
+              <span class="lp-lk"><span class="lp-lk-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg></span>tiktok.com/@name/video/…</span>
+              <span class="lp-lk"><span class="lp-lk-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg></span>instagram.com/reel/…</span>
+            </span>
+          </div>
+          <div class="lp-how-text">
+            <h3 class="lp-how-t">Paste a TikTok or Instagram link.</h3>
+            <p class="lp-how-p">Any public video. Nothing to upload.</p>
+          </div>
+        </li>
+        <li class="lp-how-card">
+          <div class="lp-how-art lp-art-beats" aria-hidden="true">
+            <span class="lp-bt">hook</span><span class="lp-bt">beats</span><span class="lp-bt">turn</span><span class="lp-bt">close</span>
+          </div>
+          <div class="lp-how-text">
+            <h3 class="lp-how-t">lynxr reads the format.</h3>
+            <p class="lp-how-p">The hook, the beats, the turn, the close.</p>
+          </div>
+        </li>
+        <li class="lp-how-card">
+          <div class="lp-how-art lp-art-script" aria-hidden="true">
+            <span class="lp-sc">
+              <span class="lp-sc-row"><b>say</b><span><i class="lp-lead"></i><i></i></span></span>
+              <span class="lp-sc-row"><b>do</b><span><i></i></span></span>
+              <span class="lp-sc-row"><b>show</b><span><i></i><i></i></span></span>
+            </span>
+          </div>
+          <div class="lp-how-text">
+            <h3 class="lp-how-t">Get a script for your brand.</h3>
+            <p class="lp-how-p">What to say, do and show.</p>
+          </div>
+        </li>
+        <li class="lp-how-card">
+          <div class="lp-how-art lp-art-track" aria-hidden="true">
+            <span class="lp-tr">
+              <span class="lp-tr-row"><span class="lp-tr-thumb"></span><span class="lp-tr-lines"><b>TikTok</b><i></i></span><span class="lp-tr-on">tracked</span></span>
+              <span class="lp-tr-row"><span class="lp-tr-thumb"></span><span class="lp-tr-lines"><b>Instagram</b><i></i></span><span class="lp-tr-on">tracked</span></span>
+              <span class="lp-tr-row"><span class="lp-tr-thumb"></span><span class="lp-tr-lines"><b>TikTok</b><i></i></span><span class="lp-tr-on">tracked</span></span>
+            </span>
+          </div>
+          <div class="lp-how-text">
+            <h3 class="lp-how-t">Post it. lynxr tracks it.</h3>
+            <p class="lp-how-p">Link your TikTok and Instagram.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
 
-  <!-- Lovable's closing-CTA slot. Same control as the bar; same honest fine
-       print as the pricing page. -->
+  <!-- THE CLOSING LINE AND THE PASTE BOX: Mist's "one small line, then the action again", with lynxr's #1 growth path
+       (paste a link) as the action. Restyled calm (a small line, the cards' tinted white) in the Mist restyle. -->
   <section class="lp-sec lp-close">
     <div class="lp-in">
       <h2 class="lp-h2">ready to build your script?</h2>
       <div class="composer composer-inline lp-composer">
-        <form class="composer-row" data-hero data-note="lp-close-note" novalidate data-lx-spot>
+        <form class="composer-row" data-hero data-note="lp-composer-note" novalidate data-lx-spot>
           <input type="url" placeholder="paste instagram/tiktok link"
             autocomplete="off" spellcheck="false" aria-label="Paste a video link">
           <span class="bp-plat"></span>
@@ -603,7 +457,7 @@
               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
           </button>
         </form>
-        <p class="composer-note" id="lp-close-note" role="status" aria-live="polite"></p>
+        <p class="composer-note" id="lp-composer-note" role="status" aria-live="polite"></p>
       </div>
     </div>
   </section>
@@ -629,7 +483,7 @@
         <!-- Visible label "try it", accessible name "try it — join the wait
              list". The .sr-only tail is inside the <a>, so it is part of the
              name computation rather than a title attribute nobody hears. -->
-        <a class="foot-link" href="/">get started<span class="sr-only"> &mdash; sign-up is open to everyone</span></a>
+        <a class="foot-link" href="/" data-gate="up">get started<span class="sr-only"> &mdash; sign-up is open to everyone</span></a>
       </div>
       <div class="foot-col">
         <div class="foot-label">guides</div>
@@ -693,7 +547,7 @@
          opened (see showGate() in creator.js), so Back does the same thing;
          this is the same action for someone who never touched the URL bar. -->
     <button type="button" class="linkish gate-back" id="gate-back">&larr; back to lynxr</button>
-    <h1 class="wordmark"><svg class="mark lx lx-still" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><rect x="-20" y="-20" width="160" height="160" fill="url(#lx-glass)" mask="url(#lx-idle)"/><rect x="-20" y="-20" width="160" height="160" fill="url(#lx-shade)" mask="url(#lx-idle)"/><g class="lx-hl" mask="url(#lx-idle)"><ellipse cx="42" cy="36" rx="30" ry="10" transform="rotate(-40 42 36)" fill="#fff" opacity=".4" filter="url(#lx-soft)"/></g><g class="lx-face"><g><rect x="47" y="48.5" width="8" height="13" rx="4" fill="#fff"/><rect x="65" y="48.5" width="8" height="13" rx="4" fill="#fff"/></g><g transform="translate(60 70)"><path d="M-5 0q5 4 10 0" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g></g></svg><span>lynxr</span></h1>
+    <div class="wordmark"><svg class="mark lx lx-still" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><rect x="-20" y="-20" width="160" height="160" fill="url(#lx-glass)" mask="url(#lx-idle)"/><rect x="-20" y="-20" width="160" height="160" fill="url(#lx-shade)" mask="url(#lx-idle)"/><g class="lx-hl" mask="url(#lx-idle)"><ellipse cx="42" cy="36" rx="30" ry="10" transform="rotate(-40 42 36)" fill="#fff" opacity=".4" filter="url(#lx-soft)"/></g><g class="lx-face"><g><rect x="47" y="48.5" width="8" height="13" rx="4" fill="#fff"/><rect x="65" y="48.5" width="8" height="13" rx="4" fill="#fff"/></g><g transform="translate(60 70)"><path d="M-5 0q5 4 10 0" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g></g></svg><span>lynxr</span></div>
     <p class="tagline" id="gate-tagline">for creators</p>
     <!-- THE AGREEMENT (owner, 2026-09-25: replace the tick box with a plain line, the way the landing's
          .hxs card already reads). Above every way to continue — the Google button and the email form — so
@@ -1123,11 +977,10 @@
      the seats-full link when nothing inbound has already claimed one, and
      home.js's carry-utm loop must have run first for that check to mean
      anything. -->
-<script src="/site.js?v=20261105c" defer></script>
-<script src="/footer.js?v=20261105c" defer></script>
-<script src="/home.js?v=20261105c" defer></script>
-<script src="/showcase.js?v=20261105c" defer></script>
-<script src="/avatar.js?v=20261105c" defer></script>
-<script src="/creator.js?v=20261105c" defer></script>
+<script src="/site.js?v=20261114d" defer></script>
+<script src="/footer.js?v=20261114d" defer></script>
+<script src="/home.js?v=20261114d" defer></script>
+<script src="/avatar.js?v=20261114d" defer></script>
+<script src="/creator.js?v=20261114d" defer></script>
 </body>
 </html>

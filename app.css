@@ -7968,8 +7968,8 @@
 
   /* ---- a small spring on things you can touch ---- */
   @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-    body.home :is(.lp-step, .lp-feat, .lp-plan, .lp-vid, .lp-ex-card, .lp-stat.lp-panel) { transition: transform .5s var(--spring), box-shadow .5s ease; }
-    body.home :is(.lp-step, .lp-feat, .lp-plan, .lp-vid, .lp-ex-card):hover { transform: translateY(-6px); box-shadow: inset 0 1px 0 var(--glass-hi, var(--g-hi-fallback)), var(--g-shadow-lift); }
+    body.home :is(.lp-step, .lp-feat, .lp-vid, .lp-ex-card, .lp-stat.lp-panel) { transition: transform .5s var(--spring), box-shadow .5s ease; }
+    body.home :is(.lp-step, .lp-feat, .lp-vid, .lp-ex-card):hover { transform: translateY(-6px); box-shadow: inset 0 1px 0 var(--glass-hi, var(--g-hi-fallback)), var(--g-shadow-lift); }
     body.home .lp-feat:hover .lp-feat-ico { transform: rotate(-8deg) scale(1.08); }
     body.home .lp-feat .lp-feat-ico { transition: transform .5s var(--spring); }
     :is(.btn, .composer-send) { transition: transform .35s var(--spring), background-color .2s ease, border-color .2s ease; }
@@ -10202,10 +10202,9 @@
   /* THE PLAN YOU ARE ON. An edge, not a fill: a filled card would read as the
      recommended one, and the point of the mark is "this is yours". */
   .pane-body .lp-plan.lp-plan-mine { border-color: color-mix(in srgb, var(--text) 40%, var(--gl-edge)); }
-  /* The head row is shared with the landing's #pricing cards (2026-09-23). A selector LIST, not
-     :is(): each half keeps its own specificity, so the Plan view's cascade is exactly as before. */
-  .pane-body .lp-plan-head, body.home .lp-plan-head { display: flex; align-items: center; gap: 12px; margin: 0 0 14px; }
-  .pane-body .lp-plan-head .lp-plan-name, body.home .lp-plan-head .lp-plan-name { flex: 1 1 auto; min-width: 0; margin: 0; }
+  /* The Plan view's head row (shared with the landing's #pricing cards until that section left the landing, 2026-11-13). */
+  .pane-body .lp-plan-head { display: flex; align-items: center; gap: 12px; margin: 0 0 14px; }
+  .pane-body .lp-plan-head .lp-plan-name { flex: 1 1 auto; min-width: 0; margin: 0; }
   /* An <h2> for the outline, so the global h2 eyebrow dash comes off. */
   .pane-body .lp-plan-name::before { display: none; }
   .pane-body .lp-plan-av { flex: none; width: 40px; height: 40px; }
@@ -10244,6 +10243,7 @@
 
 
   /* ================= LANDING: THE PRICING SECTION (2026-09-21) =================
+     REMOVED FROM THE LANDING 2026-11-13 (owner: "get rid of the pricing plan. I just want people to be funneled into the app"). Its body.home-only rules went with it; what is left draws the creator app's Plan view. The :is(body.home, .pane-body) rules keep body.home ON PURPOSE: dropping it would lower their specificity and change the Plan view's cascade.
      index.html #pricing AND the creator app's Plan view (2026-09-21). The
      CARD rules are written `:is(body.home, .pane-body) .lp-plan…`: the same
      specificity as the `body.home .lp-plan…` they replaced — :is() takes its
@@ -10264,35 +10264,12 @@
      hides every one on this page (the SIMPLE, FUN, GLASS pass). The tax line
      is not fine print to be hidden — it is the difference between the price
      shown and the price charged — so it has its own class. */
-  body.home .lp-plans {
-    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 18px; list-style: none; margin: 0; padding: 0; align-items: stretch;
-  }
-  /* Three items, three columns, one breakpoint (never auto-fit — see .lp-steps). */
-  @media (max-width: 860px) { body.home .lp-plans { grid-template-columns: minmax(0, 1fr); max-width: 520px; margin-inline: auto; } }
   :is(body.home, .pane-body) .lp-plan {
     display: flex; flex-direction: column; padding: 28px 26px 26px; position: relative;
   }
   :is(body.home, .pane-body) .lp-plan-name { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin: 0 0 12px;
     font-size: 19px; font-weight: 700; letter-spacing: -.01em; color: var(--text); }
   :is(body.home, .pane-body) .lp-plan-price { margin: 0; color: var(--text); font-size: 17px; line-height: 1.1; }
-  /* AN X FOR EACH PLAN (owner, 2026-10-06: "bring the x's back to the payment options on the deadspace next to the price";
-     they went 2026-10-05 when the page had one x). A live avatar in the empty space at the right end of the price row,
-     floating; home.js planBuddies makes each one hop, spin and wave when its card comes into view, and wave now and then
-     after. Decorative (aria-hidden), takes no pointer. */
-  body.home .lp-plan-price { position: relative; }
-  /* bigger (owner, 2026-10-06: "make these x's bigger"): 58px, overhanging the price row evenly above and below */
-  body.home .lp-plan-x {
-    position: absolute; right: 0; top: calc(50% - 29px); width: 58px; height: 58px; pointer-events: none;
-  }
-  @media (max-width: 640px) { body.home .lp-plan-x { top: calc(50% - 26px); width: 52px; height: 52px; } }
-  body.home .lp-plan-x .lx { display: block; width: 100%; height: 100%; overflow: visible; }
-  @media (prefers-reduced-motion: no-preference) {
-    body.home .lp-plan-x { animation: lp-plan-x-float 3.4s ease-in-out infinite; }
-    body.home .lp-plan:nth-child(2) .lp-plan-x { animation-delay: -1.1s; }
-    body.home .lp-plan:nth-child(3) .lp-plan-x { animation-delay: -2.2s; }
-  }
-  @keyframes lp-plan-x-float { 0%, 100% { transform: none; } 50% { transform: translateY(-4px) rotate(-3deg); } }
   /* The one number a visitor is being asked to agree to: sized, not inherited. */
   :is(body.home, .pane-body) .lp-plan-price strong { font-size: clamp(34px, 3.4vw, 42px); font-weight: 700; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
   :is(body.home, .pane-body) .lp-plan-per { color: var(--text-2); font-size: 15px; }
@@ -10339,62 +10316,7 @@
     margin: auto 0 0; min-height: 46px; display: flex; align-items: center; justify-content: center;
     border: 1px dashed var(--line-2); border-radius: 999px; color: var(--text-2); font-size: 14px;
   }
-  body.home .lp-plans-fine {
-    margin: 22px auto 0; max-width: 64ch; text-align: center;
-    color: var(--text-2); font-size: 14px; line-height: 1.6;
-  }
-  body.home .lp-plans-fine a { color: var(--text); border-bottom: 1px solid var(--line-2); text-decoration: none; white-space: nowrap; }
-  body.home .lp-plans-fine a:hover { border-bottom-color: var(--text-2); }
   @media (max-width: 560px) { :is(body.home, .pane-body) .lp-plan { padding: 24px 20px 22px; } }
-  /* PHONE: the plan cards match the hero panel's measure (owner, 2026-09-23: "have the bottom tier
-     subscription options the same width as the box above"). The hero panel sits 20px in from each
-     edge; .lp-in gives this section 10px, so the list takes the other 10px itself. Measured before:
-     panel x=20 w=353, cards x=10 w=373 at 393px. */
-  @media (max-width: 640px) { body.home .lp-plans { padding-inline: 10px; box-sizing: border-box; } }
-  /* THE PLAN CARD, REFERENCE LAYOUT (owner, 2026-09-23). Mark, name, tagline, price, note, a full-width
-     action, the commitment line, a rule, then the checked list. The lynxr mark is a live avatar
-     ([data-lx-mood], avatar.js renders it) in a different mood per plan: idle / writing / coaching.
-     RESTORED 2026-09-24: this block was written on the 23rd, verified in Chromium, and then vanished
-     from the tree between the owner's commits (never in any commit: `git log -S` finds nothing) —
-     the markup it styles survived, so the live site shipped the new cards with the OLD list bullets
-     and no card styling. The owner's iPhone screenshot is what caught it. */
-  body.home .lp-plan { display: flex; flex-direction: column; }
-  body.home .lp-plan-tag { margin: 2px 0 14px; font-size: 15px; line-height: 1.4; color: var(--text-2); }
-  body.home .lp-plan-cta, body.home .lp-plan-off { align-self: stretch; margin-top: 16px; text-align: center; }
-  body.home .lp-plan-note { margin: 8px 0 0; font-size: 13px; line-height: 1.4; color: var(--text-3); text-align: center; }
-  body.home .lp-plan-hr { border: 0; height: 1px; background: var(--line); margin: 18px 0 14px; }
-  body.home .lp-plan-plus { margin: 0 0 8px; font-size: 14px; font-weight: 700; color: var(--text); }
-  /* border-top: 0 -- the list used to draw its own top rule; .lp-plan-hr draws it now, and both
-     together painted a doubled line. */
-  body.home .lp-plan .lp-plan-list { list-style: none; margin: 0; padding: 0; border-top: 0; }
-  body.home .lp-plan .lp-plan-list li { position: relative; padding-left: 26px; }
-  body.home .lp-plan .lp-plan-list li::before {
-    content: ""; position: absolute; left: 2px; top: .55em; width: 10px; height: 5px;
-    border-left: 2px solid var(--accent); border-bottom: 2px solid var(--accent);
-    -webkit-transform: rotate(-45deg); transform: rotate(-45deg);
-    background: none; border-radius: 0;
-  }
-  /* THE PLAN CARD, PLAN-VIEW LAYOUT (owner, 2026-09-23, second pass: "make it look like the options in
-     the plan tab"; a friend on the phone view: "too much white space"). The creator app's Plan view is
-     the reference and is NOT restyled here. The landing now uses its head row (.lp-plan-head, shared
-     above): the live mark at the Plan view's 40px beside the name, the tagline tucked under the name
-     in the same row (.lp-plan-id), then price, tax line, the action, the commitment line, a hairline
-     and the Plan view's own dot list (the shared .lp-plan-list rules, no longer overridden to ticks).
-     Gaps are the Plan view's: 14 under the head, 6/18 around the tax line, 18 either side of the
-     hairline, 10 between bullets. Measured at 390px (free card): 515px before, see HANDOFF after.
-     (The live x mark that sat beside the name went 2026-10-05: one x on the landing page.) */
-  body.home .lp-plan { display: flex; flex-direction: column; }
-  body.home .lp-plan-id { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
-  body.home .lp-plan-head .lp-plan-name { line-height: 1.3; }
-  body.home .lp-plan-tag { margin: 0; font-size: 14px; line-height: 1.35; color: var(--text-2); }
-  /* The tax line's 18px bottom margin is the gap above the action; no second margin on top of it. */
-  body.home .lp-plan-cta, body.home .lp-plan-off { align-self: stretch; margin-top: 0; text-align: center; }
-  body.home .lp-plan-note { margin: 6px 0 0; font-size: 13px; line-height: 1.4; color: var(--text-3); text-align: center; }
-  body.home .lp-plan-hr { border: 0; height: 1px; background: var(--line); margin: 18px 0; }
-  body.home .lp-plan-plus { margin: 0 0 10px; font-size: 14px; font-weight: 700; color: var(--text); }
-  /* border-top / padding-top: 0 -- .lp-plan-hr draws the rule (both together painted a doubled line
-     on the phone). Everything else -- 15px/1.5, 10px gap, 18px indent, 6px dot -- is the shared rule. */
-  body.home .lp-plan .lp-plan-list { margin: 0; padding: 0; border-top: 0; }
   /* PHONE: the footer card takes the same measure as the hero panel and the plan cards (owner,
      2026-09-23: "same thing with the footer"). The footer IS the card (#site-footer carries the
      glass, the radius and a 10px inline margin); on the landing it gets the panel's 20px. */
@@ -13735,3 +13657,567 @@
   #gate .gate-lynx-note { margin: -24px 0 36px; font-size: var(--fs-14); line-height: 1.45; font-weight: 600; color: var(--text); }
   #gate .gate-lynx-note[hidden] { display: none; }
   .lynx-link-note { margin: 4px 0 18px; }
+
+  /* ---------- THE INTRO VIDEO (owner, 2026-11-13; plan ~/.claude/plans/landing-intro-video.md) ----------
+     Under the hero, where the pricing section was: the section's own .lp-h2 and .lp-seclede (centred, like every
+     landing section), then ONE big rounded card that IS the video: its edge is the video's edge (the showcase's
+     rule, owner 2026-10-06). aspect-ratio reserves the box before a byte loads, so nothing under it moves when the
+     poster or the video arrives. --intro-ar is the one place the shape lives; index.html's width/height on the
+     <video> say the same. Change both together if the owner's video is not 16:9. The fill is the placeholder's
+     own tinted white (never #fff), so a sliver of letterbox reads as card. It has the landing cards' glass edge
+     and soft violet shadow, but NO backdrop blur (the video covers the card) and it is NOT in the hover-spring
+     list: it is a player, and a card that jumps under the pointer moves the controls. It is one column wide
+     (1120px). On a phone it sits 20px from each edge, like the hero card. */
+  body.home .lp-intro-card {
+    --intro-ar: 16 / 9;
+    aspect-ratio: var(--intro-ar);
+    width: 100%; margin: 0 auto; box-sizing: border-box;
+    border-radius: var(--r-card); overflow: hidden;
+    background: #faf7fd;
+    border: 1px solid var(--glass-edge);
+    box-shadow: var(--g-shadow);
+  }
+  body.home .lp-intro-video {
+    display: block; width: 100%; height: 100%;
+    object-fit: contain; background: transparent;
+    border-radius: calc(var(--r-card) - 1px);
+  }
+  @media (max-width: 640px) {
+    body.home .lp-intro-card { width: calc(100% - 20px); }
+  }
+
+  /* ---------- THE INTRO VIDEO'S OWN LIGHT CONTROLS (owner, 2026-11-13: "Yes, light controls") ----------
+     home.js introVideo builds these and takes `controls` off the <video> (it stays in the HTML, so the browser's
+     bar comes back if the script never runs). The browser's bar painted a near-black fade over the bottom of this
+     tinted-white card; these are tinted ink on tinted white instead, never #000/#fff. Patterns come from the creator
+     app's player (.ref-bar, 2026-08-24): a native range input with a transparent track laid over a painted rail, the
+     video's own events driving every state, the CARD going full screen so the controls come along. Scoped to
+     body.home .lpv, so neither the app's .ref-* player nor any other page can pick this up.
+     ONE FLOATING FROSTED PILL, inset from the card's edge, not a full-width strip: it reads as a control on the
+     glass card. Its fill is the card's tinted white at 90% plus a blur, so its ground is known whatever the frame
+     behind it is. MEASURED against the worst case, a pure-black frame (composite ~rgb(225,222,228)):
+        --text  #14122b on it   ~13:1   glyphs, the fill, the thumb
+        --text-2 #4a4566        ~6.5:1  the time readout
+        --ctl-track #7a7394     ~3.2:1  the rail (SC 1.4.11 3:1); 86% fill measured 2.9:1, hence 90%
+     On a light frame every pair is higher. Fill against track is 4.1:1 (the :root note on --ctl-track).
+     THE BIG BUTTON is the poster's one obvious target (Fitts): 56-80px, centred, shown while the video is paused and
+     not ended. It does NOT pulse or shimmer: it is not the page's primary action. NO BAR before the first play (the
+     big button is the only control then, so the poster stays clean and there is no "--:--" to show); after that the
+     bar is up while paused, ended, hovered or keyboard-focused, and fades ~2 s after the pointer stops during
+     playback. The fade is the only motion here and it is off under reduced motion. Hidden = transparent and not
+     hit-testable, but still in the tab order: tabbing into it raises it. */
+  body.home .lp-intro-card.lpv { position: relative; }
+  body.home .lpv .lp-intro-video { cursor: pointer; }
+  body.home .lpv .lp-intro-video:focus { outline: none; }          /* tabindex=-1 for Space/K after a click; never a ring */
+  body.home .lpv.is-playing:not(.is-shown) .lp-intro-video { cursor: none; }
+  body.home .lpv-btn {
+    appearance: none; -webkit-appearance: none; margin: 0; padding: 0; border: 0;
+    display: grid; place-items: center; flex: none;
+    width: 44px; height: 44px; border-radius: var(--r-round);
+    background: transparent; color: var(--text);
+  }
+  body.home .lpv-btn[hidden] { display: none; }
+  body.home .lpv-btn:hover { background: var(--hover); }
+  body.home .lpv-ico { width: 22px; height: 22px; display: block; }
+
+  body.home .lpv-big {
+    position: absolute; left: 50%; top: 50%;
+    width: clamp(56px, 7vw, 80px); height: clamp(56px, 7vw, 80px);
+    translate: -50% -50%;
+    background: rgba(250, 247, 253, .9);
+    -webkit-backdrop-filter: blur(12px) saturate(1.4); backdrop-filter: blur(12px) saturate(1.4);
+    border: 1px solid var(--line);
+    box-shadow: 0 12px 30px -14px rgba(20, 18, 43, .5);
+    display: none;
+  }
+  body.home .lpv-big:hover { background: rgba(250, 247, 253, .97); }
+  body.home .lpv-big .lpv-ico { width: 44%; height: 44%; margin-left: 6%; }   /* a triangle's optical centre sits right */
+  body.home .lpv:not(.is-playing):not(.is-ended):not(.is-waiting) .lpv-big { display: grid; }
+  /* Two tones, so the ring reads on a light frame AND a dark one. */
+  body.home .lpv-big:focus-visible { outline: none; box-shadow: 0 0 0 3px #faf7fd, 0 0 0 6px var(--focus-ring), 0 12px 30px -14px rgba(20, 18, 43, .5); }
+
+  body.home .lpv-bar {
+    position: absolute; left: 12px; right: 12px; bottom: 12px;
+    display: flex; align-items: center; gap: 2px;
+    padding: 3px 6px 3px 3px; box-sizing: border-box;
+    border-radius: var(--r-pill);
+    background: rgba(250, 247, 253, .9);
+    -webkit-backdrop-filter: blur(12px) saturate(1.4); backdrop-filter: blur(12px) saturate(1.4);
+    border: 1px solid var(--line);
+    box-shadow: 0 10px 26px -14px rgba(20, 18, 43, .45);
+    opacity: 0; pointer-events: none;
+    transition: opacity .2s var(--ease);
+  }
+  body.home .lpv.is-shown .lpv-bar { opacity: 1; pointer-events: auto; }
+  body.home .lpv.is-fresh .lpv-bar { display: none; }
+  body.home .lpv-time {
+    flex: none; padding: 0 8px 0 2px; white-space: nowrap; box-sizing: content-box;
+    font-size: var(--fs-13); font-weight: 600; font-variant-numeric: tabular-nums; color: var(--text-2);
+  }
+  body.home .lpv-scrub { position: relative; flex: 1 1 auto; min-width: 0; height: 44px; display: flex; align-items: center; margin: 0 8px 0 4px; }
+  /* POSITION IS A TRANSFORM, written by CSSOM in home.js (never a style="" attribute: CSP drops those): the fill
+     is scaleX(p) inside a clipped rail, the thumb rides a full-width layer moved by translateX(p * 100%). A moving
+     width/left counted as a layout shift every frame; a transform does not, and costs no layout. */
+  body.home .lpv-rail { position: relative; width: 100%; height: 4px; border-radius: var(--r-pill); background: var(--ctl-track); overflow: hidden; }
+  body.home .lpv-fill { display: block; width: 100%; height: 100%; background: var(--text); transform-origin: 0 50%; transform: scaleX(0); }
+  body.home .lpv-knob { position: absolute; inset: 0; pointer-events: none; transform: translateX(0); }
+  body.home .lpv-knob::after {
+    content: ""; position: absolute; left: 0; top: 50%;
+    width: 12px; height: 12px; margin: -6px 0 0 -6px;
+    border-radius: var(--r-round); background: var(--text);
+  }
+  body.home .lpv.is-idle .lpv-rail { background: var(--line-2); }
+  body.home .lpv.is-idle .lpv-knob { display: none; }
+  body.home .lpv-seek {
+    position: absolute; inset: 0; width: 100%; height: 100%; margin: 0;
+    appearance: none; -webkit-appearance: none; background: transparent;
+    touch-action: pan-y; cursor: pointer;
+  }
+  body.home .lpv-seek::-webkit-slider-runnable-track { height: 100%; background: transparent; }
+  body.home .lpv-seek::-webkit-slider-thumb { appearance: none; -webkit-appearance: none; width: 16px; height: 16px; background: transparent; }
+  body.home .lpv-seek::-moz-range-track { height: 100%; background: transparent; }
+  body.home .lpv-seek::-moz-range-thumb { width: 16px; height: 16px; border: 0; background: transparent; }
+  body.home .lpv-seek:disabled { cursor: default; }
+  /* The site-wide `input:focus { background: var(--surface-2) }` is for text fields; (0,2,1) here beats it. The
+     focus ring moves to the thumb (the input comes after the rail, so :has() reaches back to it). */
+  body.home .lpv-seek:focus { background: transparent; border-color: transparent; }
+  body.home .lpv-seek:focus-visible { outline: none; }
+  body.home .lpv-scrub:has(> .lpv-seek:focus-visible) .lpv-knob::after { box-shadow: 0 0 0 2px #faf7fd, 0 0 0 4px var(--focus-ring); }
+
+  body.home .lpv-toggle .i-pause, body.home .lpv-toggle .i-again { display: none; }
+  body.home .lpv.is-playing .lpv-toggle .i-play { display: none; }
+  body.home .lpv.is-playing .lpv-toggle .i-pause { display: block; }
+  body.home .lpv.is-ended .lpv-toggle .i-play { display: none; }
+  body.home .lpv.is-ended .lpv-toggle .i-again { display: block; }
+  body.home .lpv-sound .i-loud { display: none; }
+  body.home .lpv:not(.is-muted) .lpv-sound .i-quiet { display: none; }
+  body.home .lpv:not(.is-muted) .lpv-sound .i-loud { display: block; }
+  body.home .lpv-full .i-out { display: none; }
+  body.home .lpv.is-full .lpv-full .i-in { display: none; }
+  body.home .lpv.is-full .lpv-full .i-out { display: block; }
+
+  /* SLOW: a stall over half a second shows a quiet ring where the big button sits (functional motion: "still
+     loading"); slower, never static, under reduced motion, like .ico.spin. */
+  body.home .lpv.is-waiting::after {
+    content: ""; position: absolute; left: 50%; top: 50%; width: 40px; height: 40px; margin: -20px 0 0 -20px;
+    box-sizing: border-box; border-radius: var(--r-round);
+    border: 3px solid rgba(250, 247, 253, .9); border-top-color: var(--text);
+    box-shadow: 0 6px 18px -8px rgba(20, 18, 43, .5);
+    animation: spin .8s linear infinite; pointer-events: none;
+  }
+
+  /* FULL SCREEN: the card itself. Separate rules: an engine that does not know one pseudo-class drops the whole list. */
+  body.home .lp-intro-card.lpv:fullscreen { width: 100vw; height: 100vh; aspect-ratio: auto; border: 0; border-radius: 0; background: #14122b; }
+  body.home .lp-intro-card.lpv:-webkit-full-screen { width: 100vw; height: 100vh; aspect-ratio: auto; border: 0; border-radius: 0; background: #14122b; }
+  body.home .lpv:fullscreen .lp-intro-video { border-radius: 0; }
+  body.home .lpv:-webkit-full-screen .lp-intro-video { border-radius: 0; }
+  body.home .lpv:fullscreen .lpv-bar { left: 24px; right: 24px; bottom: 24px; }
+  body.home .lpv:-webkit-full-screen .lpv-bar { left: 24px; right: 24px; bottom: 24px; }
+
+  @media (max-width: 640px) {
+    body.home .lpv-bar { left: 8px; right: 8px; bottom: 8px; padding: 2px 4px 2px 2px; gap: 0; }
+    body.home .lpv-time { padding: 0 4px 0 0; font-size: var(--fs-12); }
+    body.home .lpv-scrub { margin: 0 6px 0 4px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    body.home .lpv-bar { transition: none; }
+    body.home .lpv.is-waiting::after { animation-duration: 2.4s; }
+  }
+
+  /* ---------- THE VIDEO-FIRST LANDING, MIST-STYLE (owner, 2026-11-13: "I want the new landing page to be the demo video ...
+     the first thing"; 2026-11-14: "Format it like the Get Mist app ... sections on the bottom that are very clean,
+     minimalistic"; "use the full display size that is available on the screen"; "Have the lynxr logo and name be
+     essentially in the corner") ----------
+     index.html only (body.home); every other page keeps its bar and layout. The old hero (.hx*, .hxs*, the bar's
+     intro/dock states) has left the markup; its rules above are inert. --lpc-edge is the corner inset of the logo and
+     "sign in", and the video's gutter on a desktop. */
+  html body.home { --lpc-edge: clamp(16px, 1.7vw, 24px); --lpc-white: #fdfbff; }
+
+  /* THE BAR: THE LOGO IN THE TOP-LEFT CORNER, "SIGN IN" IN THE TOP-RIGHT, NOTHING ELSE. No strip, no frosted band: it
+     sits on the first screen and scrolls away with it (absolute, not fixed), so it never lies over the cards. The
+     mark's top and left edges are --lpc-edge from the screen's; "sign in" is a 44px pill whose TEXT ends --lpc-edge
+     from the right edge (the pill's own 10px padding hangs past it). A text link, not the ink pill: the page's one
+     primary button is under the video (Jakob: sign in top right). The gate still hides the bar (gate-on). */
+  html body.home .lp-bar { position: absolute; top: 0; left: 0; right: 0; }
+  html body.home .lp-bar::before { display: none; }
+  html body.home .lp-bar-in {
+    max-width: none; min-height: 0; margin: 0;
+    padding: calc(var(--lpc-edge) - 8px) calc(var(--lpc-edge) - 10px) 0 var(--lpc-edge);
+  }
+  html body.home .lp-bar .wordmark { min-height: 44px; gap: 8px; font-size: 18px; }
+  html body.home .lp-bar .wordmark .mark { width: 28px; height: 28px; }
+  html body.home .lp-bar .lp-actions { opacity: 1; visibility: visible; transform: none; transition: none; }
+  html body.home .lp-bar .lp-signin {
+    display: inline-flex; align-items: center; min-height: 44px; padding: 0 10px; border-radius: var(--r-pill);
+    border: 0;                                    /* the global `a` rule's 1px underline would curve with the pill radius */
+    color: var(--text); font-size: 15px; font-weight: 600; text-decoration: none;
+  }
+  html body.home .lp-bar .lp-signin:hover { background: var(--hover); }
+  html body.home .lp-bar .lp-signin:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+
+  /* THE FIRST SCREEN IS EXACTLY ONE SCREEN (svh: a phone's browser bars cannot push the button off it). DESKTOP (and a
+     phone on its side): a small two-line heading (Mist's treatment: ~20-24px, semibold, tight leading), the video, the
+     button, stacked and centred. The heading keeps two of its own lines of air above the video (--lpf-air; owner,
+     2026-11-14: "the text and the video is too close"); when that costs height, the video gives it up, not the gap. The video is the
+     LARGEST 16:9 BOX THAT FITS: as wide as the screen less the gutters, unless that would be too tall, in which case
+     the height left over by the heading and the button sets it. It is never cropped: the launch video's app window
+     spans most of the frame's width and height in its second half, so a cover crop would cut the product. Spare room
+     (a tall screen) goes above and below the whole group. The height math needs the heading to be exactly its two
+     lines (index.html breaks it with a <br>), so each line is nowrap and sized by the screen's width so it always
+     fits. PHONE: the video and the button are full width within 16px gutters (the PHONE block below). */
+  /* CENTRED ON THE SCREEN, AT EVERY SIZE (owner, 2026-11-14: "make it so that the video and the get started button are
+     centered, right now the get started is too low. make that the case for all display sizes"). The space under the
+     button EQUALS the space above the heading (--lpf-bot = --lpf-top), so the heading, video and button sit in the
+     middle of the screen. --lpf-top is just enough to clear the corner row (inset + its 44px) plus a little air.
+     The video still takes all the height left between them. If a screen is too short even for the smallest video (a
+     phone on its side), the section grows past one screen instead of pushing the heading under the corner row. */
+  html body.home {
+    --lpf-top: calc(var(--lpc-edge) + 44px + clamp(12px, 2.5vh, 32px));   /* clears the corner row, plus air */
+    --lpf-hs: clamp(19px, 1.6vw, 24px);                  /* the heading's size; two lines of 1.2x */
+    --lpf-gap: clamp(12px, 1.8vh, 20px);                 /* video to button */
+    --lpf-air: calc(2.4 * var(--lpf-hs));                /* heading to video: two of its lines (owner: "too close"; Mist ~2.6) */
+    --lpf-go: 52px;                                      /* the button */
+    --lpf-bot: var(--lpf-top);                           /* the same as above: centred */
+  }
+  html body.home #lp-main > .lp-first {
+    box-sizing: border-box; display: flex; flex-direction: column; justify-content: center;
+    height: auto; min-height: 100vh; min-height: 100svh;
+    padding: var(--lpf-top) var(--lpc-edge) var(--lpf-bot);
+  }
+  html body.home #lp-main > .lp-first > .lp-in {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    width: 100%; max-width: none; height: auto; min-height: 0; margin: 0; padding: 0; box-sizing: border-box;
+  }
+  html body.home .lp-first-mid { display: flex; flex-direction: column; align-items: center; width: 100%; }
+  html body.home .lp-first-h {
+    margin: 0; font-size: var(--lpf-hs); font-weight: 600; line-height: 1.2; letter-spacing: -.01em;
+    color: var(--text); text-align: center; white-space: nowrap;
+  }
+  html body.home .lp-first .lp-intro-card {
+    --intro-k: calc(16 / 9);
+    width: min(100%, max(240px, calc((100svh - var(--lpf-top) - 2.4 * var(--lpf-hs) - var(--lpf-air) - var(--lpf-gap) - var(--lpf-go) - var(--lpf-bot) - 2px) * var(--intro-k))));
+    margin: var(--lpf-air) auto 0;
+  }
+  html body.home .lp-first-go { display: flex; flex-direction: column; align-items: center; width: 100%; margin-top: var(--lpf-gap); }
+  html body.home .lp-first-cta {
+    display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box;
+    min-width: 240px; min-height: 52px; padding: 0 28px; font-size: 16px; text-decoration: none;
+  }
+  /* "TURN SOUND ON" (owner, 2026-11-14: "make the video play and unmuted from the start"). home.js asks for sound
+     first; when the browser refuses it plays muted and marks the card .is-automuted. Only then, and only while it
+     plays, this labelled pill sits in the card's top-right corner: static (no pulse), 44px tall, tinted white on any
+     frame like the bar. A press turns the sound on and it goes; the bar keeps its own sound button. */
+  body.home .lpv-snd {
+    position: absolute; top: 12px; right: 12px; display: none; align-items: center; gap: 8px;
+    height: 44px; margin: 0; padding: 0 16px 0 12px; box-sizing: border-box; border-radius: var(--r-pill);
+    appearance: none; -webkit-appearance: none;
+    background: rgba(250, 247, 253, .92);
+    -webkit-backdrop-filter: blur(12px) saturate(1.4); backdrop-filter: blur(12px) saturate(1.4);
+    border: 1px solid var(--line); box-shadow: 0 10px 26px -14px rgba(20, 18, 43, .5);
+    color: var(--text); font-size: 14px; font-weight: 600; cursor: pointer;
+  }
+  body.home .lpv-snd .lpv-ico { width: 20px; height: 20px; }
+  body.home .lpv-snd:hover { background: rgba(250, 247, 253, .98); }
+  body.home .lpv-snd:focus-visible { outline: none; box-shadow: 0 0 0 3px #faf7fd, 0 0 0 6px var(--focus-ring); }
+  body.home .lpv.is-automuted.is-playing .lpv-snd { display: inline-flex; }
+  @media (max-width: 640px) { body.home .lpv-snd { top: 8px; right: 8px; } }   /* phone sizes: the PHONE block above */
+
+  /* WHAT IT IS, HOW IT WORKS: Mist's structure, lynxr's look (owner, 2026-11-14: "make the bottom parts more like"
+     getmistapp.com; then "make it lynxrfied. like make it our color scheme"). Wide rounded cards in one column, the
+     footer card's width (--pub-col), stacked with a small gap. Each card: a picture on one side, 3-6 bold words and
+     at most one short line on the other, alternating sides; a phone stacks the picture over the words. The cards are
+     the site's GLASS (--gl-*: the translucent tinted fill, frosted blur, white edge and soft violet shadow of the
+     footer card and the app), over the page's pastel backdrop. No hover lift: they are not links. The pictures
+     (.lp-how-art, aria-hidden) are drawn here in the launch video's glass/pastel look: the logo gradient
+     (--logo-grad: peach, pink, violet) as rings, bars and lines, the glass x itself beside the pasted links. They
+     hold no data, nothing in them moves, and where they are cut off it is by the CARD's top edge or outer side
+     (the card clips), never by the words. Words are ink on the tinted glass (AA). Never #fff. */
+  html body.home #lp-main > #lp-how { padding: clamp(28px, 4vw, 56px) 0 0; }
+  html body.home .lp-how-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: clamp(12px, 1.6vw, 20px); }
+  html body.home .lp-how-card {
+    position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+    min-height: clamp(300px, 29vw, 370px); overflow: hidden; isolation: isolate;
+    border-radius: clamp(24px, 3vw, 40px);
+    background: var(--gl-fill); -webkit-backdrop-filter: var(--gl-blur); backdrop-filter: var(--gl-blur);
+    border: 1px solid var(--gl-edge); box-shadow: var(--gl-shadow);
+  }
+  html body.home .lp-how-card:nth-child(even) > .lp-how-art { order: 2; }
+  html body.home .lp-how-art { position: relative; min-width: 0; min-height: 0; }
+  html body.home .lp-how-text {
+    display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+    min-width: 0; padding: 40px clamp(24px, 4vw, 64px);
+  }
+  html body.home .lp-how-t {
+    margin: 0; max-width: 16ch; font-size: clamp(21px, 2vw, 27px); font-weight: 800; line-height: 1.18; letter-spacing: -.025em;
+    color: var(--text); text-wrap: balance;
+  }
+  html body.home .lp-how-p { margin: 10px 0 0; max-width: 30ch; font-size: 15px; line-height: 1.5; color: var(--text-2); text-wrap: balance; }
+  /* (phone: see the PHONE block above) */
+
+  /* the pictures' shared parts: placeholder text lines are soft lilac, the lead line the logo gradient; a "chip" is
+     ink on tinted white inside a logo-gradient ring (the app's .lp-spine-list recipe: padding-box over border-box,
+     which needs an opaque fill, hence --lpc-white) */
+  html body.home .lp-how-art :is(b, i) { font-style: normal; }
+  html body.home .lp-how-art i { display: block; height: 8px; border-radius: var(--r-pill); background: rgba(123, 97, 255, .16); }
+  html body.home .lp-how-art .lp-lead { background: var(--logo-grad); opacity: .75; }
+  html body.home :is(.lp-ph-row b, .lp-sc-row b, .lp-bt) {
+    border: 1.5px solid transparent;
+    background: linear-gradient(var(--lpc-white), var(--lpc-white)) padding-box, var(--logo-grad) border-box;
+  }
+
+  /* 1. a glass phone, its top cut by the card's top edge: a pasted link, a say/do/show script, the paste box */
+  html body.home .lp-art-phone .lp-ph {
+    position: absolute; left: 50%; bottom: 30px; translate: -50% 0; width: 250px; height: 440px; box-sizing: border-box;
+    padding: 7px; border-radius: 44px;
+    background: linear-gradient(160deg, rgba(255, 179, 138, .45), rgba(255, 126, 184, .38) 50%, rgba(123, 97, 255, .45));
+    border: 1px solid rgba(255, 255, 255, .85);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .95), inset 0 0 0 1px rgba(255, 255, 255, .35),
+                0 30px 60px -30px rgba(70, 30, 100, .45), 0 10px 30px -14px rgba(70, 30, 100, .16);
+  }
+  html body.home .lp-ph-screen {
+    display: flex; flex-direction: column; justify-content: flex-end; gap: 12px; height: 100%; box-sizing: border-box;
+    padding: 16px 14px 14px; border-radius: 37px; background: var(--lpc-white);
+    box-shadow: inset 0 0 0 1px rgba(123, 97, 255, .1);
+  }
+  html body.home .lp-ph-link {
+    align-self: flex-end; max-width: 86%; padding: 9px 13px; border-radius: 16px 16px 4px 16px; background: var(--lbl-say-bg);
+    font-size: 12px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  html body.home .lp-ph-script {
+    display: grid; gap: 10px; padding: 14px; border-radius: 16px; border: 1px solid rgba(123, 97, 255, .14); background: #faf7fd;
+  }
+  html body.home .lp-ph-row { display: grid; grid-template-columns: 46px 1fr; align-items: center; }
+  html body.home .lp-ph-row b {
+    justify-self: start; padding: 1px 7px; border-radius: var(--r-pill);
+    font-family: var(--mono); font-size: 10px; font-weight: 400; line-height: 14px; color: var(--text);
+  }
+  html body.home .lp-ph-row:nth-child(1) i { width: 92%; }
+  html body.home .lp-ph-row:nth-child(2) i { width: 64%; }
+  html body.home .lp-ph-row:nth-child(3) i { width: 78%; }
+  html body.home .lp-ph-compose {
+    display: flex; align-items: center; justify-content: space-between; height: 40px; padding: 0 4px 0 14px;
+    border-radius: var(--r-pill); border: 1px solid rgba(123, 97, 255, .2); background: #faf7fd;
+    font-size: 12px; color: var(--text-2);
+  }
+  html body.home .lp-ph-send {                       /* the app's send button: ink, like every button (action colour on hold) */
+    display: grid; place-items: center; width: 30px; height: 30px; border-radius: var(--r-round);
+    background: var(--text); color: #faf7fd;
+  }
+  html body.home .lp-ph-send svg { width: 14px; height: 14px; }
+
+  /* 2. the glass x beside two pasted links, the links running off the card's outer side (the x is the bar's own
+     mark markup, unchanged, just larger) */
+  html body.home .lp-art-links { display: flex; align-items: center; gap: clamp(12px, 1.6vw, 20px); padding-left: clamp(20px, 3vw, 44px); }
+  html body.home .lp-art-links > .mark { flex: none; width: clamp(72px, 9vw, 120px); height: clamp(72px, 9vw, 120px); filter: drop-shadow(0 14px 18px rgba(123, 97, 255, .28)); }
+  html body.home .lp-lks { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 14px; margin-right: -80px; }
+  html body.home .lp-lk {
+    display: flex; align-items: center; gap: 12px; box-sizing: border-box; height: 56px;
+    padding: 0 24px 0 9px; border-radius: var(--r-pill);
+    background: var(--gl-well-fill); border: 1px solid var(--gl-well-edge); box-shadow: 0 12px 28px -18px rgba(70, 30, 100, .4);
+    font-size: 16px; color: var(--text); white-space: nowrap;
+  }
+  html body.home .lp-lk + .lp-lk { margin-left: 28px; }
+  html body.home .lp-lk-ico { flex: none; display: grid; place-items: center; width: 38px; height: 38px; border-radius: var(--r-round); background: var(--ico-grad); color: #fdfbff; }
+  html body.home .lp-lk-ico svg { width: 18px; height: 18px; }
+
+  /* 3. the four parts of a format, joined by a logo-gradient line */
+  html body.home .lp-art-beats { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
+  html body.home .lp-art-beats::before {
+    content: ""; position: absolute; left: 50%; top: 50%; width: 3px; height: 190px; translate: -50% -50%;
+    border-radius: var(--r-pill); background: linear-gradient(180deg, #ffb38a, #ff7eb8 50%, #7b61ff); opacity: .6; z-index: -1;
+  }
+  html body.home .lp-bt {
+    display: flex; align-items: center; justify-content: center; min-width: 150px; height: 44px; box-sizing: border-box;
+    padding: 0 20px; border-radius: var(--r-pill); border-width: 2px;
+    box-shadow: 0 12px 26px -16px rgba(123, 97, 255, .45);
+    font-size: 16px; font-weight: 700; color: var(--text);
+  }
+
+  /* 4. a say / do / show script in a glass well, its top cut by the card's top edge */
+  html body.home :is(.lp-art-script .lp-sc, .lp-art-track .lp-tr) {
+    position: absolute; left: 50%; top: -40px; bottom: 40px; translate: -50% 0; width: min(84%, 400px); box-sizing: border-box;
+    display: flex; flex-direction: column; justify-content: flex-end; gap: 22px; padding: 24px;
+    border-radius: 24px; background: var(--gl-well-fill); border: 1px solid var(--gl-well-edge);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), 0 24px 50px -30px rgba(70, 30, 100, .35);
+  }
+  html body.home .lp-sc-row { display: grid; grid-template-columns: 64px 1fr; align-items: start; }
+  html body.home .lp-sc-row b {
+    justify-self: start; padding: 2px 9px; border-radius: var(--r-pill); margin-top: -5px;
+    font-family: var(--mono); font-size: 12px; font-weight: 400; line-height: 16px; color: var(--text);
+  }
+  html body.home .lp-sc-row > span { display: grid; gap: 9px; }
+  html body.home .lp-sc-row:nth-child(1) i:nth-child(1) { width: 94%; }
+  html body.home .lp-sc-row:nth-child(1) i:nth-child(2) { width: 70%; }
+  html body.home .lp-sc-row:nth-child(2) i { width: 58%; }
+  html body.home .lp-sc-row:nth-child(3) i:nth-child(1) { width: 82%; }
+  html body.home .lp-sc-row:nth-child(3) i:nth-child(2) { width: 46%; }
+
+  /* 5. posts from linked accounts, tracked: no numbers, a gradient track line each; the top cut by the card's edge */
+  html body.home .lp-art-track .lp-tr { gap: 12px; padding: 16px; }
+  html body.home .lp-tr-row {
+    display: flex; align-items: center; gap: 12px; padding: 8px 10px 8px 8px; border-radius: 16px;
+    background: rgba(253, 251, 255, .85); border: 1px solid var(--gl-well-edge);
+  }
+  html body.home .lp-tr-thumb { flex: none; width: 34px; height: 48px; border-radius: 9px; background: linear-gradient(160deg, rgba(255, 179, 138, .55), rgba(255, 126, 184, .45)); }
+  html body.home .lp-tr-row:nth-child(2) .lp-tr-thumb { background: linear-gradient(160deg, rgba(255, 126, 184, .5), rgba(123, 97, 255, .45)); }
+  html body.home .lp-tr-row:nth-child(3) .lp-tr-thumb { background: linear-gradient(160deg, rgba(123, 97, 255, .4), rgba(255, 179, 138, .45)); }
+  html body.home .lp-tr-lines { flex: 1 1 auto; min-width: 0; display: grid; gap: 9px; }
+  html body.home .lp-tr-lines b { font-size: 13px; font-weight: 600; line-height: 1; color: var(--text); }
+  html body.home .lp-tr-lines i { width: 78%; height: 6px; background: var(--logo-grad); opacity: .6; }
+  html body.home .lp-tr-on {
+    flex: none; display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px;
+    border-radius: var(--r-pill); background: var(--lbl-say-bg); font-size: 12px; font-weight: 600; color: var(--text);
+  }
+  html body.home .lp-tr-on::before { content: ""; width: 7px; height: 7px; border-radius: var(--r-round); background: var(--logo-grad); }
+
+  /* THE CLOSING LINE AND THE PASTE BOX: one small line (not a big heading), the paste box in the cards' tinted white,
+     then the footer card. */
+  html body.home #lp-main > .lp-close { padding: clamp(56px, 8vw, 104px) 0 0; }
+  html body.home #lp-main > .lp-close .lp-h2 { font-size: clamp(20px, 1.9vw, 26px); font-weight: 700; line-height: 1.2; letter-spacing: -.02em; }
+  html body.home #lp-main > .lp-close .lp-composer { margin-top: 18px; }
+  html body.home #lp-main > .lp-close .composer-row { background: var(--lpc-white); border-color: var(--line-2); box-shadow: none; }
+
+  /* PHONE (owner, 2026-11-14: "redo the mobile ... the spacing is off and the launch video shouldnt be complete side to
+     side filled"): Mist's phone rhythm on ONE spacing scale (8/16/24/32/48). The heading sits 96px (2 x 48) under the
+     corner row; 32px to the video; 32px to the button. SINCE 2026-11-14 (owner: "centered ... for all display sizes")
+     the group is centred on the screen with equal space above and below, as on a desktop, so the first card no longer
+     peeks in; it starts 48px under the first screen. The video is a
+     ROUNDED CARD inside 16px gutters (glass edge, soft shadow, as on a desktop), and the card is ONE object: the
+     picture on top and a slim tinted-glass control row inside the same rounded card, under the picture. Why a row
+     and not a bar shown on tap: a tap on the picture pauses it (owner: "like youtube"), so it cannot also mean "show
+     the controls"; a permanent slim row keeps the frame clear, keeps sound and full screen one tap away, and
+     nothing shifts at the first play. The button is full width within the gutters (Fitts: right under the video). */
+  @media (max-width: 640px) {
+    /* centred on the screen like a desktop (owner, 2026-11-14: "make that the case for all display sizes"): equal
+       space above the heading and under the button, at least the corner row plus 24px; the 32px gaps inside stay */
+    html body.home { --lpf-hs: clamp(20px, 5.6vw, 23px); --lpf-row: 44px; --lpf-top: calc(var(--lpc-edge) + 44px + 24px); }
+    html body.home #lp-main > .lp-first { padding: var(--lpf-top) 16px var(--lpf-bot); }
+    html body.home .lp-first-h { font-weight: 600; }
+    html body.home .lp-first .lp-intro-card {
+      width: 100%; margin-top: 32px; aspect-ratio: auto; border-radius: 20px;
+      background: #faf7fd; border: 1px solid var(--glass-edge); box-shadow: var(--g-shadow);
+    }
+    html body.home .lp-first .lp-intro-video { height: auto; aspect-ratio: var(--intro-ar); border-radius: 0; }
+    html body.home .lp-first-go { margin-top: 32px; }
+    html body.home .lp-first-cta { width: 100%; min-width: 0; }
+    /* the control row: inside the card, under the picture; 44px targets, compact glyphs, tinted glass */
+    html body.home .lpv .lpv-bar, html body.home .lpv.is-fresh .lpv-bar {
+      position: static; display: flex; height: var(--lpf-row); padding: 0 4px 0 0; gap: 0;
+      opacity: 1; pointer-events: auto; transition: none;
+      background: linear-gradient(180deg, rgba(250, 247, 253, .94), rgba(244, 238, 252, .94));
+      border: 0; border-top: 1px solid rgba(123, 97, 255, .12); border-radius: 0; box-shadow: none;
+      -webkit-backdrop-filter: none; backdrop-filter: none;
+    }
+    html body.home .lpv-bar .lpv-ico { width: 18px; height: 18px; }
+    html body.home .lpv-time { font-size: var(--fs-12); }
+    html body.home .lpv .lpv-big { top: calc((100% - var(--lpf-row)) / 2); width: 52px; height: 52px; }
+    html body.home .lpv.is-waiting::after { top: calc((100% - var(--lpf-row)) / 2); }
+    html body.home .lpv:fullscreen .lp-intro-video { height: calc(100% - var(--lpf-row)); aspect-ratio: auto; }
+    html body.home .lpv:-webkit-full-screen .lp-intro-video { height: calc(100% - var(--lpf-row)); aspect-ratio: auto; }
+    html body.home .lpv.is-playing:not(.is-shown) .lp-intro-video { cursor: pointer; }
+    html body.home .lpv-snd { height: 44px; padding: 0 12px 0 10px; font-size: 13px; gap: 6px; }
+    html body.home .lpv-snd .lpv-ico { width: 18px; height: 18px; }
+
+    /* the cards, Mist's phone cards: the picture on top (176px, at most ~55% of the card), cut by the card's top
+       edge; the statement centred under it; 16px gutters like the video; 16px between cards */
+    html body.home #lp-main > #lp-how { padding-top: 48px; }
+    html body.home #lp-main > #lp-how > .lp-in { width: calc(100% - 32px); }
+    html body.home .lp-how-list { gap: 16px; }
+    html body.home .lp-how-card { grid-template-columns: minmax(0, 1fr); grid-template-rows: 176px auto; min-height: 0; border-radius: 24px; }
+    html body.home .lp-how-card:nth-child(even) > .lp-how-art { order: 0; }
+    html body.home .lp-how-text { padding: 24px 24px 32px; }
+    html body.home .lp-how-t { font-size: clamp(24px, 6.9vw, 28px); max-width: 14ch; }
+    html body.home .lp-how-p { margin-top: 8px; }
+    html body.home .lp-art-phone .lp-ph { bottom: 16px; scale: .7; transform-origin: 50% 100%; }
+    html body.home .lp-art-links { padding-left: 24px; gap: 16px; }
+    html body.home .lp-art-links > .mark { width: 64px; height: 64px; }
+    html body.home .lp-lks { gap: 8px; }
+    html body.home .lp-lk { height: 48px; font-size: 15px; padding-left: 6px; }
+    html body.home .lp-lk-ico { width: 34px; height: 34px; }
+    html body.home .lp-lk + .lp-lk { margin-left: 24px; }
+    html body.home .lp-art-beats { gap: 8px; }
+    html body.home .lp-art-beats::before { height: 130px; }
+    html body.home .lp-bt { height: 34px; min-width: 132px; font-size: 15px; }
+    html body.home :is(.lp-art-script .lp-sc, .lp-art-track .lp-tr) { bottom: 24px; width: calc(100% - 48px); }
+    html body.home .lp-art-script .lp-sc { gap: 16px; padding: 16px 24px; }
+    html body.home .lp-art-track .lp-tr { gap: 8px; padding: 8px; }
+    html body.home .lp-tr-row:nth-child(3) { display: none; }
+    html body.home #lp-main > .lp-close { padding-top: 48px; }
+  }
+
+  /* ---------- THE CARDS' PICTURES MOVE WITH THE SCROLL (owner, 2026-11-14: "for this section add some slight animations
+     that dont take away from the main message but is nice to look at and relates to the scroll for both desktop and
+     mobile. honestly all displays possible") ----------
+     The owner's exception to "nothing else on the screen moves", for these five cards only. SCROLL-LINKED, never
+     looping: each card's progress through the screen (its view timeline, `cover` range: 0 = its top edge at the
+     bottom of the screen, 0.5 = centred) drives its picture, so the picture moves only while the visitor scrolls and
+     rests the moment they stop. Every piece finishes by 0.45, so a card at about the centre shows exactly the static
+     design. The WORDS never move. Each picture acts out its card: 1 the pasted link lands in the phone and the
+     say/do/show lines fill in; 2 the two links slide in from the card's edge in turn while the glass x leans toward
+     them (the existing x, only moved); 3 the line draws down hook -> beats -> turn -> close and each pill's gradient
+     ring fills as the line reaches it; 4 the script's bars fill left to right in order; 5 each post's tracking line
+     draws and its "tracked" chip ticks on. transform / opacity / background-size only: no layout, no layout shift.
+     --lpm-a / --lpm-b are each piece's start and end on the card's timeline, shared by both paths:
+       NATIVE (a browser with CSS scroll-driven animations): animation-timeline: --lpcard plus animation-range.
+       FALLBACK (no support; home.js cardScrub): #lp-how gets .lp-scrub-js, each piece is a PAUSED 1 s animation, and
+         on scroll the script sets each one's currentTime (Web Animations API) to its own progress between --lpm-a
+         and --lpm-b. (A delay-driven scrub drifted: Chromium runs a new animation for a frame before pausing it.)
+       NEITHER (no support and no JS): no animation-name applies, so every piece is the static design.
+     The pieces name their keyframes in --lpm-name and get an animation-name ONLY inside a path, so with neither path
+     there is no animation at all.
+     Reduced motion: none of this exists; the cards are the static design. */
+  @keyframes lpm-land { from { opacity: 0; transform: translateY(-24px) scale(.96); } }
+  @keyframes lpm-grow { from { transform: scaleX(0); } }
+  @keyframes lpm-in { from { opacity: 0; transform: translateX(24px); } }
+  @keyframes lpm-lean { 0% { transform: translateX(-6px) rotate(-8deg); } 60% { transform: translateX(3px) rotate(5deg); } }
+  @keyframes lpm-draw { from { transform: scaleY(0); } }
+  @keyframes lpm-ring { from { background-size: 100% 100%, 0% 100%; opacity: .45; } }
+  @keyframes lpm-tick { from { opacity: 0; transform: scale(.8); } }
+  @media (prefers-reduced-motion: no-preference) {
+    html body.home .lp-how-card { view-timeline-name: --lpcard; view-timeline-axis: block; }
+    html body.home :is(.lp-ph-row i, .lp-sc-row i, .lp-tr-lines i) { transform-origin: 0 50%; }
+    html body.home .lp-art-beats::before { transform-origin: 50% 0; }
+    html body.home .lp-bt { background-repeat: no-repeat; }
+    /* 1 */
+    html body.home .lp-art-phone .lp-ph-link { --lpm-name: lpm-land; --lpm-a: 0; --lpm-b: .2; }
+    html body.home .lp-art-phone .lp-ph-row:nth-child(1) i { --lpm-name: lpm-grow; --lpm-a: .15; --lpm-b: .3; }
+    html body.home .lp-art-phone .lp-ph-row:nth-child(2) i { --lpm-name: lpm-grow; --lpm-a: .22; --lpm-b: .37; }
+    html body.home .lp-art-phone .lp-ph-row:nth-child(3) i { --lpm-name: lpm-grow; --lpm-a: .3; --lpm-b: .45; }
+    /* 2 */
+    html body.home .lp-art-links > .mark { --lpm-name: lpm-lean; --lpm-a: 0; --lpm-b: .45; }
+    html body.home .lp-art-links .lp-lk:nth-child(1) { --lpm-name: lpm-in; --lpm-a: .05; --lpm-b: .28; }
+    html body.home .lp-art-links .lp-lk:nth-child(2) { --lpm-name: lpm-in; --lpm-a: .15; --lpm-b: .38; }
+    /* 3 */
+    html body.home .lp-art-beats::before { --lpm-name: lpm-draw; --lpm-a: .05; --lpm-b: .45; }
+    html body.home .lp-art-beats .lp-bt:nth-child(1) { --lpm-name: lpm-ring; --lpm-a: .05; --lpm-b: .15; }
+    html body.home .lp-art-beats .lp-bt:nth-child(2) { --lpm-name: lpm-ring; --lpm-a: .15; --lpm-b: .25; }
+    html body.home .lp-art-beats .lp-bt:nth-child(3) { --lpm-name: lpm-ring; --lpm-a: .25; --lpm-b: .35; }
+    html body.home .lp-art-beats .lp-bt:nth-child(4) { --lpm-name: lpm-ring; --lpm-a: .35; --lpm-b: .45; }
+    /* 4 */
+    html body.home .lp-sc-row:nth-child(1) i:nth-child(1) { --lpm-name: lpm-grow; --lpm-a: .05; --lpm-b: .2; }
+    html body.home .lp-sc-row:nth-child(1) i:nth-child(2) { --lpm-name: lpm-grow; --lpm-a: .12; --lpm-b: .27; }
+    html body.home .lp-sc-row:nth-child(2) i { --lpm-name: lpm-grow; --lpm-a: .2; --lpm-b: .33; }
+    html body.home .lp-sc-row:nth-child(3) i:nth-child(1) { --lpm-name: lpm-grow; --lpm-a: .28; --lpm-b: .4; }
+    html body.home .lp-sc-row:nth-child(3) i:nth-child(2) { --lpm-name: lpm-grow; --lpm-a: .33; --lpm-b: .45; }
+    /* 5 */
+    html body.home .lp-tr-row:nth-child(1) .lp-tr-lines i { --lpm-name: lpm-grow; --lpm-a: .05; --lpm-b: .22; }
+    html body.home .lp-tr-row:nth-child(1) .lp-tr-on { --lpm-name: lpm-tick; --lpm-a: .18; --lpm-b: .28; }
+    html body.home .lp-tr-row:nth-child(2) .lp-tr-lines i { --lpm-name: lpm-grow; --lpm-a: .15; --lpm-b: .32; }
+    html body.home .lp-tr-row:nth-child(2) .lp-tr-on { --lpm-name: lpm-tick; --lpm-a: .28; --lpm-b: .38; }
+    html body.home .lp-tr-row:nth-child(3) .lp-tr-lines i { --lpm-name: lpm-grow; --lpm-a: .25; --lpm-b: .4; }
+    html body.home .lp-tr-row:nth-child(3) .lp-tr-on { --lpm-name: lpm-tick; --lpm-a: .36; --lpm-b: .45; }
+
+    @supports (animation-timeline: view()) {
+      html body.home #lp-how:not(.lp-scrub-js) :is(.lp-ph-link, .lp-ph-row i, .lp-art-links > .mark, .lp-lk, .lp-bt, .lp-sc-row i, .lp-tr-lines i, .lp-tr-on),
+      html body.home #lp-how:not(.lp-scrub-js) .lp-art-beats::before {
+        animation-name: var(--lpm-name); animation-duration: auto; animation-timing-function: cubic-bezier(.25, .8, .35, 1);
+        animation-fill-mode: both; animation-timeline: --lpcard;
+        animation-range: cover calc(var(--lpm-a) * 100%) cover calc(var(--lpm-b) * 100%);
+      }
+    }
+    html body.home #lp-how.lp-scrub-js :is(.lp-ph-link, .lp-ph-row i, .lp-art-links > .mark, .lp-lk, .lp-bt, .lp-sc-row i, .lp-tr-lines i, .lp-tr-on),
+    html body.home #lp-how.lp-scrub-js .lp-art-beats::before {
+      animation-name: var(--lpm-name); animation-duration: 1s; animation-timing-function: cubic-bezier(.25, .8, .35, 1);
+      animation-fill-mode: both; animation-play-state: paused;
+    }
+  }
