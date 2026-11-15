@@ -232,5 +232,113 @@
     "slug": "explain-your-ugc-rate",
     "target_query": "justify ugc rate to brand",
     "angle": "Describing scope and what is included rather than defending a number. No figures, no financial advice."
+  },
+  {
+    "id": "a027",
+    "theme": "ugc-hooks",
+    "priority": 3,
+    "question": "How do you rewrite a hook a brand rejected?",
+    "slug": "rewrite-a-rejected-ugc-hook",
+    "target_query": "brand rejected ugc hook",
+    "angle": "Reading what the rejection is really about and offering two new versions that keep the idea; no claims about what brands want."
+  },
+  {
+    "id": "a028",
+    "theme": "ugc-hooks",
+    "priority": 3,
+    "question": "How do you open a UGC video without saying hi?",
+    "slug": "open-ugc-without-saying-hi",
+    "target_query": "ugc video opening line",
+    "angle": "Starting mid-moment instead of with a greeting; examples of first lines and first frames. No platform ranking claims."
+  },
+  {
+    "id": "a029",
+    "theme": "ugc-scripts",
+    "priority": 3,
+    "question": "How do you write a UGC script with no talking?",
+    "slug": "ugc-script-with-no-talking",
+    "target_query": "ugc script without voiceover",
+    "angle": "Scripting with on-screen text and actions only; how to lay out the beats and keep the message clear."
+  },
+  {
+    "id": "a030",
+    "theme": "ugc-scripts",
+    "priority": 3,
+    "question": "How do you add the brand's required wording to a script naturally?",
+    "slug": "required-wording-in-ugc-script",
+    "target_query": "brand required lines ugc script",
+    "angle": "Placing fixed lines where they sound like you, without changing their wording; distinct from fitting key points. No legal claims."
+  },
+  {
+    "id": "a031",
+    "theme": "ugc-filming",
+    "priority": 3,
+    "question": "How do you film UGC in a small space?",
+    "slug": "film-ugc-in-a-small-space",
+    "target_query": "film ugc small room",
+    "angle": "Framing, angles and setup tricks for a tiny room or corner using what you own; no named gear."
+  },
+  {
+    "id": "a032",
+    "theme": "ugc-filming",
+    "priority": 3,
+    "question": "How do you film a UGC video in one take?",
+    "slug": "film-ugc-in-one-take",
+    "target_query": "one take ugc video",
+    "angle": "When a single continuous take suits the video, how to rehearse it and what to do when it goes wrong."
+  },
+  {
+    "id": "a033",
+    "theme": "ugc-filming",
+    "priority": 3,
+    "question": "How do you keep your look consistent across UGC filming days?",
+    "slug": "consistent-look-across-filming-days",
+    "target_query": "ugc continuity filming days",
+    "angle": "Notes, photos and setup marks that keep light, outfit and set matching when a job spans more than one day; distinct from reshooting one scene."
+  },
+  {
+    "id": "a034",
+    "theme": "ugc-filming",
+    "priority": 3,
+    "question": "How do you check UGC footage before you stop filming?",
+    "slug": "check-ugc-footage-before-wrapping",
+    "target_query": "check ugc footage",
+    "angle": "A quick review routine on set for focus, sound, framing and missing shots, so nothing needs a second setup."
+  },
+  {
+    "id": "a035",
+    "theme": "ugc-briefs",
+    "priority": 3,
+    "question": "What do you do when two people at a brand give different feedback?",
+    "slug": "conflicting-feedback-from-a-brand",
+    "target_query": "conflicting ugc feedback",
+    "angle": "Asking for one decision-maker and laying the two options side by side; polite wording. No contract claims."
+  },
+  {
+    "id": "a036",
+    "theme": "ugc-briefs",
+    "priority": 3,
+    "question": "How do you ask a brand for an extension on a UGC deadline?",
+    "slug": "ask-for-a-ugc-deadline-extension",
+    "target_query": "ugc deadline extension",
+    "angle": "When and how to ask early, what to offer alongside, and short wording; no claims about what brands accept."
+  },
+  {
+    "id": "a037",
+    "theme": "ugc-brand-deals",
+    "priority": 3,
+    "question": "How do you introduce yourself to a brand you already buy from?",
+    "slug": "pitch-a-brand-you-already-buy",
+    "target_query": "pitch brand you use ugc",
+    "angle": "Using real familiarity with the product as the opening of a pitch, honestly; distinct from a general pitch email."
+  },
+  {
+    "id": "a038",
+    "theme": "ugc-getting-started",
+    "priority": 3,
+    "question": "How do you set up a simple filming corner at home for UGC?",
+    "slug": "set-up-a-ugc-filming-corner",
+    "target_query": "ugc filming setup at home",
+    "angle": "Choosing and arranging one spot you can reuse for every job with what you own; distinct from lighting and equipment answers, no named gear."
   }
 ]

@@ -1,0 +1,249 @@
+{
+  "question_id": "a022",
+  "slug": "confirm-a-ugc-brief-before-filming",
+  "theme": "ugc-briefs",
+  "title": "How do you confirm a brief before you start filming?",
+  "description": "How to confirm a UGC brief before you film: play it back to the brand in your own words, in one short written message, and get a clear yes first.",
+  "short_answer": "You confirm a brief by playing it back to the brand in your own words, in one short written message, and waiting for a yes before you film. Restate the product, the single message, the must-say lines, the shots and the files you will send, so any misunderstanding shows up on paper instead of in a reshoot.",
+  "sections": [
+    {
+      "heading": "What does it mean to play a brief back to the brand?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Playing a brief back means rewriting it in your own words and asking the brand to confirm that your version is right.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "It is different from asking questions. A question asks the brand to do work. A playback does the work for them: you show what you understood, and they only have to say yes or correct one line. That makes it quicker to answer, and it catches the gaps neither side noticed, because a sentence that reads clearly in the [brief](/glossary/#brief) can mean two things once you try to say it back.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "If you still have open questions, ask those first, using [the questions to ask a brand before you start filming](/blog/questions-to-ask-before-filming-ugc/). The playback comes after, as the last step before the camera goes up.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "What should you restate when you confirm a UGC brief?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Restate only the things that would force a reshoot if you got them wrong: the product, the message, the fixed lines, the shots and the delivery.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Skip anything that is a matter of taste, such as your outfit or the exact words of a joke, because those are cheap to change later. Before you write, sort the brief into fixed parts and your parts, using [how to turn a brand brief into a script](/blog/brief-to-script/), so you only play back what cannot move.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "table",
+          "text": "",
+          "items": [],
+          "table_head": [
+            "Part of the brief",
+            "How you play it back",
+            "Why it matters"
+          ],
+          "table_rows": [
+            [
+              "The product",
+              "Name the exact version, size or shade you have in your hands.",
+              "Filming the wrong variant means filming everything again."
+            ],
+            [
+              "The one message",
+              "Say in one sentence what a viewer should remember.",
+              "If your sentence differs from theirs, the whole script is aimed at the wrong point."
+            ],
+            [
+              "Must-say lines",
+              "Copy them word for word, and note where each one will go.",
+              "Fixed wording is the easiest thing to get slightly wrong."
+            ],
+            [
+              "Shots",
+              "List the shots you plan, including any the brief asked for by name.",
+              "A missing shot cannot be added in the edit."
+            ],
+            [
+              "Delivery",
+              "Say what files you will send, in what shape, and by which day.",
+              "It settles the finish line before the work starts."
+            ]
+          ],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "If the brief includes a [call to action](/glossary/#call-to-action), restate that too, because the close tells the viewer what to do next, and it is the line you would least want to reshoot.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "How do you word the confirmation message?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Keep it short enough to read in one go, open with the ask, and end with a single question the brand can answer with yes.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Here is a version you can adapt. Change the bracketed parts and delete any line that does not apply to this job.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "list",
+          "text": "",
+          "items": [
+            "Hi [NAME], before I film I want to check I have read the brief the way you meant it. Here is my version in a few lines.",
+            "Product: I will be showing [PRODUCT], the one you sent me, in the version and colour in your brief.",
+            "Message: the one thing a viewer should remember is that [PRODUCT] fits into a rushed morning.",
+            "Fixed lines: I will say each required line from the brief word for word, pasted below. The first one goes near the start, and the last one closes the video.",
+            "Shots: I plan to film [PRODUCT] on the counter, my hands using it, and the close-up you asked for.",
+            "Delivery: I will send [NUMBER] edited videos plus the raw clips by [DATE].",
+            "If that all matches, a quick yes is all I need and I will start filming. If anything is off, tell me which line and I will fix it."
+          ],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Write it in plain sentences rather than pasting the brief back with edits. Your own words are the point, because they are what reveal a misreading.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "When should you send the confirmation, and how?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Send it after the product has arrived and before you write the final script, in writing, in the same place the brief came from.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Waiting for the product matters, because you cannot confirm the version until you are holding it. Sending it before the script matters, because a correction to the message changes every line you would have written. Keep it in the same thread as the brief so the brief, your playback and their reply all sit together, which makes it easy to point back to later.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "A call can feel faster, but a spoken yes leaves nothing to point to. If you do talk it through, follow up with the written playback afterwards and ask them to confirm it.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "What do you do with the brand's reply?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "A clear yes means you film to your playback; a correction means you update the playback, send the changed line back, and wait again.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "list",
+          "text": "",
+          "items": [
+            "If they say yes, save the thread and treat your playback as the working brief, because it is now the version you both agreed.",
+            "If they correct one line, reply with just that line rewritten so the fix is confirmed too, not assumed.",
+            "If the correction changes the message itself, say you will rework the script and send it over for sign-off, as in [how to send a script to a brand for approval](/blog/send-ugc-script-for-approval/).",
+            "If the reply raises new gaps, handle them the way [what to do when a brief is vague](/blog/vague-ugc-brief/) suggests before you go any further.",
+            "If there is no reply, send one short follow-up and hold off on filming, because footage shot to a guess is the footage most likely to be redone."
+          ],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Once you have the yes, keep the playback beside you while you film. Read the fixed lines off it rather than from memory, and tick off each shot as you get it, the way you would with a [shot list](/glossary/#shot-list).",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    }
+  ],
+  "status": "live",
+  "published": "2026-11-15",
+  "withdrawn": null,
+  "origin": "agent",
+  "hooks": [],
+  "model": "claude-code-routine",
+  "cost_usd": 0.0,
+  "judge": {
+    "verdict": "pass",
+    "scores": {
+      "answers_first": 5,
+      "useful_specific": 5,
+      "ugc_focus": 5,
+      "originality": 4,
+      "voice": 4
+    }
+  }
+}
