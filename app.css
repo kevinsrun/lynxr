@@ -13903,24 +13903,6 @@
     display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box;
     min-width: 240px; min-height: 52px; padding: 0 28px; font-size: 16px; text-decoration: none;
   }
-  /* "TURN SOUND ON" (owner, 2026-11-14: "make the video play and unmuted from the start"). home.js asks for sound
-     first; when the browser refuses it plays muted and marks the card .is-automuted. Only then, and only while it
-     plays, this labelled pill sits in the card's top-right corner: static (no pulse), 44px tall, tinted white on any
-     frame like the bar. A press turns the sound on and it goes; the bar keeps its own sound button. */
-  body.home .lpv-snd {
-    position: absolute; top: 12px; right: 12px; display: none; align-items: center; gap: 8px;
-    height: 44px; margin: 0; padding: 0 16px 0 12px; box-sizing: border-box; border-radius: var(--r-pill);
-    appearance: none; -webkit-appearance: none;
-    background: rgba(250, 247, 253, .92);
-    -webkit-backdrop-filter: blur(12px) saturate(1.4); backdrop-filter: blur(12px) saturate(1.4);
-    border: 1px solid var(--line); box-shadow: 0 10px 26px -14px rgba(20, 18, 43, .5);
-    color: var(--text); font-size: 14px; font-weight: 600; cursor: pointer;
-  }
-  body.home .lpv-snd .lpv-ico { width: 20px; height: 20px; }
-  body.home .lpv-snd:hover { background: rgba(250, 247, 253, .98); }
-  body.home .lpv-snd:focus-visible { outline: none; box-shadow: 0 0 0 3px #faf7fd, 0 0 0 6px var(--focus-ring); }
-  body.home .lpv.is-automuted.is-playing .lpv-snd { display: inline-flex; }
-  @media (max-width: 640px) { body.home .lpv-snd { top: 8px; right: 8px; } }   /* phone sizes: the PHONE block above */
 
   /* WHAT IT IS, HOW IT WORKS: Mist's structure, lynxr's look (owner, 2026-11-14: "make the bottom parts more like"
      getmistapp.com; then "make it lynxrfied. like make it our color scheme"). Wide rounded cards in one column, the
@@ -14115,8 +14097,6 @@
     html body.home .lpv:fullscreen .lp-intro-video { height: calc(100% - var(--lpf-row)); aspect-ratio: auto; }
     html body.home .lpv:-webkit-full-screen .lp-intro-video { height: calc(100% - var(--lpf-row)); aspect-ratio: auto; }
     html body.home .lpv.is-playing:not(.is-shown) .lp-intro-video { cursor: pointer; }
-    html body.home .lpv-snd { height: 44px; padding: 0 12px 0 10px; font-size: 13px; gap: 6px; }
-    html body.home .lpv-snd .lpv-ico { width: 18px; height: 18px; }
 
     /* the cards, Mist's phone cards: the picture on top (176px, at most ~55% of the card), cut by the card's top
        edge; the statement centred under it; 16px gutters like the video; 16px between cards */
@@ -14150,18 +14130,21 @@
      mobile. honestly all displays possible") ----------
      The owner's exception to "nothing else on the screen moves", for these five cards only. SCROLL-LINKED, never
      looping: each card's progress through the screen (its view timeline, `cover` range: 0 = its top edge at the
-     bottom of the screen, 0.5 = centred) drives its picture, so the picture moves only while the visitor scrolls and
-     rests the moment they stop. Every piece finishes by 0.45, so a card at about the centre shows exactly the static
-     design. The WORDS never move. Each picture acts out its card: 1 the pasted link lands in the phone and the
+     bottom of the screen, 0.5 = centred) drives its picture. Motion starts at 0.10 (a little of the card is on screen)
+     and every piece finishes by 0.48, so a card at about the centre shows exactly the static design. SLOWER (owner,
+     2026-11-14: "have the effects be slower. right now its too quick to even see"): home.js cardScrub drives them in
+     every browser and follows the scroll at a capped speed, so a quick flick plays each card over ~1.5 s and the
+     pictures settle shortly after the visitor stops. The WORDS never move. Each picture acts out its card: 1 the pasted link lands in the phone and the
      say/do/show lines fill in; 2 the two links slide in from the card's edge in turn while the glass x leans toward
      them (the existing x, only moved); 3 the line draws down hook -> beats -> turn -> close and each pill's gradient
      ring fills as the line reaches it; 4 the script's bars fill left to right in order; 5 each post's tracking line
      draws and its "tracked" chip ticks on. transform / opacity / background-size only: no layout, no layout shift.
      --lpm-a / --lpm-b are each piece's start and end on the card's timeline, shared by both paths:
-       NATIVE (a browser with CSS scroll-driven animations): animation-timeline: --lpcard plus animation-range.
-       FALLBACK (no support; home.js cardScrub): #lp-how gets .lp-scrub-js, each piece is a PAUSED 1 s animation, and
+       SCRIPT (home.js cardScrub, every browser with JS): #lp-how gets .lp-scrub-js, each piece is a PAUSED 1 s animation, and
          on scroll the script sets each one's currentTime (Web Animations API) to its own progress between --lpm-a
          and --lpm-b. (A delay-driven scrub drifted: Chromium runs a new animation for a frame before pausing it.)
+       CSS ONLY (no JS, a browser with CSS scroll-driven animations): animation-timeline: --lpcard plus animation-range,
+         tied 1:1 to the scroll (the old, quicker behaviour).
        NEITHER (no support and no JS): no animation-name applies, so every piece is the static design.
      The pieces name their keyframes in --lpm-name and get an animation-name ONLY inside a path, so with neither path
      there is no animation at all.
@@ -14179,33 +14162,33 @@
     html body.home .lp-art-beats::before { transform-origin: 50% 0; }
     html body.home .lp-bt { background-repeat: no-repeat; }
     /* 1 */
-    html body.home .lp-art-phone .lp-ph-link { --lpm-name: lpm-land; --lpm-a: 0; --lpm-b: .2; }
-    html body.home .lp-art-phone .lp-ph-row:nth-child(1) i { --lpm-name: lpm-grow; --lpm-a: .15; --lpm-b: .3; }
-    html body.home .lp-art-phone .lp-ph-row:nth-child(2) i { --lpm-name: lpm-grow; --lpm-a: .22; --lpm-b: .37; }
-    html body.home .lp-art-phone .lp-ph-row:nth-child(3) i { --lpm-name: lpm-grow; --lpm-a: .3; --lpm-b: .45; }
+    html body.home .lp-art-phone .lp-ph-link { --lpm-name: lpm-land; --lpm-a: .10; --lpm-b: .27; }
+    html body.home .lp-art-phone .lp-ph-row:nth-child(1) i { --lpm-name: lpm-grow; --lpm-a: .23; --lpm-b: .35; }
+    html body.home .lp-art-phone .lp-ph-row:nth-child(2) i { --lpm-name: lpm-grow; --lpm-a: .29; --lpm-b: .41; }
+    html body.home .lp-art-phone .lp-ph-row:nth-child(3) i { --lpm-name: lpm-grow; --lpm-a: .35; --lpm-b: .48; }
     /* 2 */
-    html body.home .lp-art-links > .mark { --lpm-name: lpm-lean; --lpm-a: 0; --lpm-b: .45; }
-    html body.home .lp-art-links .lp-lk:nth-child(1) { --lpm-name: lpm-in; --lpm-a: .05; --lpm-b: .28; }
-    html body.home .lp-art-links .lp-lk:nth-child(2) { --lpm-name: lpm-in; --lpm-a: .15; --lpm-b: .38; }
+    html body.home .lp-art-links > .mark { --lpm-name: lpm-lean; --lpm-a: .10; --lpm-b: .48; }
+    html body.home .lp-art-links .lp-lk:nth-child(1) { --lpm-name: lpm-in; --lpm-a: .14; --lpm-b: .34; }
+    html body.home .lp-art-links .lp-lk:nth-child(2) { --lpm-name: lpm-in; --lpm-a: .23; --lpm-b: .42; }
     /* 3 */
-    html body.home .lp-art-beats::before { --lpm-name: lpm-draw; --lpm-a: .05; --lpm-b: .45; }
-    html body.home .lp-art-beats .lp-bt:nth-child(1) { --lpm-name: lpm-ring; --lpm-a: .05; --lpm-b: .15; }
-    html body.home .lp-art-beats .lp-bt:nth-child(2) { --lpm-name: lpm-ring; --lpm-a: .15; --lpm-b: .25; }
-    html body.home .lp-art-beats .lp-bt:nth-child(3) { --lpm-name: lpm-ring; --lpm-a: .25; --lpm-b: .35; }
-    html body.home .lp-art-beats .lp-bt:nth-child(4) { --lpm-name: lpm-ring; --lpm-a: .35; --lpm-b: .45; }
+    html body.home .lp-art-beats::before { --lpm-name: lpm-draw; --lpm-a: .14; --lpm-b: .48; }
+    html body.home .lp-art-beats .lp-bt:nth-child(1) { --lpm-name: lpm-ring; --lpm-a: .14; --lpm-b: .23; }
+    html body.home .lp-art-beats .lp-bt:nth-child(2) { --lpm-name: lpm-ring; --lpm-a: .23; --lpm-b: .31; }
+    html body.home .lp-art-beats .lp-bt:nth-child(3) { --lpm-name: lpm-ring; --lpm-a: .31; --lpm-b: .40; }
+    html body.home .lp-art-beats .lp-bt:nth-child(4) { --lpm-name: lpm-ring; --lpm-a: .40; --lpm-b: .48; }
     /* 4 */
-    html body.home .lp-sc-row:nth-child(1) i:nth-child(1) { --lpm-name: lpm-grow; --lpm-a: .05; --lpm-b: .2; }
-    html body.home .lp-sc-row:nth-child(1) i:nth-child(2) { --lpm-name: lpm-grow; --lpm-a: .12; --lpm-b: .27; }
-    html body.home .lp-sc-row:nth-child(2) i { --lpm-name: lpm-grow; --lpm-a: .2; --lpm-b: .33; }
-    html body.home .lp-sc-row:nth-child(3) i:nth-child(1) { --lpm-name: lpm-grow; --lpm-a: .28; --lpm-b: .4; }
-    html body.home .lp-sc-row:nth-child(3) i:nth-child(2) { --lpm-name: lpm-grow; --lpm-a: .33; --lpm-b: .45; }
+    html body.home .lp-sc-row:nth-child(1) i:nth-child(1) { --lpm-name: lpm-grow; --lpm-a: .14; --lpm-b: .27; }
+    html body.home .lp-sc-row:nth-child(1) i:nth-child(2) { --lpm-name: lpm-grow; --lpm-a: .20; --lpm-b: .33; }
+    html body.home .lp-sc-row:nth-child(2) i { --lpm-name: lpm-grow; --lpm-a: .27; --lpm-b: .38; }
+    html body.home .lp-sc-row:nth-child(3) i:nth-child(1) { --lpm-name: lpm-grow; --lpm-a: .34; --lpm-b: .44; }
+    html body.home .lp-sc-row:nth-child(3) i:nth-child(2) { --lpm-name: lpm-grow; --lpm-a: .38; --lpm-b: .48; }
     /* 5 */
-    html body.home .lp-tr-row:nth-child(1) .lp-tr-lines i { --lpm-name: lpm-grow; --lpm-a: .05; --lpm-b: .22; }
-    html body.home .lp-tr-row:nth-child(1) .lp-tr-on { --lpm-name: lpm-tick; --lpm-a: .18; --lpm-b: .28; }
-    html body.home .lp-tr-row:nth-child(2) .lp-tr-lines i { --lpm-name: lpm-grow; --lpm-a: .15; --lpm-b: .32; }
-    html body.home .lp-tr-row:nth-child(2) .lp-tr-on { --lpm-name: lpm-tick; --lpm-a: .28; --lpm-b: .38; }
-    html body.home .lp-tr-row:nth-child(3) .lp-tr-lines i { --lpm-name: lpm-grow; --lpm-a: .25; --lpm-b: .4; }
-    html body.home .lp-tr-row:nth-child(3) .lp-tr-on { --lpm-name: lpm-tick; --lpm-a: .36; --lpm-b: .45; }
+    html body.home .lp-tr-row:nth-child(1) .lp-tr-lines i { --lpm-name: lpm-grow; --lpm-a: .14; --lpm-b: .29; }
+    html body.home .lp-tr-row:nth-child(1) .lp-tr-on { --lpm-name: lpm-tick; --lpm-a: .25; --lpm-b: .34; }
+    html body.home .lp-tr-row:nth-child(2) .lp-tr-lines i { --lpm-name: lpm-grow; --lpm-a: .23; --lpm-b: .37; }
+    html body.home .lp-tr-row:nth-child(2) .lp-tr-on { --lpm-name: lpm-tick; --lpm-a: .34; --lpm-b: .42; }
+    html body.home .lp-tr-row:nth-child(3) .lp-tr-lines i { --lpm-name: lpm-grow; --lpm-a: .31; --lpm-b: .44; }
+    html body.home .lp-tr-row:nth-child(3) .lp-tr-on { --lpm-name: lpm-tick; --lpm-a: .41; --lpm-b: .48; }
 
     @supports (animation-timeline: view()) {
       html body.home #lp-how:not(.lp-scrub-js) :is(.lp-ph-link, .lp-ph-row i, .lp-art-links > .mark, .lp-lk, .lp-bt, .lp-sc-row i, .lp-tr-lines i, .lp-tr-on),

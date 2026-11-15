@@ -426,28 +426,19 @@ for (const el of document.querySelectorAll("[data-carry-utm]")) {
   /* SOUND FIRST, MUTED IF REFUSED (owner, 2026-11-14: "autoplay with the audio and everything"). Autoplay asks for
      sound first (v.muted = false at the top). Browsers refuse sound before the visitor has pressed something
      (Chromium allows it for a site the visitor already watches a lot; Safari never), so on a refusal it plays
-     MUTED instead (autoplay, below): the video never sits stopped because sound was refused. Only then
-     (.is-automuted) a labelled "Turn sound on" pill sits in the card's top-right corner: static, no pulse, 44px tall
-     (app.css .lpv-snd). A press turns the sound on AND starts the video again from 0:00, so the visitor hears it
-     from the beginning, and the pill goes. The bar's sound button works as normal throughout, and the visitor's
-     choice sticks. A first tap on the frame does the same as the pill (above), and so does the visitor's FIRST PRESS
-     ANYWHERE ELSE ON THE PAGE (wake, below): sound comes on at the earliest moment any browser allows it. */
-  const pill = document.createElement("button");
-  pill.type = "button"; pill.className = "lpv-snd";
-  pill.innerHTML = svg("i-quiet", '<path d="M4 9v6h4l5 4V5L8 9H4zM17 10l4 4m0-4l-4 4"/>', false) + "<span>Turn sound on</span>";
-  card.append(pill);
+     MUTED instead (autoplay, below): the video never sits stopped because sound was refused. NOTHING ON THE VIDEO
+     SAYS SO (owner, 2026-11-14: the "turn sound on" pill: "get rid of that"; removed). The visitor's first tap on the
+     frame (above), or FIRST PRESS ANYWHERE ELSE ON THE PAGE (wake, below), turns the sound on AND starts the video
+     again from 0:00, so they hear it from the beginning: the earliest moment any browser allows sound. The bar's
+     sound button works as normal throughout, and the visitor's choice sticks. */
   const setAuto = (on) => { autoMuted = on; card.classList.toggle("is-automuted", on); };
   const paintSound = () => {
     card.classList.toggle("is-muted", v.muted);
     sound.setAttribute("aria-label", v.muted ? "Turn the sound on" : "Turn the sound off");
     sound.title = v.muted ? "Sound on" : "Sound off";
-    if (!v.muted && autoMuted) setAuto(false);                    // sound is on, however it got there: the pill goes
+    if (!v.muted && autoMuted) setAuto(false);                    // sound is on, however it got there
   };
   sound.addEventListener("click", () => { setAuto(false); v.muted = !v.muted; });   // the visitor's choice sticks
-  pill.addEventListener("click", () => {
-    soundFromStart();                                             // hear it from the beginning
-    if (!sound.hidden) sound.focus({ preventScroll: true });     // the pill is gone; focus lands on the bar's sound button
-  });
   /* THE FIRST PRESS ANYWHERE TURNS THE SOUND ON (owner, 2026-11-14: "fix that so it plays with audio as default").
      No page can start sound before the visitor has pressed something on it; that is the browser's rule, not ours. So
      while it plays muted for that reason, the visitor's first click, tap or key ANYWHERE on the page turns the sound
@@ -538,23 +529,31 @@ for (const el of document.querySelectorAll("[data-carry-utm]")) {
   });
 })();
 
-/* THE CARDS' PICTURES MOVE WITH THE SCROLL: the FALLBACK (owner, 2026-11-14: "slight animations ... that relates to the
-   scroll ... all displays possible"; app.css "THE CARDS' PICTURES MOVE WITH THE SCROLL"). A browser with CSS
-   scroll-driven animations scrubs them natively and this does nothing. Without them, #lp-how gets .lp-scrub-js, which
-   makes every moving piece a PAUSED 1 s CSS animation, and this script sets each one's currentTime (Web Animations API,
-   no style attribute: CSP-safe) from its card's progress through the screen (0 = the card's top at the bottom of the
-   screen, 1 = its bottom at the top: CSS's `cover` range), mapped through the piece's own --lpm-a / --lpm-b window.
-   Passive scroll / scrollend / resize listeners feeding at most one rAF per frame, and only the cards an IntersectionObserver says
-   are on screen are measured; a card that leaves is pinned at 0 (below) or 1 (above). Nothing runs while the page is
-   still. Under reduced motion it stops (the cards are the static design: app.css gives the pieces no animation then)
-   and starts again if reduced motion is switched back off. Without IntersectionObserver or element.getAnimations it
-   never starts. */
+/* THE CARDS' PICTURES MOVE WITH THE SCROLL, SLOWLY ENOUGH TO SEE (owner, 2026-11-14: "slight animations ... that relates to
+   the scroll ... all displays possible"; then "have the effects be slower. right now its too quick to even see"; app.css
+   "THE CARDS' PICTURES MOVE WITH THE SCROLL"). This script drives them in EVERY browser: CSS's own scroll-linked
+   animations (the @supports path in app.css) can never move slower than the scroll itself, and a quick flick finished
+   them in a fraction of a second. #lp-how gets .lp-scrub-js, which makes every moving piece a PAUSED 1 s CSS animation;
+   this sets each one's currentTime (Web Animations API, no style attribute: CSP-safe) from its card's progress through
+   the screen (0 = the card's top at the bottom of the screen, 1 = its bottom at the top: CSS's `cover` range), mapped
+   through the piece's own --lpm-a / --lpm-b window. THE DRAWN PROGRESS FOLLOWS THE SCROLL AT A CAPPED SPEED: at most
+   SPEED of the card's progress per second, easing into where the scroll put it over its last stretch (TAU). So a
+   slow scroll moves the pictures with it (a quarter-second behind), while a fast one plays each card's sequence over
+   about 1.5 s instead of in one frame (the stretches where no piece moves, below .10 and above .48, are skipped, so
+   there is no dead wait). Scrolling back up runs it backwards the same way. A rAF loop runs only while a
+   card on screen is still catching up, then stops: nothing runs on a still page once the pictures have settled.
+   Cards off screen are set at once (0 below, 1 above): nothing animates where nobody sees it. A card already on
+   screen when the page loads starts settled. Under reduced motion it stops (app.css gives the pieces no animation
+   then) and starts again if reduced motion is switched back off. Without IntersectionObserver or
+   element.getAnimations it never starts, and app.css's CSS-only path (where supported) or the static design remains. */
 (function cardScrub() {
   const how = document.getElementById("lp-how");
   if (!how || !document.body.classList.contains("home")) return;
-  if (window.CSS && CSS.supports && CSS.supports("animation-timeline: view()")) return;   // native: CSS does it all
   const calm = matchMedia("(prefers-reduced-motion: reduce)");
   if (!("IntersectionObserver" in window) || typeof how.getAnimations !== "function") return;
+  const SPEED = 0.25;  // card progress per second, at most: a card's pieces (between .10 and .48) take ~1.5 s or more
+  const TAU = 0.25;    // seconds: the ease into the target once it is close
+  const LO = 0.1, HI = 0.48;   // app.css: no piece moves below .10 or above .48, so the drawn progress skips those stretches
   const cards = [...how.querySelectorAll(".lp-how-card")];
   const span = new WeakMap();                                     // animation -> [a, b], read once from its piece's CSS
   const windowOf = (anim) => {
@@ -566,23 +565,41 @@ for (const el of document.querySelectorAll("[data-carry-utm]")) {
     }
     return w;
   };
+  const shown = new Map();                                        // card -> the progress drawn now
   const setCard = (card, p) => {
+    shown.set(card, p);
     for (const anim of card.getAnimations({ subtree: true })) {
       const [a, b] = windowOf(anim);
       anim.currentTime = Math.min(1, Math.max(0, (p - a) / (b - a))) * 1000;
     }
   };
   const live = new Set();
-  let raf = 0;
-  const paint = () => {
+  let raf = 0, last = 0;
+  const frame = (now) => {
     raf = 0;
+    const dt = last ? Math.min(0.1, (now - last) / 1000) : 1 / 60;
+    last = now;
     const vh = innerHeight;
+    let busy = false;
     for (const c of live) {
       const r = c.getBoundingClientRect();
-      setCard(c, Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height))));
+      const goal = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
+      if (!shown.has(c)) { setCard(c, goal); continue; }          // on screen at load: start settled
+      let p = shown.get(c);
+      if (goal > p && p < LO) p = Math.min(goal, LO);            // nothing to see down there: no dead wait before it moves
+      else if (goal < p && p > HI) p = Math.max(goal, HI);
+      const d = goal - p;
+      if (Math.abs(d) < 0.0005) { if (p !== shown.get(c) || d) setCard(c, goal); continue; }
+      let step = d * (1 - Math.exp(-dt / TAU));
+      const cap = SPEED * dt;
+      if (Math.abs(step) > cap) step = Math.sign(d) * cap;
+      setCard(c, p + step);
+      busy = true;
     }
+    if (busy) raf = requestAnimationFrame(frame);
+    else last = 0;
   };
-  const ask = () => { if (!raf) raf = requestAnimationFrame(paint); };
+  const ask = () => { if (!raf) raf = requestAnimationFrame(frame); };
   const io = new IntersectionObserver((list) => {
     for (const en of list) {
       if (en.isIntersecting) live.add(en.target);
@@ -594,13 +611,12 @@ for (const el of document.querySelectorAll("[data-carry-utm]")) {
     how.classList.add("lp-scrub-js");
     for (const c of cards) io.observe(c);                         // observing reports every card once, so each gets set
     addEventListener("scroll", ask, { passive: true });
-    addEventListener("scrollend", ask, { passive: true });        // where supported: one last measure where a smooth scroll lands
     addEventListener("resize", ask, { passive: true });
   };
   const stop = () => {
-    io.disconnect(); live.clear();
+    io.disconnect(); live.clear(); shown.clear();
+    cancelAnimationFrame(raf); raf = 0; last = 0;
     removeEventListener("scroll", ask);
-    removeEventListener("scrollend", ask);
     removeEventListener("resize", ask);
     how.classList.remove("lp-scrub-js");
   };
