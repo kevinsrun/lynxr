@@ -1,0 +1,263 @@
+{
+  "question_id": "a024",
+  "slug": "ask-a-brand-for-feedback-after-a-job",
+  "theme": "ugc-brand-deals",
+  "title": "How do you ask a brand for feedback after a job?",
+  "description": "How to ask a brand for UGC feedback once a job wraps: when to send it, short questions that get real answers, and how to use the replies in your next pitch.",
+  "short_answer": "Ask for feedback in one short message sent soon after final delivery, with two or three specific questions the brand can answer in a line each. Make it easy to reply, thank them whatever they say, and turn the answers into changes you can show in your next pitch.",
+  "sections": [
+    {
+      "heading": "When is the best moment to ask?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Ask once the final files are approved and the job is closed, because the work is still fresh for the brand and nothing is left to negotiate.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Asking during revisions mixes feedback with change requests, and the reply turns into another round of edits. Asking months later means the person may have moved on or forgotten the details. A good trigger is the message where they confirm they have everything: reply in that same thread, so the context sits right above your question.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "If the job went through a rough patch, still ask, but wait until the final approval has landed. Feedback on a hard job can be the most useful you get, because it shows you what to fix.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "Which questions get useful answers?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Ask narrow questions about the work itself, because a broad question like how did it go invites a polite one-word reply you cannot act on.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Pick two or three of these, not all of them, so the message stays short enough to answer between meetings:",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "list",
+          "text": "",
+          "items": [
+            "Which of the videos are you most likely to use first, and why that one?",
+            "Was there a [hook](/glossary/#hook) or a line you would want more of next time?",
+            "Was anything in my delivery harder to use than it needed to be, such as file names, captions or length?",
+            "Did the script match what you had in mind from the [brief](/glossary/#brief), or did you have to explain more than you expected?",
+            "Is there anything you would want me to do differently on the next job?"
+          ],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Questions about a specific hook are worth asking because they connect straight to how you write the next one; if the answer surprises you, [hook and payoff](/blog/hook-payoff/) is a useful lens for working out why.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "What should the message actually say?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Keep the message to a thank-you, your questions and an easy way out, so replying feels like a favour that takes a minute, not a task.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Here is a version you can copy and adjust:",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "list",
+          "text": "",
+          "items": [
+            "Hi [NAME], thanks again for the [PRODUCT] job. I enjoyed working on it.",
+            "Now that it is wrapped, could I ask two quick questions? Which video are you most likely to run first, and was there a line or hook you would want more of next time?",
+            "A one-line answer is plenty, and no worries at all if things are busy."
+          ],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Notice what is missing: no request for a testimonial, no pitch for more work, no long recap. Mixing those in makes the message harder to answer and blurs what you are asking for.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "What if the brand does not reply, or replies with almost nothing?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Let it go after one gentle follow-up, because the job is already done well and pushing for feedback can sour a relationship that was going fine.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "A short reply such as all good, thanks still tells you something: nothing went badly enough to mention. If you want to try once more, wait a little while and send a single line in the same thread, for example: \"Hi [NAME], no pressure, just curious which video you ended up using first.\" That question is easier to answer than a full review, and it can reopen the conversation. If there is still no reply, note it and move on, the same way you would after [following up on a pitch](/blog/follow-up-ugc-pitch/).",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "How do you use the answers in your next pitch?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Turn each useful answer into a small, visible change, because a pitch that shows you listened is stronger than one that only says you did.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Keep a simple note for every job so the answers do not disappear into your inbox. A table like this works:",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "table",
+          "text": "",
+          "items": [],
+          "table_head": [
+            "What the brand said",
+            "What you change",
+            "Where it shows up next"
+          ],
+          "table_rows": [
+            [
+              "They used the video with the shortest hook first",
+              "Lead with a tighter opening line",
+              "The first sample you attach to a pitch"
+            ],
+            [
+              "The captions file saved them time",
+              "Send captions with every delivery",
+              "A line in your pitch about what you deliver"
+            ],
+            [
+              "They had to explain the tone twice",
+              "Ask about tone before you write",
+              "Your list of questions before filming"
+            ],
+            [
+              "They wanted more close-up product shots",
+              "Add close-ups to your [shot list](/glossary/#shot-list)",
+              "Your next sample reel"
+            ]
+          ],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "When you next write a [pitch email](/blog/ugc-pitch-email/), mention one of these changes in a sentence, for example: \"I now send captions with every video, so your team can post straight away.\" It shows a brand you improve between jobs. If the same brand liked the work, the answers also give you a natural reason to get in touch again, which is covered in [getting rebooked](/blog/get-rebooked-ugc/).",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "Can you ask for a testimonial at the same time?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Keep the testimonial request separate from the feedback questions, because asking for praise in the same message makes honest answers less likely.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Once you have their reply and it is positive, you can follow up with a short, separate ask: \"Would you be happy for me to quote that line on my portfolio?\" Use only what they actually wrote, ask before you share it anywhere, and leave the wording to them. If they say no, thank them and keep the feedback for yourself; it is still the most valuable part.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    }
+  ],
+  "status": "live",
+  "published": "2026-11-16",
+  "withdrawn": null,
+  "origin": "agent",
+  "hooks": [],
+  "model": "claude-code-routine",
+  "cost_usd": 0.0,
+  "judge": {
+    "verdict": "pass",
+    "scores": {
+      "answers_first": 5,
+      "useful_specific": 5,
+      "ugc_focus": 5,
+      "originality": 4,
+      "voice": 4
+    }
+  }
+}

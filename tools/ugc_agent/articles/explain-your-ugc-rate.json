@@ -1,0 +1,239 @@
+{
+  "question_id": "a026",
+  "slug": "explain-your-ugc-rate",
+  "theme": "ugc-rates-and-pay",
+  "title": "How do you explain your UGC rate to a brand?",
+  "description": "How to justify your UGC rate to a brand by describing the scope: the script, hooks, filming, edits, revisions and usage that your quote already includes.",
+  "short_answer": "Explain your UGC rate by describing what the brand gets for it, not by defending the number. List the work inside the quote, from script to revisions, say how long they can use the videos, and offer a smaller scope if the budget is tight instead of quietly lowering the price.",
+  "sections": [
+    {
+      "heading": "Why explain the scope instead of the number?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Explain the scope because a brand can weigh a list of work, while a bare number invites a counter-offer with nothing to compare it against.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "When you defend a number, the conversation becomes about whether you deserve it. When you describe the work, it becomes about what the brand needs, which is a question you can answer well. It also protects you later: if the quote names what is included, any extra ask is visibly extra. Much of that work happens before you film, such as when you [turn the brand brief into a script](/blog/brief-to-script/), and a brand that only sees the finished video cannot know it took place unless you tell them.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "What should the explanation list?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "List every stage of the job the rate covers, in the order you do it, so the brand can see the whole piece of work in one glance.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "A short breakdown like this works in an email or on a quote. Keep the wording plain and leave the numbers to the total:",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "table",
+          "text": "",
+          "items": [],
+          "table_head": [
+            "What is included",
+            "What it means for the brand"
+          ],
+          "table_rows": [
+            [
+              "A written [script](/glossary/#script) sent for approval",
+              "They agree the message before anything is filmed"
+            ],
+            [
+              "Several opening options for the [hook](/glossary/#hook)",
+              "They can test which opening works for their audience"
+            ],
+            [
+              "Filming, editing and captions",
+              "They receive a video ready to post or run"
+            ],
+            [
+              "One round of revisions",
+              "Small changes are covered without a new quote"
+            ],
+            [
+              "Usage for the period you agree",
+              "They know how long and where they can use the video"
+            ]
+          ],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Adjust the rows to match what you actually offer. If something is not included, such as raw footage, say so in a separate line rather than leaving it unclear; [whether to charge extra for raw footage](/blog/raw-footage-in-ugc/) covers how to word that.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "How do you word it in a message?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Lead with the total, follow with what it covers, and end with an easy next step, so the brand reads the value straight after the price.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Wording you can adapt to your own offer:",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "list",
+          "text": "",
+          "items": [
+            "Hi [NAME], thanks for the details on [PRODUCT]. My rate for this is [AMOUNT].",
+            "That covers a script for your approval, three opening hooks, filming and editing, captions, and one round of revisions.",
+            "It includes use of the video on your own accounts until [DATE]. Paid ads or a longer period can be added if you need them.",
+            "If that works, I can send the script by [DATE]."
+          ],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Notice that the message does not apologise or explain your costs. A brand is deciding whether the work fits their plan, and a clear list helps them do that faster than a reason why you charge what you do.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "What if the brand says the rate is too high?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Offer to change the scope rather than the price, because cutting the rate for the same work tells the brand your first number was not real.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Ask what their budget is, then show what fits it. A reply could be: \"Thanks for being upfront. For [AMOUNT], I could do the video with one hook instead of three and no captions file. Would that work?\" You might also suggest fewer videos, a shorter usage period or a simpler edit. If nothing fits, it is fine to decline warmly; [how to say no to a UGC job politely](/blog/turn-down-a-ugc-job/) has wording for that.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Whatever you agree, confirm the final scope in writing before you start, so both sides remember the same deal. [What to agree in writing before a job starts](/blog/agree-in-writing-before-ugc/) lists what to cover.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "Should usage rights be part of the explanation?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Name usage rights in every quote, because how and how long the brand can use a video is part of what they are paying for.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Keep it to one plain sentence, such as where the video can appear and until when, and agree the detail in writing with the brand. If they want to run the video as an ad or for longer, treat that as a separate line in the quote, not a favour. [What usage rights are in UGC](/blog/what-are-ugc-usage-rights/) explains the terms if a brand uses words you have not seen before.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "How do you make this easier next time?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Turn your breakdown into a reusable list, because the same explanation sent consistently is easier to stand behind than one written from scratch under pressure.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Save your table and message as a template, and update it whenever your offer changes. Over time it becomes the core of a [rate card](/blog/ugc-rate-card/), so a [brand](/glossary/#brand) can see the scope before they even ask. Having it ready also means you answer a rate question calmly the same day, instead of second-guessing yourself while you write.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    }
+  ],
+  "status": "live",
+  "published": "2026-11-16",
+  "withdrawn": null,
+  "origin": "agent",
+  "hooks": [],
+  "model": "claude-code-routine",
+  "cost_usd": 0.0,
+  "judge": {
+    "verdict": "pass",
+    "scores": {
+      "answers_first": 5,
+      "useful_specific": 5,
+      "ugc_focus": 5,
+      "originality": 4,
+      "voice": 4
+    }
+  }
+}
