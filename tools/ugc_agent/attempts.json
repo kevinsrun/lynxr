@@ -334,5 +334,18 @@
   "a026": {
     "fails": 0,
     "published": "2026-11-16"
+  },
+  "a027": {
+    "fails": 1,
+    "last_fail": "2026-11-17",
+    "last_error": "originality: 2 shared 12-word run(s) with blog/ugc-script-for-skincare/index.html"
+  },
+  "a029": {
+    "fails": 0,
+    "published": "2026-11-17"
+  },
+  "a031": {
+    "fails": 0,
+    "published": "2026-11-17"
   }
 }

@@ -1,0 +1,320 @@
+{
+  "question_id": "a029",
+  "slug": "ugc-script-with-no-talking",
+  "theme": "ugc-scripts",
+  "title": "How do you write a UGC script with no talking?",
+  "description": "How to write a UGC script without voiceover: plan each beat as an action plus a short line of on-screen text, so the video makes sense with the sound off.",
+  "short_answer": "Write a UGC script with no talking as a list of actions, each paired with one short line of on-screen text. The hands, the product and the text carry the message together, so every beat must show something new and every caption must be readable at a glance, with the sound off.",
+  "sections": [
+    {
+      "heading": "What changes when a UGC script has no talking?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "The words move from your mouth to the screen, so each line has to be short enough to read while something else is happening.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "In a spoken [script](/glossary/#script), you can explain while you show. Without a voice, the viewer reads and watches at the same time, and long text loses that race. That means fewer words overall, more of the story told by your hands, and a clear order the eye can follow. Write your draft in the layout from [the two-column script](/blog/two-column-script/), with the action on the left and the on-screen text on the right, because a silent video is really two tracks that have to line up.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Before you start, check the [brief](/glossary/#brief) for anything the brand wants said. A required line still has to appear, so you will place it as text instead of speech.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "How do you lay out the beats of a silent script?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Give each beat one action, one short caption and one clear change on screen, and write them in the order the viewer will see them.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "A [beat](/glossary/#beat) in a silent video is the moment something visibly happens: a lid comes off, a hand swaps one item for another, a before shot cuts to an after. If two beats look the same, the viewer has no reason to keep watching, so make each one a different shot or a different movement.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "table",
+          "text": "",
+          "items": [],
+          "table_head": [
+            "Part",
+            "What the camera sees",
+            "What the text says"
+          ],
+          "table_rows": [
+            [
+              "Hook",
+              "The problem, already happening, in the first frame",
+              "A few words naming the situation"
+            ],
+            [
+              "Setup",
+              "What you tried before, or why it bothers you",
+              "One short line of context"
+            ],
+            [
+              "Beats",
+              "The product being used, one step per shot",
+              "A label for each step, if it needs one"
+            ],
+            [
+              "Turn",
+              "The moment the problem stops",
+              "A short reaction or the one detail that matters"
+            ],
+            [
+              "Close",
+              "The product in its place, ready for next time",
+              "The call to action"
+            ]
+          ],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "You can map these onto [the parts of a UGC video script](/short-form-script-structure/); the difference here is that the [hook](/glossary/#hook) has to work as a picture first and a caption second.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "How short should the on-screen text be?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Short enough to read twice before the shot changes, which means a handful of words per caption and one idea at a time.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Read each caption aloud at a normal pace while you watch the shot it sits on. If you can't finish it before the cut, trim the words or hold the shot longer. A few rules keep the text readable:",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "list",
+          "text": "",
+          "items": [
+            "Put one idea in each caption, because two ideas make the viewer pick one and miss the other.",
+            "Leave out anything the picture already shows, so the text adds information instead of repeating it.",
+            "Keep captions in the same part of the frame, so the viewer's eye doesn't have to hunt for them.",
+            "Keep text clear of the product and your hands, because those are the parts of the shot that matter.",
+            "Write in your own words, as you'd text a friend, so it still sounds like a person and not a label."
+          ],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "The first caption does the most work, so try a few of the hook shapes from [how to write a UGC hook that stops the scroll](/how-to-write-a-hook/) as text before you pick one.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "What does a silent UGC script look like written out?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Each beat lists what the camera sees and the caption on screen, and the caption reads as a sentence the creator would type.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "This one is written for a silicone stretch lid set. The say lines here are the on-screen text, not speech. Note how each beat is a new movement, so the video keeps changing even with no voice.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "script",
+          "text": "",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "Example script — written for this answer, for a set of silicone stretch lids",
+          "script_beats": [
+            {
+              "part": "hook",
+              "say": "half a melon, no lid, again",
+              "do": "Top-down shot of a cut melon on a plate, with the open fridge light on it."
+            },
+            {
+              "part": "setup",
+              "say": "the foil never stays on",
+              "do": "A hand presses foil over the melon; one corner springs back up."
+            },
+            {
+              "part": "beat 1",
+              "say": "trying these instead",
+              "do": "Fan out three stretch lids of different sizes on the counter."
+            },
+            {
+              "part": "beat 2",
+              "say": "stretch, press, done",
+              "do": "Close shot of one lid pulled over the melon and smoothed down at the edge."
+            },
+            {
+              "part": "turn",
+              "say": "the next morning, still on",
+              "do": "Same plate lifted out of the fridge, lid in place, tilted towards the camera."
+            },
+            {
+              "part": "close",
+              "say": "the set I use is linked",
+              "do": "Lid peeled off, rinsed and dropped back in the drawer with the others."
+            }
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "text": "Notice the captions are lowercase, short and personal. They describe what you did and noticed, never what the product does for everyone.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "How do you keep the message clear without a voice?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Film the steps in order, show the product's name or label clearly once, and let the result sit on screen long enough to register.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "A spoken video can recover from a confusing shot with a line of explanation. A silent one can't, so plan the shots before the words. Use the script as a [shot list](/glossary/#shot-list) and film each beat as its own clip, which also makes it easier to swap a caption later without refilming.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "list",
+          "text": "",
+          "items": [
+            "Show the problem in a way that needs no explaining, such as a mess, a struggle or a missing piece.",
+            "Hold the turn shot for a beat longer than feels natural, because it's the moment the viewer needs to understand.",
+            "Let the product appear clearly and in good light at least once, so the viewer knows what to look for.",
+            "Put the [call to action](/glossary/#call-to-action) in text over the last shot, in the brand's own wording if the brief gives one."
+          ],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "If the brief lists several points, choose the one or two the picture can show best and put the others in the caption. The answer on [fitting the brand's key points into a short script](/blog/fit-key-points-into-ugc-script/) helps you decide which ones earn a beat.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "Should you still check the script with the brand before filming?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Send the brand a two-column table before filming, because a brand reading silent captions alone can't picture the video.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Send the actions and the text side by side so the brand sees what is on screen at each moment. Ask them to confirm the captions and whether they want music, original sound or none, and agree any required wording in writing before you film. If they would like a voiceover version too, offer it as a separate cut rather than reshaping this one.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    }
+  ],
+  "status": "live",
+  "published": "2026-11-17",
+  "withdrawn": null,
+  "origin": "agent",
+  "hooks": [
+    "half a melon, no lid, again"
+  ],
+  "model": "claude-code-routine",
+  "cost_usd": 0.0,
+  "judge": {
+    "verdict": "pass",
+    "scores": {
+      "answers_first": 5,
+      "useful_specific": 5,
+      "ugc_focus": 4,
+      "originality": 4,
+      "voice": 4
+    }
+  }
+}
