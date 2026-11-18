@@ -1,0 +1,279 @@
+{
+  "question_id": "a030",
+  "slug": "required-wording-in-ugc-script",
+  "theme": "ugc-scripts",
+  "title": "How do you add the brand's required wording to a script naturally?",
+  "description": "How to place a brand's required lines in a UGC script so they sound like you: keep the wording exact, change what surrounds it, and deliver it naturally.",
+  "short_answer": "Keep the brand's required wording exactly as written and change everything around it instead. Give each fixed line a moment in the script where it answers something the viewer has just seen, lead into it with a short line in your own voice, and deliver it at your normal pace rather than reading it out.",
+  "sections": [
+    {
+      "heading": "Can you change the brand's required wording to make it sound better?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Do not change a required line, even slightly, unless the brand agrees to a new version in writing first.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "A line the [brief](/glossary/#brief) marks as fixed is there for a reason you may not see: approval from another team, a promise the brand has made elsewhere, or a phrase it uses everywhere. Swapping one word can send the video back for a reshoot. So treat the wording as locked and treat its surroundings as yours. If a line truly will not sit in your mouth, ask the brand before you film whether a softer version is allowed, and keep the reply with your notes.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "This is a different job from squeezing several selling points into a short video. [Fitting the brand's key points into a short UGC script](/blog/fit-key-points-into-ugc-script/) covers ideas you may phrase your own way. Required wording is the narrower case: the words themselves are fixed.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "Where in the script should a required line go?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Put each required line straight after the moment that makes it relevant, so it lands as an answer rather than an announcement.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Read each fixed line and ask what the viewer would need to have just seen for it to make sense. A line about how a product feels belongs after the close-up. A line about what is in the box belongs after you open it. Then place it in that [beat](/glossary/#beat), not in the opening line, unless the brief says otherwise, because the opening has to stay about the viewer. The section on [where the brand's required lines go](/blog/brief-to-script/#placing-required-lines) shows how to mark them up before you start drafting.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "table",
+          "text": "",
+          "items": [],
+          "table_head": [
+            "Kind of required line",
+            "Where it sits best",
+            "Why there"
+          ],
+          "table_rows": [
+            [
+              "A product name or full product title",
+              "The first beat after the problem",
+              "The viewer now wants to know what you reached for."
+            ],
+            [
+              "A feature phrase written by the brand",
+              "Right after the shot that shows that feature",
+              "The picture proves it while you say it."
+            ],
+            [
+              "A tagline",
+              "Near the end, before the ask",
+              "It reads as a summary instead of a pitch."
+            ],
+            [
+              "A line the brief asks you to say about the post itself",
+              "Where the brief places it, said plainly",
+              "The brand decides this one, so follow it exactly."
+            ]
+          ],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "How do you lead into a fixed line so it sounds like you?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Write a short bridge in your own words just before the fixed line, so your voice carries the viewer into it.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "A required line sounds scripted when it arrives cold, straight after a different thought. A bridge gives it a reason to be said. Keep bridges short and plain, and make them about what you noticed, not about the product's claims.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "list",
+          "text": "",
+          "items": [
+            "Point at the screen: here is the bit I actually checked, then the fixed line.",
+            "Admit you are quoting: the box puts it like this, then the fixed line. This works when the wording is formal, because you are not pretending it is how you talk.",
+            "Ask the viewer's question for them: so what is it actually made of, then the fixed line.",
+            "Follow it with a short line of your own, such as that was the part I cared about, so you end the beat in your own voice.",
+            "Cut any bridge that repeats the fixed line in other words, since saying it twice makes both versions sound rehearsed."
+          ],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "If you want more on keeping the rest of the script in your own voice, read [how to write a UGC script in your own voice](/blog/ugc-script-in-your-own-voice/).",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "What does a script look like with a required line built in?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Here the brand's fixed line is built from placeholders, and every line around it is written to lead into it.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "script",
+          "text": "",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "Example script — written for this answer, for a refillable glass water bottle with a tea infuser",
+          "script_beats": [
+            {
+              "part": "hook",
+              "say": "I keep leaving tea bags to stew in a mug on my desk until they taste like the bottom of a pond.",
+              "do": "Close shot of a dark, cold mug of tea next to a laptop, a soggy tea bag hanging over the rim."
+            },
+            {
+              "part": "setup",
+              "say": "So this week I have been carrying my tea around instead.",
+              "do": "Pick up the glass bottle from the desk and turn it so the infuser basket inside is visible."
+            },
+            {
+              "part": "beat 1",
+              "say": "The leaves go in here. The box puts it like this: [PRODUCT] keeps your leaves in and your tea clear.",
+              "do": "Unscrew the top, spoon loose leaves into the basket, and hold it up to the light."
+            },
+            {
+              "part": "beat 2",
+              "say": "That was the part I cared about, because I hate bits in my teeth.",
+              "do": "Pour a glass from the bottle and hold it to the window so the clear tea shows."
+            },
+            {
+              "part": "turn",
+              "say": "And when it is strong enough, the basket just lifts out.",
+              "do": "Lift the infuser out, tap it on the sink edge, and screw the lid back on."
+            },
+            {
+              "part": "close",
+              "say": "I will link the one I use, if your desk has a pond mug too.",
+              "do": "Set the bottle down next to the old mug, then nudge the mug out of frame."
+            }
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "text": "Notice that the required line sits after the shot of the basket, is flagged as the brand's wording, and is followed by a line of your own. Nothing in the fixed line has been altered.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "How do you deliver a fixed line on camera without reading it?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Learn the fixed line until you can say it while doing the action, and film that beat as its own short take.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "list",
+          "text": "",
+          "items": [
+            "Say the line out loud while doing the action several times before you record, because your hands give your voice a rhythm to follow.",
+            "Film the beat with the fixed line separately, so a stumble costs you one short take, not the whole video.",
+            "Keep your pace the same as the lines around it. Slowing down for the fixed line is what makes it sound like an advert.",
+            "Check the take against the brief word by word before you move on, since a small slip is easy to miss on playback."
+          ],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "What should you send the brand with the script?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Send the script with every required line highlighted, so the brand can confirm the wording before you film.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "A highlighted line lets the person approving the [script](/glossary/#script) check it in seconds and see that the rest is yours. Add a short note such as: Required lines are highlighted and copied exactly from the brief dated [DATE]. Let me know if any wording has changed. That catches an updated brief before it turns into a reshoot.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    }
+  ],
+  "status": "live",
+  "published": "2026-11-18",
+  "withdrawn": null,
+  "origin": "agent",
+  "hooks": [
+    "I keep leaving tea bags to stew in a mug on my desk until they taste like the bottom of a pond."
+  ],
+  "model": "claude-code-routine",
+  "cost_usd": 0.0,
+  "judge": {
+    "verdict": "pass",
+    "scores": {
+      "answers_first": 5,
+      "useful_specific": 5,
+      "ugc_focus": 5,
+      "originality": 4,
+      "voice": 4
+    }
+  }
+}

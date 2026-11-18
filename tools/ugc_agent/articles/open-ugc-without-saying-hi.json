@@ -1,0 +1,279 @@
+{
+  "question_id": "a028",
+  "slug": "open-ugc-without-saying-hi",
+  "theme": "ugc-hooks",
+  "title": "How do you open a UGC video without saying hi?",
+  "description": "How to write a UGC video opening line that skips the greeting: start mid-moment, pick a first frame, and swap a hello for a line the viewer recognises.",
+  "short_answer": "Open a UGC video in the middle of a moment, with a line about the problem or the action already under way. Cut the greeting, your name and any lead-in, so the first words are something the viewer recognises from their own day and the first frame shows something already happening.",
+  "sections": [
+    {
+      "heading": "Why does a greeting make a weak opening line?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "A greeting spends your first second on words that tell the viewer nothing about why they should keep watching.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "A hello belongs to a video where the viewer already knows you. In a UGC video for a brand, the viewer has never met you, and the [hook](/glossary/#hook) has to earn the next few seconds on its own. A greeting also sounds like the start of a presentation, which pulls the video away from the feel of an ordinary post. The fix is not a louder hello. It is moving the start of the video later, to a point where something has already gone wrong or is already happening.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Every opener in the [guide to writing a scroll-stopping hook](/how-to-write-a-hook/) starts without a greeting. Read them as places to drop the viewer in, not as lines to recite.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "What does starting mid-moment actually look like?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Starting mid-moment means the camera is already rolling on the problem, the task or the reaction when the viewer arrives.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Picture the version of the video you would film with a greeting, then delete everything before the first interesting second. If you planned to say hello, introduce the product, then show the mess it deals with, start on the mess. The introduction can come later in one short line, once the viewer cares. Use the table to rewrite a greeting opener into a mid-moment one.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "table",
+          "text": "",
+          "items": [],
+          "table_head": [
+            "Greeting opener",
+            "Mid-moment opener",
+            "What changed"
+          ],
+          "table_rows": [
+            [
+              "Hi everyone, today I want to show you my new desk lamp.",
+              "I have been squinting at this screen since lunch.",
+              "It starts on the problem the lamp answers."
+            ],
+            [
+              "Hey guys, so I have been trying this meal prep box.",
+              "Three lids, no idea which one is the soup.",
+              "The viewer sees the mess before the box appears."
+            ],
+            [
+              "Hello, I am going to review this travel pillow.",
+              "Second hour on this train and my neck has given up.",
+              "It drops the viewer into a place and a feeling."
+            ],
+            [
+              "Okay, so welcome back to my channel.",
+              "Wait, do not throw that out yet.",
+              "It interrupts an action the viewer is about to do."
+            ]
+          ],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "What should the first frame show instead of your face saying hello?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "The first frame should show the thing your opening line is about, already in motion, so the picture and the words agree.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "A face that is about to speak gives the viewer nothing to look at yet. A hand already reaching, a spill already spreading or a drawer already jammed shows the moment before you explain it. [What is a visual hook in UGC?](/blog/ugc-visual-hooks/) goes deeper on pictures that open a video. Here, keep one test in mind: if the sound were off, would the first frame still tell the viewer where they are?",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "list",
+          "text": "",
+          "items": [
+            "Start with your hands busy. A hand already doing the task reads as a real moment, not a set-up.",
+            "Start close. A tight shot of the problem gives the eye one thing to find straight away.",
+            "Start after the first move. Press record, do the first step, then trim the edit so the video begins on the second.",
+            "Start on your face only when it is reacting. A look of mild annoyance at a tangled cable is a moment; a smile at the lens is a greeting."
+          ],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "How do you write an opening line that skips the hello?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Write the line you would say to a friend who walked in halfway through the moment, then cut any word that only warms up.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "list",
+          "text": "",
+          "items": [
+            "Name a small, specific annoyance in your own words, because a viewer recognises a detail faster than a category.",
+            "Start with the action word or the object, not with so, okay, hi or today, since those words delay the point.",
+            "Keep it to one breath, so you can say it as the first frame plays without rushing.",
+            "Make it true for you. If you have not had the problem, pick a moment you have had, because the rest of the video has to back the line up.",
+            "Check that the rest of the script answers it. [Hook and payoff](/blog/hook-payoff/) explains why an opening line that promises one thing and delivers another loses the viewer later."
+          ],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "If the brief asks you to say the product name early, keep the mid-moment start and put the name in the second line. [Should a UGC hook mention the product at all?](/blog/should-the-hook-mention-the-product/) covers that choice.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "What does a full script look like when it opens mid-moment?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Here is a short script that opens on the problem, introduces the product in passing, and never says hello.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "script",
+          "text": "",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "Example script — written for this answer, for a set of reusable cable ties",
+          "script_beats": [
+            {
+              "part": "hook",
+              "say": "Every cable behind my desk has knotted itself into one cable.",
+              "do": "Start already mid-pull: a hand tugs one charger lead out from a tangle behind a desk and three others come with it."
+            },
+            {
+              "part": "setup",
+              "say": "I only wanted the one for my headphones.",
+              "do": "Hold up the tangled bundle to the lens, still knotted."
+            },
+            {
+              "part": "beat 1",
+              "say": "So these are going on everything tonight.",
+              "do": "Drop a small pile of soft cable ties on the desk next to the bundle."
+            },
+            {
+              "part": "beat 2",
+              "say": "Loop the cable, wrap the tie, press it shut.",
+              "do": "Close shot of one cable being coiled and closed with a tie, filmed in one smooth move."
+            },
+            {
+              "part": "turn",
+              "say": "And now I can pull out just the one I want.",
+              "do": "Reach behind the desk and pull out a single tidy coil on its own."
+            },
+            {
+              "part": "close",
+              "say": "The ones I used are linked, if your desk looks like mine did.",
+              "do": "Wide shot of the tidied cables behind the desk, then point down to where the link sits."
+            }
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "text": "Notice where the product appears: in the third line, after the viewer has seen the knot. The [beat](/glossary/#beat) order stays the same as any other script; only the starting point has moved later.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "What if the brand asks you to introduce yourself?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Follow the brief, but place the introduction after the opening moment, so the start still drops the viewer into something.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "If the brief wants your name or a line about who you are, open on the moment, then say it in the setup: I am a nurse on night shifts, so my lunch lives in this bag for twelve hours. That introduction does work, because it explains the problem. If you are unsure whether the brief means a greeting or just a line about you, ask the brand before you film, and offer to shoot both openings so they can choose in the edit.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    }
+  ],
+  "status": "live",
+  "published": "2026-11-18",
+  "withdrawn": null,
+  "origin": "agent",
+  "hooks": [
+    "Every cable behind my desk has knotted itself into one cable."
+  ],
+  "model": "claude-code-routine",
+  "cost_usd": 0.0,
+  "judge": {
+    "verdict": "pass",
+    "scores": {
+      "answers_first": 5,
+      "useful_specific": 5,
+      "ugc_focus": 5,
+      "originality": 4,
+      "voice": 4
+    }
+  }
+}

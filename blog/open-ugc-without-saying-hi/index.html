@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- Static prose, no scripts of its own, no network calls. The one <script> in
+     this document is a `type="application/ld+json"` DATA BLOCK — it is never
+     executed, and browsers do not apply script-src to a non-executable script
+     type. Verified: this page loads with an empty console and no CSP report.
+     If that ever changes, the fix is a 'sha256-…' for the block, NOT
+     'unsafe-inline'. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; form-action 'none'; base-uri 'none'; object-src 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How do you open a UGC video without saying hi?</title>
+<meta name="description" content="How to write a UGC video opening line that skips the greeting: start mid-moment, pick a first frame, and swap a hello for a line the viewer recognises.">
+<meta property="og:title" content="How do you open a UGC video without saying hi?">
+<meta property="og:description" content="How to write a UGC video opening line that skips the greeting: start mid-moment, pick a first frame, and swap a hello for a line the viewer recognises.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="lynxr">
+<meta property="og:url" content="https://lynxr.io/blog/open-ugc-without-saying-hi/">
+<meta property="og:image" content="https://lynxr.io/og-v3.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How do you open a UGC video without saying hi?">
+<meta name="twitter:description" content="How to write a UGC video opening line that skips the greeting: start mid-moment, pick a first frame, and swap a hello for a line the viewer recognises.">
+<meta name="twitter:image" content="https://lynxr.io/og-v3.png">
+<link rel="canonical" href="https://lynxr.io/blog/open-ugc-without-saying-hi/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20261114i">
+<link rel="alternate icon" type="image/png" sizes="32x32" href="/favicon.png?v=20261114i">
+<link rel="shortcut icon" href="/favicon.ico?v=20261114i">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20261114i">
+<link rel="stylesheet" href="/app.css?v=20261114i">
+<script src="/theme.js?v=20261114i"></script>
+<script src="/backdrop.js?v=20261114i" defer></script>
+<!-- BEGIN SHARED ENTITY JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://lynxr.io/#organization",
+      "name": "lynxr",
+      "legalName": "lynxr LLC",
+      "disambiguatingDescription": "lynxr (lynxr.io) is the UGC creator tool: a web app that turns a TikTok or Instagram video into a script for a brand, made by lynxr LLC in Allston, Massachusetts. It is unrelated to the Honeywell and Ademco LYNXR, LYNXR-2 and LYNXR-I security control panels, to the Lynx R-1 and R-2 mixed reality headsets, and to lynxr.com.",
+      "alternateName": [
+        "lynxr.io",
+        "lynxr LLC"
+      ],
+      "url": "https://lynxr.io/",
+      "slogan": "the UGC creator tool",
+      "description": "lynxr LLC makes lynxr, the UGC creator tool: paste a TikTok or Instagram video and it writes that video's format as a script for the brand you make content for. lynxr LLC is a partner company of Lynx Media Group, the UGC agency.",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://lynxr.io/#logo",
+        "url": "https://lynxr.io/lynxr-logo.png",
+        "contentUrl": "https://lynxr.io/lynxr-logo.png",
+        "width": 512,
+        "height": 512,
+        "caption": "lynxr"
+      },
+      "image": {
+        "@id": "https://lynxr.io/#logo"
+      },
+      "email": "hello@lynxr.io",
+      "sameAs": [
+        "https://www.instagram.com/lynxr.io/",
+        "https://www.tiktok.com/@lynxr.io",
+        "https://www.linkedin.com/company/lynxr",
+        "https://github.com/lynxrio/lynxr"
+      ],
+      "founder": [
+        {
+          "@type": "Person",
+          "@id": "https://lynxr.io/#junsa-hwang",
+          "name": "Junsa Hwang",
+          "jobTitle": "Co-founder",
+          "url": "https://www.instagram.com/junsahwang/",
+          "sameAs": [
+            "https://www.instagram.com/junsahwang/"
+          ]
+        },
+        {
+          "@type": "Person",
+          "@id": "https://lynxr.io/#gawin-hsu",
+          "name": "Gawin Hsu",
+          "jobTitle": "Co-founder",
+          "url": "https://www.instagram.com/gawinhsu/",
+          "sameAs": [
+            "https://www.instagram.com/gawinhsu/"
+          ]
+        }
+      ],
+      "knowsAbout": [
+        "short-form video scripts",
+        "UGC scripts",
+        "video formats",
+        "hooks",
+        "TikTok",
+        "Instagram Reels"
+      ]
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://lynxmediagroup.org/#org",
+      "name": "Lynx Media Group",
+      "legalName": "Lynx Media Group LLC",
+      "url": "https://lynxmediagroup.org/",
+      "description": "A UGC agency in Allston, Massachusetts that runs creator campaigns for brands. Its partner company, lynxr LLC, makes lynxr.",
+      "logo": "https://lynxmediagroup.org/imgs/logo-social.png",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "57 Glenville Ave",
+        "addressLocality": "Allston",
+        "addressRegion": "MA",
+        "postalCode": "02134",
+        "addressCountry": "US"
+      },
+      "sameAs": [
+        "https://www.instagram.com/lynxmediagroup/",
+        "https://www.tiktok.com/@lynxmediagroup",
+        "https://www.linkedin.com/company/lynxmediagroup"
+      ],
+      "founder": [
+        {
+          "@id": "https://lynxr.io/#junsa-hwang"
+        },
+        {
+          "@id": "https://lynxr.io/#gawin-hsu"
+        }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://lynxr.io/#website",
+      "url": "https://lynxr.io/",
+      "name": "lynxr",
+      "inLanguage": "en",
+      "publisher": {
+        "@id": "https://lynxr.io/#organization"
+      },
+      "about": {
+        "@id": "https://lynxr.io/#lynxr"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://lynxr.io/#lynxr",
+      "name": "lynxr",
+      "url": "https://lynxr.io/",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Any modern web browser",
+      "description": "lynxr is the UGC creator tool. It turns a short-form video into a script. You send it a public link to a TikTok or Instagram video; it watches the video, transcribes what is said, works out the format underneath — the hook, the beats, the order they come in — and rewrites that format as a script for the company you are making content for.",
+      "featureList": [
+        "Reads a public TikTok or Instagram link. There is no file upload.",
+        "Transcribes the video and extracts the format underneath it: the hook, the beats and the order they come in.",
+        "Writes one script per company from a single link, reading the video only once.",
+        "Never asks for a platform password and never posts anything on your behalf."
+      ],
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "UGC creators: people who make short-form videos for brands, and the people who brief them"
+      },
+      "isAccessibleForFree": true,
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "free",
+          "price": "0",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://lynxr.io/pricing/",
+          "description": "Free to start: every account gets 3 scripts a week, no card required. Sign-up is open."
+        },
+        {
+          "@type": "Offer",
+          "name": "lynxr pro",
+          "price": "24.99",
+          "priceCurrency": "USD",
+          "priceSpecification": {
+            "@type": "UnitPriceSpecification",
+            "price": "24.99",
+            "priceCurrency": "USD",
+            "billingDuration": "P1M",
+            "unitText": "month"
+          },
+          "availability": "https://schema.org/InStock",
+          "url": "https://lynxr.io/pricing/",
+          "description": "Up to 150 scripts in any rolling 30 days and up to 30 in any 24 hours, billed monthly. Tax is added at checkout where it applies."
+        }
+      ],
+      "publisher": {
+        "@id": "https://lynxr.io/#organization"
+      },
+      "creator": {
+        "@id": "https://lynxr.io/#organization"
+      },
+      "alternateName": "lynxr.io"
+    }
+  ]
+}
+</script>
+<!-- END SHARED ENTITY JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "@id": "https://lynxr.io/blog/open-ugc-without-saying-hi/#article",
+  "headline": "How do you open a UGC video without saying hi?",
+  "description": "How to write a UGC video opening line that skips the greeting: start mid-moment, pick a first frame, and swap a hello for a line the viewer recognises.",
+  "image": "https://lynxr.io/og-v3.png",
+  "inLanguage": "en",
+  "datePublished": "2026-11-18",
+  "dateModified": "2026-11-18",
+  "author": {
+    "@id": "https://lynxr.io/#organization"
+  },
+  "publisher": {
+    "@id": "https://lynxr.io/#organization"
+  },
+  "isPartOf": {
+    "@id": "https://lynxr.io/#website"
+  },
+  "mentions": {
+    "@id": "https://lynxr.io/#lynxr"
+  },
+  "mainEntityOfPage": "https://lynxr.io/blog/open-ugc-without-saying-hi/"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "lynxr",
+      "item": "https://lynxr.io/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "questions and answers",
+      "item": "https://lynxr.io/faq/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "UGC hooks",
+      "item": "https://lynxr.io/faq/ugc-hooks/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "How do you open a UGC video without saying hi?",
+      "item": "https://lynxr.io/blog/open-ugc-without-saying-hi/"
+    }
+  ]
+}
+</script>
+</head>
+<!-- This page's visible copy is written in normal sentence case in the
+     source, unlike the lowercase-with-exceptions convention the rest of the
+     site uses. Painted output is identical either way — text-transform:
+     lowercase in app.css flattens all of it — but a model reading the source
+     sees real casing here, because this page carries no JSON-LD twin of its
+     prose the way /faq/ does, so the body text is the only machine-readable
+     copy there is. .lp unsets the app's bare main{} container so the sections
+     below can be full-bleed. See the marketing-page block in app.css. -->
+<body class="lp">
+<svg class="lx-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs><linearGradient id="lx-glass" x1="10" y1="0" x2="110" y2="118" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffb38a"/><stop offset=".48" stop-color="#ff7eb8"/><stop offset="1" stop-color="#7b61ff"/></linearGradient><linearGradient id="lx-shade" x1="0" y1="14" x2="0" y2="108" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity=".2"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#3a1478" stop-opacity=".32"/></linearGradient><filter id="lx-soft" x="-40%" y="-80%" width="180%" height="260%"><feGaussianBlur stdDeviation="3"/></filter><mask id="lx-idle" maskUnits="userSpaceOnUse" x="-20" y="-20" width="160" height="160"><rect x="43" y="10" width="34" height="60" rx="17" fill="#fff" transform="rotate(-45 60 62)"/><rect x="43" y="10" width="34" height="60" rx="17" fill="#fff" transform="rotate(45 60 62)"/><rect x="43" y="10" width="34" height="60" rx="17" fill="#fff" transform="rotate(135 60 62)"/><rect x="43" y="10" width="34" height="60" rx="17" fill="#fff" transform="rotate(-135 60 62)"/></mask></defs></svg>
+
+<header class="lp-bar">
+  <div class="lp-in lp-bar-in">
+    <a class="wordmark" href="/"><svg class="mark lx lx-still" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><rect x="-20" y="-20" width="160" height="160" fill="url(#lx-glass)" mask="url(#lx-idle)"/><rect x="-20" y="-20" width="160" height="160" fill="url(#lx-shade)" mask="url(#lx-idle)"/><g class="lx-hl" mask="url(#lx-idle)"><ellipse cx="42" cy="36" rx="30" ry="10" transform="rotate(-40 42 36)" fill="#fff" opacity=".4" filter="url(#lx-soft)"/></g><g class="lx-face"><g><rect x="47" y="48.5" width="8" height="13" rx="4" fill="#fff"/><rect x="65" y="48.5" width="8" height="13" rx="4" fill="#fff"/></g><g transform="translate(60 70)"><path d="M-5 0q5 4 10 0" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g></g></svg><span>lynxr</span></a>
+    <!-- ABSOLUTE, not `#how`. This bar is on all six public pages, and a bare
+         fragment does nothing from /faq/ or /privacy/ — it appends a hash to
+         the current URL and stays put. -->
+    <nav class="lp-nav" aria-label="Main">
+      <a href="/how-it-works/">how it works</a>
+      <a href="/faq/">faq</a>
+    </nav>
+    <span class="lp-actions">
+    <button type="button" class="theme-toggle" aria-pressed="false" aria-label="Switch between light and dark mode">
+      <svg class="tt-moon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.4 14.2A8.6 8.6 0 0 1 9.8 3.6a8.6 8.6 0 1 0 10.6 10.6z"/></svg>
+      <svg class="tt-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M12 2.8v2.3M12 18.9v2.3M2.8 12h2.3M18.9 12h2.3M5.5 5.5l1.6 1.6M16.9 16.9l1.6 1.6M18.5 5.5l-1.6 1.6M7.1 16.9l-1.6 1.6"/></g></svg>
+      <span class="tt-knob"></span>
+    </button>
+    <a class="btn" href="/">get started</a>
+    <!-- Under 760px the nav and the CTA above are display:none and this takes
+         their place. aria-expanded carries the state to a screen reader AND
+         drives which glyph is drawn, so the two cannot disagree. -->
+    <button class="lp-burger" type="button" id="lp-burger" aria-label="menu"
+            aria-expanded="false" aria-controls="lp-menu">
+      <svg class="ico-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <svg class="ico-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button></span>
+  </div>
+  <!-- Inside the bar on purpose: the bar is the sticky element, so a panel
+       parented anywhere else would scroll away from the burger that opened it.
+       `hidden` — not opacity — is what takes these links out of the tab order
+       when it is closed. -->
+  <nav class="lp-menu" id="lp-menu" aria-label="Menu" hidden>
+    <a href="/how-it-works/">how it works</a>
+    <a href="/faq/">faq</a>
+    <a class="btn" href="/">get started</a>
+  </nav>
+</header>
+
+<main>
+
+  <section class="lp-hero">
+    <div class="lp-in">
+      <nav class="post-crumbs" aria-label="Breadcrumb"><a href="/">lynxr</a> / <a href="/faq/">questions</a> / <a href="/faq/ugc-hooks/">hooks</a></nav>
+      <h1 class="lp-h1">How do you open a <span class="acr">UGC</span> video without saying hi?</h1>
+      <p class="lp-lede">Open a <span class="acr">UGC</span> video in the middle of a moment, with a line about the problem or the action already under way. Cut the greeting, your name and any lead-in, so the first words are something the viewer recognises from their own day and the first frame shows something already happening.</p>
+      <p class="post-meta">Published <time datetime="2026-11-18">18 November 2026</time></p>
+    </div>
+  </section>
+
+  <section class="lp-sec">
+    <div class="lp-in">
+      <h2 class="lp-h2" id="why-does-a-greeting-make-a">Why does a greeting make a weak opening line?</h2>
+      <p class="lp-p">A greeting spends your first second on words that tell the viewer nothing about why they should keep watching.</p>
+      <p class="lp-p">A hello belongs to a video where the viewer already knows you. In a <span class="acr">UGC</span> video for a brand, the viewer has never met you, and the <a href="/glossary/#hook">hook</a> has to earn the next few seconds on its own. A greeting also sounds like the start of a presentation, which pulls the video away from the feel of an ordinary post. The fix is not a louder hello. It is moving the start of the video later, to a point where something has already gone wrong or is already happening.</p>
+      <p class="lp-p">Every opener in the <a href="/how-to-write-a-hook/">guide to writing a scroll-stopping hook</a> starts without a greeting. Read them as places to drop the viewer in, not as lines to recite.</p>
+
+      <h2 class="lp-h2" id="what-does-starting-mid-moment-actually-look">What does starting mid-moment actually look like?</h2>
+      <p class="lp-p">Starting mid-moment means the camera is already rolling on the problem, the task or the reaction when the viewer arrives.</p>
+      <p class="lp-p">Picture the version of the video you would film with a greeting, then delete everything before the first interesting second. If you planned to say hello, introduce the product, then show the mess it deals with, start on the mess. The introduction can come later in one short line, once the viewer cares. Use the table to rewrite a greeting opener into a mid-moment one.</p>
+      <div class="post-table">
+        <table>
+          <thead><tr><th scope="col">Greeting opener</th><th scope="col">Mid-moment opener</th><th scope="col">What changed</th></tr></thead>
+          <tbody>
+            <tr><td>Hi everyone, today I want to show you my new desk lamp.</td><td>I have been squinting at this screen since lunch.</td><td>It starts on the problem the lamp answers.</td></tr>
+            <tr><td>Hey guys, so I have been trying this meal prep box.</td><td>Three lids, no idea which one is the soup.</td><td>The viewer sees the mess before the box appears.</td></tr>
+            <tr><td>Hello, I am going to review this travel pillow.</td><td>Second hour on this train and my neck has given up.</td><td>It drops the viewer into a place and a feeling.</td></tr>
+            <tr><td>Okay, so welcome back to my channel.</td><td>Wait, do not throw that out yet.</td><td>It interrupts an action the viewer is about to do.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 class="lp-h2" id="what-should-the-first-frame-show">What should the first frame show instead of your face saying hello?</h2>
+      <p class="lp-p">The first frame should show the thing your opening line is about, already in motion, so the picture and the words agree.</p>
+      <p class="lp-p">A face that is about to speak gives the viewer nothing to look at yet. A hand already reaching, a spill already spreading or a drawer already jammed shows the moment before you explain it. <a href="/blog/ugc-visual-hooks/">What is a visual hook in <span class="acr">UGC</span>?</a> goes deeper on pictures that open a video. Here, keep one test in mind: if the sound were off, would the first frame still tell the viewer where they are?</p>
+      <ul class="lp-list">
+        <li>Start with your hands busy. A hand already doing the task reads as a real moment, not a set-up.</li>
+        <li>Start close. A tight shot of the problem gives the eye one thing to find straight away.</li>
+        <li>Start after the first move. Press record, do the first step, then trim the edit so the video begins on the second.</li>
+        <li>Start on your face only when it is reacting. A look of mild annoyance at a tangled cable is a moment; a smile at the lens is a greeting.</li>
+      </ul>
+
+      <h2 class="lp-h2" id="how-do-you-write-an-opening">How do you write an opening line that skips the hello?</h2>
+      <p class="lp-p">Write the line you would say to a friend who walked in halfway through the moment, then cut any word that only warms up.</p>
+      <ul class="lp-list">
+        <li>Name a small, specific annoyance in your own words, because a viewer recognises a detail faster than a category.</li>
+        <li>Start with the action word or the object, not with so, okay, hi or today, since those words delay the point.</li>
+        <li>Keep it to one breath, so you can say it as the first frame plays without rushing.</li>
+        <li>Make it true for you. If you have not had the problem, pick a moment you have had, because the rest of the video has to back the line up.</li>
+        <li>Check that the rest of the script answers it. <a href="/blog/hook-payoff/">Hook and payoff</a> explains why an opening line that promises one thing and delivers another loses the viewer later.</li>
+      </ul>
+      <p class="lp-p">If the brief asks you to say the product name early, keep the mid-moment start and put the name in the second line. <a href="/blog/should-the-hook-mention-the-product/">Should a <span class="acr">UGC</span> hook mention the product at all?</a> covers that choice.</p>
+
+      <h2 class="lp-h2" id="what-does-a-full-script-look">What does a full script look like when it opens mid-moment?</h2>
+      <p class="lp-p">Here is a short script that opens on the problem, introduces the product in passing, and never says hello.</p>
+      <figure class="post-script">
+        <figcaption>Example script — written for this answer, for a set of reusable cable ties</figcaption>
+        <ol class="ps-beats">
+          <li><span class="ps-part">hook</span><span class="ps-say">say: &ldquo;Every cable behind my desk has knotted itself into one cable.&rdquo;</span><span class="ps-do">do: Start already mid-pull: a hand tugs one charger lead out from a tangle behind a desk and three others come with it.</span></li>
+          <li><span class="ps-part">setup</span><span class="ps-say">say: &ldquo;I only wanted the one for my headphones.&rdquo;</span><span class="ps-do">do: Hold up the tangled bundle to the lens, still knotted.</span></li>
+          <li><span class="ps-part">beat 1</span><span class="ps-say">say: &ldquo;So these are going on everything tonight.&rdquo;</span><span class="ps-do">do: Drop a small pile of soft cable ties on the desk next to the bundle.</span></li>
+          <li><span class="ps-part">beat 2</span><span class="ps-say">say: &ldquo;Loop the cable, wrap the tie, press it shut.&rdquo;</span><span class="ps-do">do: Close shot of one cable being coiled and closed with a tie, filmed in one smooth move.</span></li>
+          <li><span class="ps-part">turn</span><span class="ps-say">say: &ldquo;And now I can pull out just the one I want.&rdquo;</span><span class="ps-do">do: Reach behind the desk and pull out a single tidy coil on its own.</span></li>
+          <li><span class="ps-part">close</span><span class="ps-say">say: &ldquo;The ones I used are linked, if your desk looks like mine did.&rdquo;</span><span class="ps-do">do: Wide shot of the tidied cables behind the desk, then point down to where the link sits.</span></li>
+        </ol>
+      </figure>
+      <p class="lp-p">Notice where the product appears: in the third line, after the viewer has seen the knot. The <a href="/glossary/#beat">beat</a> order stays the same as any other script; only the starting point has moved later.</p>
+
+      <h2 class="lp-h2" id="what-if-the-brand-asks-you">What if the brand asks you to introduce yourself?</h2>
+      <p class="lp-p">Follow the brief, but place the introduction after the opening moment, so the start still drops the viewer into something.</p>
+      <p class="lp-p">If the brief wants your name or a line about who you are, open on the moment, then say it in the setup: I am a nurse on night shifts, so my lunch lives in this bag for twelve hours. That introduction does work, because it explains the problem. If you are unsure whether the brief means a greeting or just a line about you, ask the brand before you film, and offer to shoot both openings so they can choose in the edit.</p>
+    </div>
+  </section>
+
+  <section class="lp-band post-end">
+    <div class="lp-in">
+      <h2 class="lp-h2" id="do-it-with-lynxr">Write your next <span class="acr">UGC</span> script with lynxr</h2>
+      <p class="lp-p">Paste a public TikTok or Instagram link on <a href="/">the homepage</a> and lynxr works out the format — hook, beats, turn, close — and writes it as a script for the brand you make content for. <a href="/how-it-works/">How lynxr writes scripts</a> shows each step. Free to start: <a href="/faq/#what-it-costs">3 scripts a week, no card</a>.</p>
+      <h2 class="lp-h2" id="more-questions">More questions about <span class="acr">UGC</span> hooks</h2>
+      <ul class="lp-list">
+        <li><b><a href="/blog/ugc-hook-without-clickbait/">How do you write a <span class="acr">UGC</span> hook that isn't clickbait?</a></b> — A <span class="acr">UGC</span> hook stops being clickbait when it makes one specific promise that the rest of the video visibly keeps.</li>
+        <li><b><a href="/blog/should-the-hook-mention-the-product/">Should a <span class="acr">UGC</span> hook mention the product at all?</a></b> — A <span class="acr">UGC</span> hook can mention the product when the product itself is the surprise, but leave it out when the viewer needs to recognise a problem first.</li>
+        <li><b><a href="/blog/ugc-hook-too-slow/">How do you know if your <span class="acr">UGC</span> hook is too slow?</a></b> — Your <span class="acr">UGC</span> hook is too slow if the first thing a viewer sees and hears is not yet the problem, the picture or the question the video is about.</li>
+        <li><b><a href="/faq/ugc-hooks/">All questions about <span class="acr">UGC</span> hooks</a></b> — the first seconds of a <span class="acr">UGC</span> video.</li>
+      </ul>
+      <h2 class="lp-h2" id="keep-reading">Keep reading</h2>
+      <ul class="lp-list">
+        <li><b><a href="/how-to-write-a-hook/">How to write a <span class="acr">UGC</span> hook that stops the scroll</a></b></li>
+        <li><b><a href="/blog/question-hooks/">Question hooks: asking one a viewer can't scroll past</a></b></li>
+        <li><b><a href="/faq/">Questions and answers</a></b> — about lynxr, and every topic <span class="acr">UGC</span> creators ask about.</li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer id="site-footer">
+  <div class="foot-wordmark" id="foot-wordmark" aria-hidden="true">lynxr</div>
+  <div class="foot-grid foot-grid-wide">
+    <div class="foot-brand">
+      <svg class="mark lx lx-still" viewBox="0 0 120 120" aria-hidden="true" focusable="false"><rect x="-20" y="-20" width="160" height="160" fill="url(#lx-glass)" mask="url(#lx-idle)"/><rect x="-20" y="-20" width="160" height="160" fill="url(#lx-shade)" mask="url(#lx-idle)"/><g class="lx-hl" mask="url(#lx-idle)"><ellipse cx="42" cy="36" rx="30" ry="10" transform="rotate(-40 42 36)" fill="#fff" opacity=".4" filter="url(#lx-soft)"/></g><g class="lx-face"><g><rect x="47" y="48.5" width="8" height="13" rx="4" fill="#fff"/><rect x="65" y="48.5" width="8" height="13" rx="4" fill="#fff"/></g><g transform="translate(60 70)"><path d="M-5 0q5 4 10 0" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g></g></svg>
+      <p>your <span class="acr">UGC</span> buddy</p>
+    </div>
+    <div class="foot-col">
+      <div class="foot-label">lynxr</div>
+      <a class="foot-link" href="/">home</a>
+      <a class="foot-link" href="/how-it-works/">how it works</a>
+      <a class="foot-link" href="/faq/">faq</a>
+      <a class="foot-link" href="/pricing/">pricing</a>
+      <a class="foot-link" href="/about/">about</a>
+      <!-- Visible label "try it", accessible name "try it — join the wait
+           list". The .sr-only tail is inside the <a>, so it is part of the
+           name computation rather than a title attribute nobody hears. -->
+      <a class="foot-link" href="/">get started<span class="sr-only"> &mdash; sign-up is open to everyone</span></a>
+    </div>
+    <div class="foot-col">
+      <div class="foot-label">guides</div>
+      <a class="foot-link" href="/blog/">blog</a>
+      <a class="foot-link" href="/what-is-a-video-format/">video formats</a>
+      <a class="foot-link" href="/turn-a-video-into-a-script/">video to script</a>
+      <a class="foot-link" href="/short-form-script-structure/">script structure</a>
+      <a class="foot-link" href="/glossary/">glossary</a>
+    </div>
+    <div class="foot-col">
+      <div class="foot-label">company</div>
+      <a class="foot-link entity" href="https://lynxmediagroup.org/" target="_blank" rel="noopener noreferrer">Lynx Media Group</a>
+      <a class="foot-link" href="/privacy/">privacy policy</a>
+      <a class="foot-link" href="/terms/">terms of service</a>
+      <a class="foot-link" href="/accessibility/">accessibility</a>
+    </div>
+    <div class="foot-col">
+      <div class="foot-label">socials</div>
+      <a class="foot-link" href="https://www.instagram.com/lynxr.io/" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <a class="foot-link" href="https://www.tiktok.com/@lynxr.io" target="_blank" rel="noopener noreferrer">TikTok</a>
+      <a class="foot-link" href="https://www.linkedin.com/company/lynxr" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </div>
+  </div>
+  <!-- THIS LINE CARRIES THE AFFILIATION. .entity opts the registered name out
+       of the sitewide lowercase text-transform. -->
+  <div class="foot-legal">
+    &copy; <span class="entity">lynxr LLC</span> 2026
+  </div>
+</footer>
+
+<!-- The top bar's hide-on-scroll. Public pages only — see the file's
+     own header for why it must never reach either app. -->
+<script src="/site.js?v=20261114i" defer></script>
+<script src="/footer.js?v=20261114i" defer></script>
+
+</body>
+</html>

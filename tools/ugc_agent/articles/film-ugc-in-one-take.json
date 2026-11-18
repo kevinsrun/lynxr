@@ -1,0 +1,243 @@
+{
+  "question_id": "a032",
+  "slug": "film-ugc-in-one-take",
+  "theme": "ugc-filming",
+  "title": "How do you film a UGC video in one take?",
+  "description": "How to film a one take UGC video: when a single continuous shot suits the brief, how to rehearse it, and what to do when the take goes wrong halfway.",
+  "short_answer": "Film a UGC video in one take by choosing a script set in one place, rehearsing it on camera until the moves feel routine, and marking a restart point. Keep the take short, set everything within reach first, and record several full passes so you can pick the cleanest one.",
+  "sections": [
+    {
+      "heading": "When does a one-take video suit the brief?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "A single take suits a video that happens in one place, in real time, where cutting away would make the viewer doubt what they saw.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Think of a stain lifting, a lid snapping shut, or a bag being packed from empty to full. In those videos the lack of cuts is part of the proof, because the viewer can see that nothing was swapped between shots. A one-take video is a poor fit when the script jumps between rooms, times of day or outfits, since you would be forcing a walk between them on camera. Read the [brief](/glossary/#brief) first: if it asks for several locations or a lot of close-ups, ask the brand whether it wants a single take at all.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "table",
+          "text": "",
+          "items": [],
+          "table_head": [
+            "Script shape",
+            "One take?",
+            "Why"
+          ],
+          "table_rows": [
+            [
+              "A product doing one job in front of you",
+              "Good fit",
+              "The unbroken shot shows the whole job happening."
+            ],
+            [
+              "A routine in one room, start to finish",
+              "Good fit",
+              "Each step leads into the next without a jump."
+            ],
+            [
+              "A story told across a day",
+              "Poor fit",
+              "Time has to pass, and a cut is the honest way to show it."
+            ],
+            [
+              "A video built on many close-ups",
+              "Poor fit",
+              "Moving the phone in for each detail breaks the flow and the focus."
+            ]
+          ],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "How do you plan the take before you press record?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Plan the take as a short list of moves and lines, in order, with every object placed where your hand will reach for it.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Write the script as a [two-column script](/blog/two-column-script/), with what you say on one side and what you do on the other. In a single take the do column matters more than usual, because every move has to happen live, in the right order, without an edit to hide a fumble. Then turn that column into a [shot list](/glossary/#shot-list) of one shot with several moments inside it.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "list",
+          "text": "",
+          "items": [
+            "Lay out every object in the order you will use it, left to right, so your hands never have to search.",
+            "Open lids, peel seals and loosen caps before you start, unless opening them is the point of the video.",
+            "Mark where you stand and where the product lands with a small piece of tape, so each pass looks the same.",
+            "Cut the script down to the lines you can say while your hands are busy, because a long speech plus a live action is where takes fall apart.",
+            "Pick a moment in the middle where you pause and look at the product. That is your restart point if something goes wrong later."
+          ],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "How do you rehearse a one-take video?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Rehearse with the camera running, in three stages: moves only, then lines only, then both together.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "list",
+          "text": "",
+          "items": [
+            "Moves only. Do the whole action in silence. This shows you where your hands cross, where the product leaves the frame, and where you lose the light.",
+            "Lines only. Say the script out loud while standing in your spot. Change any line that trips you, since a phrase you stumble on in rehearsal will trip you on the take too.",
+            "Both together. Run the full take and watch it back straight away. Note the first moment that looks wrong and fix only that before the next pass.",
+            "Reset between passes exactly as you started, including putting a used product back into its first state, so the passes match.",
+            "Stop rehearsing when two passes in a row feel the same. More practice after that can make the delivery flat."
+          ],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "If the product can only be used once, such as a seal you break or a sachet you pour, rehearse with a stand-in object of the same size, and save the real one for the takes you plan to keep. Ask the brand for a spare if the brief depends on that moment.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "How should you set up the phone for a single take?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Lock the phone on a stand, frame a little wider than feels right, and fix focus and exposure before you start.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "A wider frame gives your hands room to move without leaving the shot, and you can crop in slightly when you edit. Locked focus stops the picture hunting when your hand passes in front of the lens. Check the sound in the room too, since you cannot swap in a cleaner line from another take. The answer on [filming UGC on a phone](/blog/film-ugc-on-a-phone/) covers the phone settings in more detail.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "What do you do when the take goes wrong halfway?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Keep going to the end if the mistake is small, and go back to your restart point if it is not.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "list",
+          "text": "",
+          "items": [
+            "A small slip, such as a missed word or a product turned the wrong way, can stay. Carry on, because a natural recovery can read as real, and you still get a full pass to compare.",
+            "A big slip, such as a spill, a wrong line from the brief, or the product leaving the frame, means stopping. Reset only from the restart point, not from the top.",
+            "If the brand needs a truly unbroken shot, film the full take again from the start. If it accepts one cut, join the two halves at the restart point, where you paused and looked at the product.",
+            "Never end the session on a take you have not watched back. Check the best pass in full, with sound, before you clear the table."
+          ],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "If one moment still will not work after several passes, film it as a separate shot and offer the brand both versions. The answer on [reshooting a single scene](/blog/reshoot-a-ugc-scene-to-match/) explains how to keep that extra shot looking like it belongs.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "How many passes should you record before you stop?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Record until you have two full passes you would be happy to send, because a second good pass protects you from a flaw you only spot later.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Name each pass as you go, for example by saying take [NUMBER] to the camera before you start, so you can find the good ones quickly when you edit. If the brand asked for raw footage, send the chosen pass and say which one it is, so the person reviewing does not have to watch every attempt.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    }
+  ],
+  "status": "live",
+  "published": "2026-11-18",
+  "withdrawn": null,
+  "origin": "agent",
+  "hooks": [],
+  "model": "claude-code-routine",
+  "cost_usd": 0.0,
+  "judge": {
+    "verdict": "pass",
+    "scores": {
+      "answers_first": 5,
+      "useful_specific": 5,
+      "ugc_focus": 5,
+      "originality": 4,
+      "voice": 5
+    }
+  }
+}
