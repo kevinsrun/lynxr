@@ -170,6 +170,16 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://lynxr.io/blog/conflicting-feedback-from-a-brand/</loc>
+    <lastmod>2026-11-19</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://lynxr.io/blog/consistent-look-across-filming-days/</loc>
+    <lastmod>2026-11-19</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://lynxr.io/blog/cut-a-ugc-script-that-runs-long/</loc>
     <lastmod>2026-11-13</lastmod>
     <priority>0.6</priority>
@@ -322,6 +332,11 @@
   <url>
     <loc>https://lynxr.io/blog/reshoot-a-ugc-scene-to-match/</loc>
     <lastmod>2026-11-13</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://lynxr.io/blog/rewrite-a-rejected-ugc-hook/</loc>
+    <lastmod>2026-11-19</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -566,12 +581,12 @@
   </url>
   <url>
     <loc>https://lynxr.io/faq/ugc-briefs/</loc>
-    <lastmod>2026-11-15</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://lynxr.io/faq/ugc-filming/</loc>
-    <lastmod>2026-11-18</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -586,7 +601,7 @@
   </url>
   <url>
     <loc>https://lynxr.io/faq/ugc-hooks/</loc>
-    <lastmod>2026-11-18</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <priority>0.6</priority>
   </url>
   <url>

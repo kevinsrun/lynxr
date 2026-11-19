@@ -338,7 +338,8 @@
   "a027": {
     "fails": 1,
     "last_fail": "2026-11-17",
-    "last_error": "originality: 2 shared 12-word run(s) with blog/ugc-script-for-skincare/index.html"
+    "last_error": "originality: 2 shared 12-word run(s) with blog/ugc-script-for-skincare/index.html",
+    "published": "2026-11-19"
   },
   "a029": {
     "fails": 0,
@@ -359,5 +360,13 @@
   "a032": {
     "fails": 0,
     "published": "2026-11-18"
+  },
+  "a033": {
+    "fails": 0,
+    "published": "2026-11-19"
+  },
+  "a035": {
+    "fails": 0,
+    "published": "2026-11-19"
   }
 }

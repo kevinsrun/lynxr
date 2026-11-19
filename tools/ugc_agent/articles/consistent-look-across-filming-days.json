@@ -1,0 +1,223 @@
+{
+  "question_id": "a033",
+  "slug": "consistent-look-across-filming-days",
+  "theme": "ugc-filming",
+  "title": "How do you keep your look consistent across UGC filming days?",
+  "description": "Keep light, outfit and set matching when a UGC job spans more than one filming day, using a continuity note, reference photos and marks on your setup.",
+  "short_answer": "Keep your look consistent across filming days by recording the setup before you pack it away, with reference photos, a short continuity note and tape marks. Mark where the phone, light and product sat. Then rebuild from those records, at the same time of day, before you film anything new.",
+  "sections": [
+    {
+      "heading": "What changes between filming days without you noticing?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Light, hair, clothes, props and the phone's position shift the most, and each one shows up as a jump when the clips are cut together.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "You see the room every day, so small changes stop registering. The edit does register them. A sleeve rolled up in one clip and down in the next, or a mug that moves sides of the desk, makes a viewer feel something is off even if they cannot say what. Window light is the biggest one, because the same room looks warmer, cooler or brighter depending on the hour and the weather.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "It helps to plan the split before day one. Write a [shot list](/glossary/#shot-list) that groups every shot by look rather than by script order, so each day finishes a whole look instead of leaving half of one for later. The [two-column script](/blog/two-column-script/) layout makes this easier, because the do column already tells you what each shot needs on screen.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "What should you record before you pack up on day one?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Record a photo of each setup from the camera's position, a wide photo of the whole room, and a short written note of anything a photo will not show.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Take the photos on the phone you film with, from exactly where it sits, so you can hold the reference up to the live frame later. A wide shot of the room catches the lamp you moved and the curtain you half closed. The written note covers what is easy to forget: which top, which earrings, how your hair was parted, which side of the product label faced the lens.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "table",
+          "text": "",
+          "items": [],
+          "table_head": [
+            "What to record",
+            "How",
+            "Why it matters"
+          ],
+          "table_rows": [
+            [
+              "Framing",
+              "A photo from the phone's exact position",
+              "Lets you line the new frame up against the old one"
+            ],
+            [
+              "Light",
+              "The time, the weather and which lamps were on",
+              "Window light is the hardest thing to match by eye"
+            ],
+            [
+              "You",
+              "A close photo of hair, face and outfit, plus a note of any jewellery",
+              "Small details are the ones that jump in the edit"
+            ],
+            [
+              "Set and props",
+              "A wide photo, plus where each prop sat",
+              "Moved objects show up when two clips meet"
+            ],
+            [
+              "Product",
+              "Which side faces the lens and how full it is",
+              "A half-used product next to a new one looks like a mistake"
+            ]
+          ],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "How do you mark the setup so you can rebuild it?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Mark the floor and furniture with small pieces of low-tack tape where the tripod legs, the light and the chair stood.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Tape on the floor turns rebuilding into putting things back on their marks, instead of guessing from memory. Note the tripod's height and the angle of the phone too, since a few centimetres of height change the background. If you cannot leave tape down because the room is shared, photograph the tape before you lift it, so the photo becomes the mark. [Filming in a shared home](/blog/film-ugc-in-a-shared-home/) covers working around a room that has to go back to normal.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "list",
+          "text": "",
+          "items": [
+            "Tape a corner mark under each tripod leg, and write the height on the tape.",
+            "Tape where the light stood, and note its brightness setting if it has one.",
+            "Mark the front edge of the chair or stool you sat on.",
+            "Put a small dot of tape on the table where the product stood.",
+            "Photograph all the marks together before you leave the room."
+          ],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "How do you match the light on the second day?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Film at the same time of day as the first session and check the reference photo against the live frame before your first take.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "If the weather has changed, close the curtains and light the room with lamps only, because lamps give the same light every day and windows do not. That can mean refilming a clip or two from day one under the lamp setup, so ask whether the deadline allows it before you start. [How to light a UGC video at home](/blog/light-ugc-at-home/) covers building a lamp setup you can repeat.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Lock the phone's exposure and focus on the same spot both days, so the camera does not quietly brighten or darken the frame. Then film a short test clip, put it next to a day-one clip in your editor, and look at skin tone and the wall behind you. Fix the difference before you film, not after.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "What if something still does not match?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Decide whether the mismatch would show in the cut, and refilm only the shots that meet a clip from the other day.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "A change between two separate sections of a video can read as a new moment, so it may not need fixing. A change inside one continuous section reads as an error. If one scene from day one needs redoing to match, the steps in [reshooting one scene so it matches](/blog/reshoot-a-ugc-scene-to-match/) apply. If the job spans days because the [brief](/glossary/#brief) asks for several looks, tell the brand which shots were filmed on which day, so their feedback can be read against the right setup.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Wording you can copy: Quick note on the files for [PRODUCT]. Scenes one to three were filmed on [DATE] and the rest the next day, with the same setup. Let me know if anything looks off between them and I can refilm that section.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    }
+  ],
+  "status": "live",
+  "published": "2026-11-19",
+  "withdrawn": null,
+  "origin": "agent",
+  "hooks": [],
+  "model": "claude-code-routine",
+  "cost_usd": 0.0,
+  "judge": {
+    "verdict": "pass",
+    "scores": {
+      "answers_first": 5,
+      "useful_specific": 5,
+      "ugc_focus": 4,
+      "originality": 4,
+      "voice": 4
+    }
+  }
+}

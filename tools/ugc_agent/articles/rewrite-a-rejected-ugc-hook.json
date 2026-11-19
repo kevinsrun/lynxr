@@ -1,0 +1,283 @@
+{
+  "question_id": "a027",
+  "slug": "rewrite-a-rejected-ugc-hook",
+  "theme": "ugc-hooks",
+  "title": "How do you rewrite a hook a brand rejected?",
+  "description": "When a brand rejects your UGC hook, find what the note is really about, keep the idea that worked, and send back two new versions to choose from.",
+  "short_answer": "Rewrite a rejected hook by naming what the note objects to, keeping the idea that still fits, and sending two new versions that fix it different ways. Ask one clarifying question if the note is vague, and let the brand pick rather than guessing again.",
+  "sections": [
+    {
+      "heading": "What is the rejection note actually telling you?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "The note tells you which part of the hook failed: the words, the claim, the tone, or the moment it puts on screen.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "A short note like \"not quite right\" can point at any of those, so read it against the [brief](/glossary/#brief) before you touch the line. Check whether the hook uses a word the brief bans, promises more than the video shows, sounds unlike the brand, or opens on something the brand does not want filmed. Each of those has a different fix, and rewriting the whole line when only one word was wrong throws away the part that worked.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "table",
+          "text": "",
+          "items": [],
+          "table_head": [
+            "What the note says",
+            "What it may point at",
+            "What to change"
+          ],
+          "table_rows": [
+            [
+              "It feels too negative",
+              "The tone or the problem named",
+              "Keep the situation, soften how you describe it"
+            ],
+            [
+              "We can't say that",
+              "A claim or a banned word",
+              "Swap the claim for something you saw yourself"
+            ],
+            [
+              "It doesn't sound like us",
+              "Voice and word choice",
+              "Reuse words from the brief and the brand's own captions"
+            ],
+            [
+              "Too slow",
+              "Where the point lands",
+              "Move the key words to the start of the line"
+            ],
+            [
+              "Not quite right",
+              "Unclear",
+              "Ask one question before rewriting"
+            ]
+          ],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "Should you ask the brand what they meant first?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Ask first when the note does not name a part of the hook, because a guess costs another round of review.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Keep the question short and give them two options to point at, so answering takes seconds. If the note is specific, skip the question and go straight to rewrites. The [brief to script guide](/blog/brief-to-script/) shows how to mark up which lines are fixed and which are yours, which helps you see where a hook crossed a line.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Wording you can copy: Thanks for the note on the hook. So I get the next version right, is it the wording, or the moment it opens on? I can send two new options by [DATE].",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "How do you keep the idea while changing the hook?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Separate the situation from the sentence: the situation is the idea, and the sentence is only one way of saying it.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Write the situation in plain words first, such as \"my keys are never where I left them\". That is what made the [hook](/glossary/#hook) work, and it can survive the note. Then write new sentences around it, changing only the part the note objected to. If the note was about tone, keep the situation and change the angle you take on it. If it was about a claim, keep the situation and swap the promise for something you did on camera.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "list",
+          "text": "",
+          "items": [
+            "Write the situation in one plain line, with no product name.",
+            "Circle the words the note objected to, and only those.",
+            "Write three replacements for the circled words, then read each one out loud.",
+            "Check each new line still sets up the same [payoff](/glossary/#payoff), so the rest of the script needs no changes.",
+            "Pick the two that fix the problem in the most different ways."
+          ],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "The payoff check matters because a new hook that promises something different breaks the video after it. [Hook and payoff](/blog/hook-payoff/) explains how to spot that mismatch.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "Why send two new versions instead of one?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Two versions turn the next round into a choice, which is faster to answer than another yes or no.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Make the two versions differ in how they solve the problem, not in small wording. One can open on a question and the other on an action, for example. That way, if the brand likes neither, their reply tells you which direction is closer. Filming both is also an option if the brief allows it, and [how many hooks to film](/blog/ugc-hook-variations/) covers how to plan that.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Here is a worked example. The rejected hook was \"I was ready to throw my whole key bowl in the bin.\" The note said it felt too negative. The situation, losing keys by the door, stays. The two rewrites change only the tone.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "script",
+          "text": "",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "Example script — written for this answer, for a small wall-mounted key hook with a shelf",
+          "script_beats": [
+            {
+              "part": "hook",
+              "say": "Every morning I do the same lap of the flat looking for my keys.",
+              "do": "Walk past the camera, patting your pockets, then stop by the front door."
+            },
+            {
+              "part": "setup",
+              "say": "They were supposed to live right here, by the door.",
+              "do": "Point at an empty patch of wall beside the door frame."
+            },
+            {
+              "part": "beat 1",
+              "say": "So I put this up. The keys go on the hook, the post goes on the shelf.",
+              "do": "Hang the keys and drop an envelope onto the shelf in one movement."
+            },
+            {
+              "part": "beat 2",
+              "say": "It took one screw and a few minutes.",
+              "do": "Show the screw in your palm, then the hook on the wall."
+            },
+            {
+              "part": "turn",
+              "say": "Next morning, I walked straight out.",
+              "do": "Film yourself lifting the keys off the hook and opening the door in one shot."
+            },
+            {
+              "part": "close",
+              "say": "I've linked the one I put up, if your keys go walking too.",
+              "do": "Point to the caption area while holding the keys up."
+            }
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "text": "That script uses version one. Version two swaps only the first line, to: This is the spot by my door where my keys were meant to live, and I never once used it. Both keep the same situation and lead into the same beats, so the brand only has to choose the opening.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "How do you send the rewrites back?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Send both versions in one message, labelled, with one line on what each one changes and why.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Saying what you changed shows the brand you understood the note, so they can check your reading rather than reread the whole script. Keep the rest of the script attached unchanged, so nobody reviews lines that did not move.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Wording you can copy: Here are two new hooks for [PRODUCT]. Version one keeps the morning search but drops the bin line, so it reads lighter. Version two opens on the empty spot by the door, so the tone is calm from the first word. The rest of the script is the same. Which one would you like me to film?",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    }
+  ],
+  "status": "live",
+  "published": "2026-11-19",
+  "withdrawn": null,
+  "origin": "agent",
+  "hooks": [
+    "Every morning I do the same lap of the flat looking for my keys."
+  ],
+  "model": "claude-code-routine",
+  "cost_usd": 0.0,
+  "judge": {
+    "verdict": "pass",
+    "scores": {
+      "answers_first": 5,
+      "useful_specific": 5,
+      "ugc_focus": 5,
+      "originality": 4,
+      "voice": 4
+    }
+  }
+}

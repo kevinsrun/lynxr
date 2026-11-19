@@ -1,0 +1,225 @@
+{
+  "question_id": "a035",
+  "slug": "conflicting-feedback-from-a-brand",
+  "theme": "ugc-briefs",
+  "title": "What do you do when two people at a brand give different feedback?",
+  "description": "When two people at a brand send conflicting UGC feedback, lay both notes side by side, ask who makes the final call, and wait before you edit anything.",
+  "short_answer": "When two people at a brand give you different feedback, stop editing, put both notes side by side, and ask one person to decide. Name the clash plainly and politely, offer the options you can deliver, and change the video only once one answer is agreed in writing.",
+  "sections": [
+    {
+      "heading": "Should you start editing when the notes disagree?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Wait before editing, because any change you make now satisfies one person and undoes the other's note.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Editing to one set of notes means the other person sees their feedback ignored, and you may end up cutting the video twice. Picking a middle version yourself feels helpful but may match neither note, so it can start a third round. A short pause and one clear question costs less time than two rounds of edits.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Before you reply, check each note against the [brief](/glossary/#brief). If one note matches the brief and the other asks for something new, that is useful to point out, because it gives the brand a neutral reason to choose. The section on [what to do if the brief conflicts with the format](/blog/brief-to-script/#brief-conflicts) uses the same idea: the written brief is the shared reference.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "How do you lay the two notes side by side?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Write each clash as one row: the moment in the video, what each person asked for, and what each choice would change.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "A side-by-side view lets the [brand](/glossary/#brand) see the clash in seconds, without rereading two separate messages. Quote each note in the person's own words, so nobody feels misread, and add the timestamp or scene so they can find the moment. Keep your opinion out of the table and put it after, if they ask.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "table",
+          "text": "",
+          "items": [],
+          "table_head": [
+            "Moment in the video",
+            "First note",
+            "Second note",
+            "What changes"
+          ],
+          "table_rows": [
+            [
+              "Opening line",
+              "Make the hook more playful",
+              "Keep the hook as written",
+              "Only the first line, the rest stays"
+            ],
+            [
+              "Product close-up",
+              "Hold it longer",
+              "Cut it shorter, the video feels long",
+              "Pacing of the middle section"
+            ],
+            [
+              "Ending",
+              "Add the discount wording",
+              "No offer in this version",
+              "The last line and the caption"
+            ]
+          ],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "Who should make the final call?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Ask the person who sent you the brief or booked the job to name one decision-maker for feedback.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "That person already owns the project from your side, so asking them keeps you out of an internal disagreement. You are not choosing between colleagues. You are asking where feedback should come from so the video can move forward. If there is no obvious contact, ask in the thread both people are on, so the question is visible to everyone.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "For the next job, ask this up front. Confirming who signs off on feedback is a useful line to add when you [confirm a brief before filming](/blog/confirm-a-ugc-brief-before-filming/), so the question is settled before any notes arrive.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "What should the message to the brand say?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "The message should name the clash, show the options, and ask one direct question about who decides.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Keep it neutral and short. Thank both people, state that the notes point in different directions, and ask for one answer. Offering to do either option shows you are ready to act, not stalling.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Wording you can copy: Hi [NAME], thanks for the notes on the [PRODUCT] video. Two of them point in different directions, so I have put them side by side below. Could you let me know which way you would like me to go, or who should make the call on feedback for this video? Once I have one answer I can send the new cut by [DATE].",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "list",
+          "text": "",
+          "items": [
+            "Send it in the same thread the notes came in, so the context stays together.",
+            "Attach the side-by-side table rather than describing the clash in a paragraph.",
+            "Ask one question, not several, so the reply can be one line.",
+            "Offer a date for the new version that starts from their answer, not from today."
+          ],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "What if they still cannot agree?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Offer to film or cut both versions of the disputed moment, if the time allows it, and let the brand compare them on screen.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Seeing two cuts can settle a disagreement that two messages could not, because both people react to the same thing. Agree in writing whether the extra version counts as one of the [revision rounds](/blog/ugc-revisions/) or is extra work, so the scope stays clear. If a requested change would break the video, the approach in [when feedback would break the video](/blog/ugc-feedback-that-breaks-the-video/) helps you explain why without arguing.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Whatever they decide, reply to confirm it in one line before you edit, such as: Great, I will go with the second note on the ending and keep everything else as is. That line is the record you both work from.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    }
+  ],
+  "status": "live",
+  "published": "2026-11-19",
+  "withdrawn": null,
+  "origin": "agent",
+  "hooks": [],
+  "model": "claude-code-routine",
+  "cost_usd": 0.0,
+  "judge": {
+    "verdict": "pass",
+    "scores": {
+      "answers_first": 5,
+      "useful_specific": 5,
+      "ugc_focus": 5,
+      "originality": 4,
+      "voice": 4
+    }
+  }
+}
