@@ -58,7 +58,7 @@ JSON exports include the full source receipt, applied filters, analysis version,
 
 Verification performed:
 
-- 20 automated unit/integration tests pass on Python 3.12/3.14. Artificial fixtures are confined to tests and never populate the catalog. Coverage includes sentinels, zero denominators, URL identities, baseline refusal, dates/search/sort, duplicate quarantine, deterministic exports, CSV formula safety and HTTP Host/Origin/method/path boundaries. The HTTP test blocks outbound URL fetches while exercising loopback requests.
+- 21 automated unit/integration tests pass on Python 3.12/3.14. Artificial fixtures are confined to tests and never populate the catalog. Coverage includes sentinels, zero denominators, URL identities, baseline refusal, dates/search/sort, duplicate quarantine, deterministic exports, CSV formula safety and HTTP Host/Origin/method/path boundaries. The HTTP test blocks outbound URL fetches while exercising loopback requests.
 - Real-data `verify` passes: source digest, all 1,000 recomputed projections, 983 Reel subset, 60 unknown likes, unknown clocks and deterministic analysis. No network is required by this check.
 - Existing explicit offline runner: 31/31 test scripts pass, including the new Quant Lab entry point. Main does not yet include the separate draft PR #12 tests; this branch does not alter that PR.
 - Focused Ruff passes; JavaScript syntax check passes. Repository-wide Ruff retains 928 existing findings under the host configuration; unrelated cleanup is excluded. Cache-stamp check passes across 127 existing website pages; no site assets are changed.

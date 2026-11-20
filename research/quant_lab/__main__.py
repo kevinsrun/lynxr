@@ -2,6 +2,7 @@
 
 import argparse
 import json
+import sqlite3
 from pathlib import Path
 
 from .analysis import export_bundle
@@ -49,7 +50,7 @@ def main():
         else:
             print(json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False))
         return 0
-    except (OSError, ValueError) as exc:
+    except (OSError, ValueError, sqlite3.Error) as exc:
         parser.exit(1, f"Quant Lab: {exc}. Initialize an isolated data directory first.\n")
 
 

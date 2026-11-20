@@ -6,6 +6,8 @@ import http.client
 import io
 import json
 import sqlite3
+import subprocess
+import sys
 import tempfile
 import threading
 import unittest
@@ -147,6 +149,14 @@ class LabTests(unittest.TestCase):
             with self.assertRaises(sqlite3.OperationalError):
                 load(directory)
             self.assertEqual(list(Path(directory).iterdir()), [])
+
+    def test_cli_missing_database_gives_initialization_guidance(self):
+        with tempfile.TemporaryDirectory() as directory:
+            result = subprocess.run([sys.executable, "-m", "research.quant_lab", "report", "--data-dir", directory],
+                                    capture_output=True, text=True, check=False, timeout=10)
+            self.assertEqual(result.returncode, 1)
+            self.assertIn("Initialize", result.stderr)
+            self.assertNotIn("Traceback", result.stderr)
 
     def test_ingestion_refuses_git_checkout(self):
         from .data import initialize

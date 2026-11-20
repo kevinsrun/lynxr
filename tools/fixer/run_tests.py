@@ -37,13 +37,13 @@ TESTS = [
     "pipeline/test_link_checks.py",
     "pipeline/test_prefilter.py",
     "pipeline/test_script_checks.py",
-    "pipeline/test_quant_lab.py",
     "pipeline/test_showcase.py",
     "pipeline/test_track_posts.py",
     "pipeline/test_video_limits.py",
     "pipeline/test_views.py",
     "pipeline/test_watchdog.py",
     "tools/fixer/test_gate.py",
+    "pipeline/test_quant_lab.py",
 ]
 
 
