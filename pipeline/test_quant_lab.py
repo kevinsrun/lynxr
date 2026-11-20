@@ -7,5 +7,5 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 if __name__ == "__main__":
-    suite = unittest.defaultTestLoader.loadTestsFromName("research.quant_lab.test_lab")
+    suite = unittest.defaultTestLoader.loadTestsFromNames(["research.quant_lab.test_lab", "research.quant_lab.test_intelligence"])
     raise SystemExit(not unittest.TextTestRunner().run(suite).wasSuccessful())

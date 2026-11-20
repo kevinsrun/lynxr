@@ -31,7 +31,7 @@ def csv_export(rows):
     return stream.getvalue().encode("utf-8-sig")
 
 
-def handler_for(source, records):
+def handler_for(source, records, research_dir=None, permission_path=None):
     class Handler(BaseHTTPRequestHandler):
         def log_message(self, *_args):
             pass
@@ -60,11 +60,27 @@ def handler_for(source, records):
                     raise ValueError("query too long")
                 path, query = parsed.path, parse_qs(parsed.query, keep_blank_values=True, max_num_fields=15)
                 assets = {"/": ("lab.html", "text/html"), "/lab.css": ("lab.css", "text/css"),
-                          "/lab.js": ("lab.js", "text/javascript")}
+                          "/lab.js": ("lab.js", "text/javascript"),
+                          "/intelligence": ("intelligence.html", "text/html"),
+                          "/intelligence.js": ("intelligence.js", "text/javascript")}
                 if path in assets:
                     name, mime = assets[path]
                     return self.reply(200, (WEB / name).read_bytes(), mime + "; charset=utf-8")
-                if path == "/api/overview":
+                if path in ("/api/intelligence", "/api/intelligence.json"):
+                    if query:
+                        raise ValueError("fixed offline report")
+                    from .intelligence import report
+                    result = report(source, records, research_dir, permission_path)
+                    if path.endswith(".json"):
+                        return self.reply(200, canonical(result).encode(), filename="quant-intelligence.json")
+                elif path == "/api/annotation-context":
+                    if query:
+                        raise ValueError("fixed annotation context")
+                    from .formats import TAXONOMY, draft
+                    from .intelligence import annotation_posts
+                    result = {"taxonomy": TAXONOMY, "template": draft("", ""),
+                              "posts": annotation_posts(records, research_dir, permission_path)}
+                elif path == "/api/overview":
                     result = {"source": source, "all_records": summarize(filter_records(records, {"type": ["all"]})),
                               "reels": summarize(filter_records(records, {})), "sources": source.get("sources", [source])}
                 elif path.startswith("/api/record/"):
@@ -104,5 +120,5 @@ def handler_for(source, records):
     return Handler
 
 
-def create_server(source, records, port):
-    return ThreadingHTTPServer(("127.0.0.1", port), handler_for(source, records))
+def create_server(source, records, port, research_dir=None, permission_path=None):
+    return ThreadingHTTPServer(("127.0.0.1", port), handler_for(source, records, research_dir, permission_path))

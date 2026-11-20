@@ -810,3 +810,10 @@ dialog h2 {
 #research td, #research th, #research .row-title { font-size: 14px; }
 #research .section-intro, #research-summary, #prospective-route p { font-size: 16px; }
 pre { max-width: 100%; overflow: auto; font-size: 13px; }
+
+/* Offline research annotation surface; no production stylesheet changes. */
+.annotation-form { display: grid; gap: 12px; max-width: 820px; margin: 24px 0 60px; }
+.annotation-form label { font-weight: 600; }
+.annotation-form textarea { width: 100%; box-sizing: border-box; padding: 16px; border: 1px solid #c8d0c4; border-radius: 8px; background: #fafbf7; color: #202d26; font: 14px/1.5 monospace; }
+.annotation-form pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+.annotation-form button, .annotation-form select, .annotation-form input { min-height: 44px; }

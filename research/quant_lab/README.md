@@ -52,3 +52,15 @@ python3 -m research.quant_lab.test_real --data-dir "$HOME/Lynxr-Quant-Terminal-D
 Use the original data-dir selected in Mission 004, even if it differs from this example. Expansion downloads only the fixed 120KB Zenodo workbook when not cached; its immutable record/version and SHA-256 are pinned. It reads the existing authorized sample, keeps its original raw bytes in the expanded directory and never changes the original catalog. The server/analysis/test commands run offline; no extra Python dependencies, credentials or model are needed. Keep both data directories outside Git. The research JSON export includes source-specific provenance, method and a deterministic result digest; new imports have their own ingestion receipts.
 
 The new source gives **calendar dates**, not exact UTC publication/measurement instants. The local catalog projection records precision explicitly; never pass those dates off as point-in-time observations. Rounded K/M counts and the author's special duration encoding are retained in original cells and converted with documented rules. Same-account age-band reference ratios are descriptive and use contemporaneous sample outcomes, never a historical prior baseline. The catalog chooses one source at a time, and cross-source comparison is refused. For exact reproduction of Mission 004, use its original data directory and `verify` command.
+
+
+## Mission 007: authorized observations and manual formats
+
+Open `/intelligence` for source-attributed real-record review priorities, coverage/stability ranges and the manual annotation draft editor. See [mission007-intelligence.md](mission007-intelligence.md) for the exact normalized export/permission contracts, offline import/admission commands, current withdrawal/erasure behavior and evaluation limits. No creator export is bundled or claimed processed. Public-source exploration works independently of the optional private workspace. The editor makes no media request and browser downloads do not write a database.
+
+```sh
+python3 -m research.quant_lab.test_intelligence --real-data-dir /absolute/Lynxr-Quant-Terminal-Data
+python3 -m unittest research.quant_lab.test_intelligence
+```
+
+Boundary tests use explicitly artificial contract inputs; real-data checks require the existing licensed local data directory and make no source fetch. No new synthetic catalog is created.

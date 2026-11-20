@@ -14,12 +14,35 @@ from .server import create_server
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("init", "expand", "serve", "report", "verify", "research", "verify-expanded"))
+    parser.add_argument("command", choices=("init", "expand", "serve", "report", "verify", "research", "verify-expanded", "import-analytics", "annotate", "intelligence"))
     parser.add_argument("--data-dir", type=Path, default=Path.home() / "Lynxr-Quant-Lab-Data")
     parser.add_argument("--base-data-dir", type=Path)
     parser.add_argument("--port", type=int, default=8765)
+    parser.add_argument("--research-dir", type=Path)
+    parser.add_argument("--permissions", type=Path)
+    parser.add_argument("--permission-evidence", type=Path)
+    parser.add_argument("--input", type=Path)
+    parser.add_argument("--original", type=Path)
+    parser.add_argument("--cutoff", help="Exclusive real-workspace availability cutoff; actual local recording required")
     args = parser.parse_args()
     try:
+        if args.command in ("import-analytics", "annotate"):
+            if not all((args.research_dir, args.permissions, args.permission_evidence, args.input)):
+                parser.error("import/annotation requires --research-dir --permissions --permission-evidence --input")
+            if args.command == "import-analytics":
+                from .authorized import import_export
+                if args.original is None:
+                    parser.error("import-analytics requires the --original permitted export")
+                print(json.dumps(import_export(args.research_dir, args.input, args.original,
+                                               args.permissions, args.permission_evidence), indent=2))
+            else:
+                from .formats import import_annotation
+                from .intelligence import annotation_posts
+                _source, records = load(args.data_dir)
+                posts = annotation_posts(records, args.research_dir, args.permissions)
+                print(json.dumps(import_annotation(args.research_dir, args.input, args.permissions,
+                                                   args.permission_evidence, posts), indent=2))
+            return 0
         if args.command == "init":
             source = initialize(args.data_dir)
             print(json.dumps({"database": str(args.data_dir / "catalog.sqlite"), "audit": source["audit"]}, indent=2))
@@ -30,6 +53,10 @@ def main():
             print(json.dumps(expand(args.data_dir, args.base_data_dir), indent=2))
             return 0
         source, records = load(args.data_dir)
+        if args.command == "intelligence":
+            from .intelligence import report
+            print(json.dumps(report(source, records, args.research_dir, args.permissions, args.cutoff), ensure_ascii=False, indent=2))
+            return 0
         if args.command in ("research", "verify-expanded"):
             report = research_report(source, records)
             if args.command == "research":
@@ -51,7 +78,9 @@ def main():
         if args.command == "serve":
             if not 1024 <= args.port <= 65535:
                 parser.error("choose a port from 1024 to 65535")
-            server = create_server(source, records, args.port)
+            if bool(args.research_dir) != bool(args.permissions):
+                parser.error("--research-dir and --permissions must be supplied together")
+            server = create_server(source, records, args.port, args.research_dir, args.permissions)
             print(f"Lynxr Quant Lab — http://127.0.0.1:{args.port} (local evaluation only)", flush=True)
             try:
                 server.serve_forever()
@@ -76,8 +105,8 @@ def main():
         else:
             print(json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False))
         return 0
-    except (OSError, ValueError, sqlite3.Error) as exc:
-        parser.exit(1, f"Quant Lab: {exc}. Initialize an isolated data directory first.\n")
+    except (OSError, ValueError, TypeError, KeyError, sqlite3.Error):
+        parser.exit(1, "Quant Lab: input, permission or data validation failed; no private payload is logged. Initialize an isolated catalog for catalog commands.\n")
 
 
 if __name__ == "__main__":
