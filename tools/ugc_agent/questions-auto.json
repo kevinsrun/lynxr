@@ -340,5 +340,140 @@
     "slug": "set-up-a-ugc-filming-corner",
     "target_query": "ugc filming setup at home",
     "angle": "Choosing and arranging one spot you can reuse for every job with what you own; distinct from lighting and equipment answers, no named gear."
+  },
+  {
+    "id": "a039",
+    "theme": "ugc-formats",
+    "priority": 3,
+    "question": "How do you script a 'things I wish I knew' UGC video?",
+    "slug": "things-i-wish-i-knew-ugc-video",
+    "target_query": "things i wish i knew ugc script",
+    "angle": "Structure a list of honest lessons about using a product into beats with a clear close; no result claims."
+  },
+  {
+    "id": "a040",
+    "theme": "ugc-formats",
+    "priority": 3,
+    "question": "How do you script a routine video around one product?",
+    "slug": "ugc-routine-video-one-product",
+    "target_query": "ugc routine video script",
+    "angle": "Placing the product inside a short real routine so it stays the focus without feeling like an ad; include an example script."
+  },
+  {
+    "id": "a041",
+    "theme": "ugc-formats",
+    "priority": 3,
+    "question": "How do you script a UGC video that answers a viewer question?",
+    "slug": "ugc-video-answering-a-question",
+    "target_query": "reply to comment ugc video",
+    "angle": "Using a real or likely viewer question as the opening and answering it with the product in hand; include an example script."
+  },
+  {
+    "id": "a042",
+    "theme": "ugc-hooks",
+    "priority": 3,
+    "question": "How do you write a hook for a product most people already know?",
+    "slug": "hook-for-a-familiar-product",
+    "target_query": "ugc hook familiar product",
+    "angle": "Finding a fresh situation or detail when the product category is everyday; no claims about what viewers think."
+  },
+  {
+    "id": "a043",
+    "theme": "ugc-hooks",
+    "priority": 3,
+    "question": "How do you write a hook that works with the sound off?",
+    "slug": "ugc-hook-with-sound-off",
+    "target_query": "ugc hook sound off",
+    "angle": "Visual action and on-screen text that carry the opening without audio; distinct from the general on-screen text answer."
+  },
+  {
+    "id": "a044",
+    "theme": "ugc-hooks",
+    "priority": 3,
+    "question": "How do you test your own hooks before sending them to a brand?",
+    "slug": "test-ugc-hooks-before-sending",
+    "target_query": "test ugc hooks",
+    "angle": "Simple self-checks: reading aloud, cutting words, checking the payoff matches; no claims about performance or data."
+  },
+  {
+    "id": "a045",
+    "theme": "ugc-scripts",
+    "priority": 3,
+    "question": "How do you turn brand feedback into a revised script?",
+    "slug": "turn-feedback-into-a-revised-script",
+    "target_query": "revise ugc script feedback",
+    "angle": "Sorting each note into the line it changes and sending a clear revised version; distinct from handling conflicting feedback."
+  },
+  {
+    "id": "a046",
+    "theme": "ugc-filming",
+    "priority": 3,
+    "question": "How do you film close-ups of a product on a phone?",
+    "slug": "film-ugc-product-close-ups",
+    "target_query": "ugc product close up phone",
+    "angle": "Distance, focus lock, steadiness and light for close-ups of labels and textures; no named apps or gear brands."
+  },
+  {
+    "id": "a047",
+    "theme": "ugc-filming",
+    "priority": 3,
+    "question": "How do you edit a UGC video so the cuts feel natural?",
+    "slug": "edit-ugc-cuts-feel-natural",
+    "target_query": "ugc editing natural cuts",
+    "angle": "Where to cut, how to keep pace and how to hide jumps with cutaways; no named editing tools."
+  },
+  {
+    "id": "a048",
+    "theme": "ugc-briefs",
+    "priority": 3,
+    "question": "What do you do when a brand changes the brief after you film?",
+    "slug": "brief-changes-after-filming",
+    "target_query": "ugc brief changed after filming",
+    "angle": "Working out what can be reused, what needs refilming and how to agree the extra work in writing; no legal claims."
+  },
+  {
+    "id": "a049",
+    "theme": "ugc-briefs",
+    "priority": 3,
+    "question": "How do you write a short delivery note to send with your files?",
+    "slug": "ugc-delivery-note",
+    "target_query": "ugc delivery message",
+    "angle": "What to list when you hand over files and how to word it; distinct from naming and sending files."
+  },
+  {
+    "id": "a050",
+    "theme": "ugc-brand-deals",
+    "priority": 3,
+    "question": "How do you reply when a brand asks for your rates first?",
+    "slug": "reply-when-brand-asks-for-rates",
+    "target_query": "brand asks for ugc rates reply",
+    "angle": "Wording that asks for scope before quoting and keeps the conversation going; no figures or claims about pricing."
+  },
+  {
+    "id": "a051",
+    "theme": "ugc-getting-started",
+    "priority": 3,
+    "question": "How do you keep track of your UGC jobs and deadlines?",
+    "slug": "track-ugc-jobs-and-deadlines",
+    "target_query": "track ugc jobs",
+    "angle": "A simple tracking routine for briefs, dates and deliverables using a plain list or sheet; no named tools."
+  },
+  {
+    "id": "a052",
+    "theme": "ugc-getting-started",
+    "priority": 3,
+    "question": "How do you review your own UGC samples before sharing them?",
+    "slug": "review-your-own-ugc-samples",
+    "target_query": "review ugc samples",
+    "angle": "A self-check for hook, clarity, sound and framing before samples go in a portfolio; distinct from what a portfolio should include."
+  },
+  {
+    "id": "a053",
+    "theme": "ugc-rates-and-pay",
+    "priority": 3,
+    "question": "How do you explain what's included in your UGC price?",
+    "slug": "explain-whats-included-in-ugc-price",
+    "target_query": "what is included ugc price",
+    "angle": "Listing deliverables, revision rounds and usage in plain wording so scope is clear; no figures, no legal or tax advice."
   }
 ]

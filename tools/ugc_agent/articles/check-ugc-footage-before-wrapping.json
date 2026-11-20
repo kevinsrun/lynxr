@@ -1,0 +1,256 @@
+{
+  "question_id": "a034",
+  "slug": "check-ugc-footage-before-wrapping",
+  "theme": "ugc-filming",
+  "title": "How do you check UGC footage before you stop filming?",
+  "description": "A short on-set routine to check UGC footage for focus, sound, framing and missing shots before you pack up, so you never need a second setup.",
+  "short_answer": "Before you take anything down, play back every take on the phone with sound on and check focus, audio, framing and your shot list in that order. Leave the lights, the phone stand and the product where they are until the last check passes, because a reshoot is easy while the setup still exists.",
+  "sections": [
+    {
+      "heading": "Why check footage before you take the setup down?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Checking on set costs a few minutes, while finding a problem later means rebuilding the light, the angle and the props from memory.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Once the stand is folded and the window light has moved, a single soft clip can turn into a whole new session. Matching it to the rest is hard, as [how to reshoot one UGC scene so it matches the rest](/blog/reshoot-a-ugc-scene-to-match/) shows. A review while everything is still standing lets you redo one take in the same conditions, so it cuts in cleanly with the others.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Treat the check as the last part of filming, not the first part of editing. You are not judging performance yet. You are only asking whether each clip is usable.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "What order should you check each take in?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Check focus first, then sound, then framing, then the product, because that runs from the hardest problem to fix in the edit to the easiest.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "A soft face can't be sharpened later, and bad audio is hard to rescue, while a slightly loose frame can be cropped. Work through each take with the questions below, using the phone's own player at full screen, and keep the [parts of your script](/short-form-script-structure/) in view so you can hear whether each line landed.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "table",
+          "text": "",
+          "items": [],
+          "table_head": [
+            "Check",
+            "What to look or listen for",
+            "If it fails"
+          ],
+          "table_rows": [
+            [
+              "Focus",
+              "Pinch in on your eyes and on the label of the product. Both should be crisp, not just the background.",
+              "Lock focus on your face, then film the take again."
+            ],
+            [
+              "Sound",
+              "Listen with headphones in. Check for hum, echo, a fridge, traffic, or clipped loud words.",
+              "Turn off the noise or move closer to the phone, then repeat the line."
+            ],
+            [
+              "Framing",
+              "Check your head isn't cut off, the product sits clear of the edges, and nothing odd is in the background.",
+              "Move the stand or tidy the shot, then film again."
+            ],
+            [
+              "Product",
+              "Check the label reads the right way, the packaging is clean, and your hands don't cover the name.",
+              "Turn the product, wipe it, and refilm only that moment."
+            ],
+            [
+              "Light",
+              "Look for a face that goes dark mid-take, or a hard shadow across the product.",
+              "Wait for the light to settle or move the lamp, then refilm."
+            ]
+          ],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Headphones matter for the sound check, because a phone speaker hides the hum that a viewer with earbuds will hear. For more on fixing what you hear, see [how to get clear audio in a UGC video](/blog/ugc-audio/).",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "How do you check you have every shot the brief asked for?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Hold your shot list next to the camera roll and tick off each line only when you have watched a clip that covers it.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Before filming, turn the [brief](/glossary/#brief) into a [shot list](/glossary/#shot-list), one line per shot. If you wrote a [two-column script](/blog/two-column-script/), the do column is already that list. At the end of the session, go down it line by line. A take you remember filming doesn't count until you have seen it play back.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "list",
+          "text": "",
+          "items": [
+            "Tick each spoken line of the script against a clean take, so no line is missing or cut off mid-word.",
+            "Tick each close-up of the product, including any feature the brief names.",
+            "Tick the extra footage you planned, such as hands opening the box or the product in use.",
+            "Tick any required wording or on-screen moment the brief asks for, word for word.",
+            "Mark one backup take of the hook, because it is the line most likely to get a change request."
+          ],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "If you aren't sure what extra footage to film, [what B-roll to film for a UGC video](/blog/ugc-b-roll/) gives you a starting set to check against.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "How do you make the check quick enough to actually do?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Check as you go, after each scene, so the final review is a short confirmation rather than a long rewatch of everything.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "After you finish one [beat](/glossary/#beat) of the script, play the best take back once before moving on. That way a focus problem gets caught while you are still in that position, holding the same product. At the very end you only need to scroll the camera roll, check the list, and listen to anything you weren't sure about.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "list",
+          "text": "",
+          "items": [
+            "Say the scene name out loud at the start of each take, so you can find it fast when you play back.",
+            "Favourite or star the take you like in the camera roll as soon as you review it.",
+            "Delete obvious false starts on the spot, so the roll is shorter to scroll.",
+            "Take a wide photo of the whole setup before you pack up, so a later refilm can match the light and position.",
+            "Keep a pair of headphones next to the phone stand, so the sound check is never skipped."
+          ],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Marking takes on set also makes the edit faster. [How to organise UGC footage before you edit](/blog/organise-ugc-footage/) picks up from there.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "What should you do if you find a problem after packing up?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Decide whether the edit can hide it before you rebuild anything, because a crop, a cutaway or a trimmed line can save a clip.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "A loose frame can be cropped. A stumble can be cut by trimming to the clean half of the line or covering it with a product close-up. A soft face or a noisy line usually can't be fixed, so plan to refilm that one moment and match the light, clothes and position to the photos you took of the setup.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "If a refilm would push you past the deadline, tell the brand early and say which shot you are redoing and why. Then add the missed check to your list, so the same gap doesn't appear on the next job.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    }
+  ],
+  "status": "live",
+  "published": "2026-11-20",
+  "withdrawn": null,
+  "origin": "agent",
+  "hooks": [],
+  "model": "claude-code-routine",
+  "cost_usd": 0.0,
+  "judge": {
+    "verdict": "pass",
+    "scores": {
+      "answers_first": 5,
+      "useful_specific": 5,
+      "ugc_focus": 5,
+      "originality": 4,
+      "voice": 4
+    }
+  }
+}

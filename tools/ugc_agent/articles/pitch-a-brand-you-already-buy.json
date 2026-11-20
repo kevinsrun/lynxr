@@ -1,0 +1,233 @@
+{
+  "question_id": "a037",
+  "slug": "pitch-a-brand-you-already-buy",
+  "theme": "ugc-brand-deals",
+  "title": "How do you introduce yourself to a brand you already buy from?",
+  "description": "How to pitch a brand you already use for UGC: open with real, specific details of how you use the product, then offer one video idea built on them.",
+  "short_answer": "Open with one specific, true detail about how you use the product, then offer a video idea built on that habit and link your samples. Your real routine is the part no other pitch can copy, so lead with it instead of a general introduction, and keep every claim to what you have actually done.",
+  "sections": [
+    {
+      "heading": "Why does being a customer help your pitch?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Being a customer gives you real detail about the product, and specific detail is what makes a pitch sound written for one brand.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "You already know where the product lives in your home, what you reach for it to do, and the small things you'd tell a friend. Those details can become the [hook](/glossary/#hook) of a video, because they are true and nobody else has the same ones. The aim is to show the [brand](/glossary/#brand) what that video could look like, not to ask for a favour as a loyal buyer.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "It also helps you write ideas faster. A [hook guide](/how-to-write-a-hook/) is easier to use when the situation it asks for is one you live with every week.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "What should you gather before you write?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Gather three true details about how you use the product, plus one video idea that grows out of them, before you write a word of the email.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Write the details down plainly, then check each one against your memory. If you can't film it today, leave it out.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "table",
+          "text": "",
+          "items": [],
+          "table_head": [
+            "Detail to note",
+            "Example",
+            "How it helps the pitch"
+          ],
+          "table_rows": [
+            [
+              "Where you use it",
+              "The spray lives by the back door for muddy boots.",
+              "Gives a setting the brand can picture as a video."
+            ],
+            [
+              "What it replaced",
+              "I used to use a cloth and a bucket for this.",
+              "Gives a before and after you can film honestly."
+            ],
+            [
+              "A small habit",
+              "I refill it on the same morning as the bins go out.",
+              "Shows real use, which is hard to fake and easy to believe."
+            ],
+            [
+              "What you'd tell a friend",
+              "Shake it first, or the first spray is thin.",
+              "Becomes a natural tip line inside the video."
+            ]
+          ],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Then find a sample of yours that fits the brand's category, so the idea and the proof arrive together. [What to send with a UGC pitch](/blog/what-to-send-with-a-ugc-pitch/) covers which samples to pick.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "How do you open the email without sounding like a fan letter?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Open with the detail, not with how much you love the brand, because a concrete detail shows real use while praise could come from anyone.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Keep it to one or two sentences, then move straight to the idea. The brand is reading to find out what you could make for them, so the email should get there quickly.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "list",
+          "text": "",
+          "items": [
+            "Subject: a video idea for [PRODUCT], from someone who uses it",
+            "Hi [NAME], your [PRODUCT] lives by my back door, because it's the only thing I use on muddy boots before they come inside.",
+            "I make UGC videos for brands, and I'd like to film one built around that routine: the boots, the spray, and the tip I'd give a friend about shaking it first.",
+            "Here are two samples in a similar style: [LINK]. I can send a short script outline if the idea is useful.",
+            "Thanks, [NAME]"
+          ],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "For the wider structure of a cold pitch, see [how to write a UGC pitch email to a brand](/blog/ugc-pitch-email/). This version only changes the opening and the idea.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "What should you avoid when you pitch a brand you use?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Avoid any claim you can't back up, and avoid leaning on your loyalty as the reason to hire you.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "list",
+          "text": "",
+          "items": [
+            "Don't say how long you've used it unless you are sure, because a brand may ask, and a guess can look like a stretch.",
+            "Don't describe results you haven't seen, because the video would then need to show them.",
+            "Don't ask for free product or a discount in the first email, because it turns the pitch into a request.",
+            "Don't send a full script before they reply, because an outline is quicker to read and easier to say yes to.",
+            "Don't mention reviews you left or plan to leave, because the pitch should stand on the video idea."
+          ],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "If you've only used part of the range, say which part. Honesty about what you know keeps the idea believable, and it lets the brand decide whether to send something else.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    },
+    {
+      "heading": "What do you do if the brand doesn't reply?",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Send one short follow-up with a second idea from your own use, because a new idea gives them a fresh reason to answer.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        },
+        {
+          "kind": "paragraph",
+          "text": "Keep it to a few lines, reply in the same thread, and add a different detail or setting rather than repeating the first email. [How to follow up when a brand doesn't reply](/blog/follow-up-ugc-pitch/) covers timing and wording. If there is still no answer, keep using the product as you were and move on to the next brand on your list.",
+          "items": [],
+          "table_head": [],
+          "table_rows": [],
+          "script_caption": "",
+          "script_beats": []
+        }
+      ]
+    }
+  ],
+  "status": "live",
+  "published": "2026-11-20",
+  "withdrawn": null,
+  "origin": "agent",
+  "hooks": [],
+  "model": "claude-code-routine",
+  "cost_usd": 0.0,
+  "judge": {
+    "verdict": "pass",
+    "scores": {
+      "answers_first": 5,
+      "useful_specific": 5,
+      "ugc_focus": 5,
+      "originality": 4,
+      "voice": 4
+    }
+  }
+}
