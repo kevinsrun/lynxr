@@ -6,14 +6,17 @@ import sqlite3
 from pathlib import Path
 
 from .analysis import export_bundle
+from .comparisons import research_report
 from .data import SHA256, initialize, load, parse_csv, sha
+from .educational import WORKBOOK_SHA, expand, parse_workbook
 from .server import create_server
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("init", "serve", "report", "verify"))
+    parser.add_argument("command", choices=("init", "expand", "serve", "report", "verify", "research", "verify-expanded"))
     parser.add_argument("--data-dir", type=Path, default=Path.home() / "Lynxr-Quant-Lab-Data")
+    parser.add_argument("--base-data-dir", type=Path)
     parser.add_argument("--port", type=int, default=8765)
     args = parser.parse_args()
     try:
@@ -21,7 +24,30 @@ def main():
             source = initialize(args.data_dir)
             print(json.dumps({"database": str(args.data_dir / "catalog.sqlite"), "audit": source["audit"]}, indent=2))
             return 0
+        if args.command == "expand":
+            if args.base_data_dir is None:
+                parser.error("expand requires --base-data-dir with the existing verified real catalog")
+            print(json.dumps(expand(args.data_dir, args.base_data_dir), indent=2))
+            return 0
         source, records = load(args.data_dir)
+        if args.command in ("research", "verify-expanded"):
+            report = research_report(source, records)
+            if args.command == "research":
+                print(json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False))
+                return 0
+            blob = (args.data_dir / "sources" / "educational-reels.xlsx").read_bytes()
+            expected = parse_workbook(blob)
+            actual = [r for r in records if r.get("source_id") == "educational-reels"]
+            primary = [r for r in records if r.get("source_id") == "brightdata-reels"]
+            original_blob = (args.data_dir / "sources" / "brightdata-reels.csv").read_bytes()
+            original_rows, _audit = parse_csv(original_blob)
+            original_projection = [{**r, "source_id": "brightdata-reels", "publication_precision": "timestamp_utc"} for r in original_rows]
+            if (sha(original_blob) != SHA256 or primary != original_projection or sha(blob) != WORKBOOK_SHA or expected != actual or len(primary) != 1000
+                    or report["real_reels_total"] != 1283 or len(report["example_pairs"]) != 3
+                    or report != research_report(source, records)):
+                raise ValueError("expanded real-data verification failed")
+            print("PASS: 300 genuine annotated Reels / 21 accounts + 983 original Reels, six inspectable examples, reproducible source-separated research")
+            return 0
         if args.command == "serve":
             if not 1024 <= args.port <= 65535:
                 parser.error("choose a port from 1024 to 65535")

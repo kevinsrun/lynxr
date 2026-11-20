@@ -10,6 +10,7 @@ const fmt = (v) =>
   v === null || v === undefined
     ? "Unknown"
     : new Intl.NumberFormat("en-US", { maximumFractionDigits: 1 }).format(v);
+const multiple = (v) => v === null || v === undefined ? "Unavailable" : new Intl.NumberFormat("en-US", {minimumFractionDigits:2, maximumFractionDigits:3}).format(v) + "×";
 const pct = (v) =>
   v === null || v === undefined ? "Unknown" : (v * 100).toFixed(2) + "%";
 const day = (v) => (v ? v.slice(0, 10) : "Unknown");
@@ -56,7 +57,7 @@ function selection() {
   $("compare").disabled = selected.size !== 2;
 }
 function original(record) {
-  const a = el("a", "Open on Instagram ↗", "button primary detail-link");
+  const a = el("a", "Open original on Instagram", "button primary detail-link");
   a.href = record.url;
   a.target = "_blank";
   a.rel = "noopener noreferrer";
@@ -211,6 +212,9 @@ form.addEventListener("submit", (e) => {
   page = 1;
   catalog();
 });
+form.elements.source.addEventListener("change", () => {
+  selected.clear(); selection();
+});
 form.addEventListener("reset", () => {
   page = 1;
   selected.clear();
@@ -249,7 +253,9 @@ async function detail(id) {
     );
     n.append(
       card("Observed metadata", [
-        ["Published · UTC", r.published_at || "Unknown"],
+        ["Published", r.published_at || "Unknown"],
+        ["Publication precision", r.publication_precision === "calendar_day_timezone_unspecified" ? "Calendar day · time and timezone not supplied" : "Timestamp · UTC"],
+        ["Source", s.name],
         ["Views / plays", `${fmt(r.views)} / ${fmt(r.video_play_count)}`],
         ["Likes / comments", `${fmt(r.likes)} / ${fmt(r.num_comments)}`],
         ["Interaction ratio", pct(r.engagement_per_view)],
@@ -268,14 +274,31 @@ async function detail(id) {
       ]),
     );
     n.append(el("p", b.interpretation, "detail-caption"));
+    if (r.annotations) {
+      const ref = b.age_band_reference;
+      n.append(card("Same-account age-band reference · descriptive", [
+        ["Calendar age / band", fmt(r.age_calendar_days) + " days / " + ref.age_band],
+        ["OTHER sampled posts", fmt(ref.other_posts)],
+        ["Other-post median views", fmt(ref.other_median_views)],
+        ["Observed views / reference median", ref.descriptive_ratio === null ? "Unavailable · sparse group" : multiple(ref.descriptive_ratio)],
+        ["Limitation", ref.limitation],
+      ]));
+      n.append(card("Published human structure annotations", annotationPairs(r)));
+      n.append(el("p", "Single coder, not fully blinded. Lynxr has not downloaded or independently reannotated this video. Attention-retention potential is a judgment, not audience retention.", "detail-caption"));
+      n.append(el("p", s.attribution, "detail-caption"));
+      const raw = el("details");
+      raw.append(el("summary", "Inspect all original workbook cell values"), el("pre", JSON.stringify(r.source_cells, null, 2)));
+      n.append(raw);
+    }
     n.append(
       card("When and how was this measured?", [
-        ["Original metric observation", "Not supplied"],
+        ["Original metric observation", r.metric_observed_date ? r.metric_observed_date + " · calendar date; timezone/time unknown" : "Not supplied"],
         ["Original metric collection", "Not supplied"],
         ["Dataset Git publication", s.repository_published_at],
         ["Local download", s.downloaded_at],
-        ["Native post ID", r.post_id],
-        ["CSV logical row", r.source_rows.join(", ")],
+        ["Native numeric post ID", r.post_id || "Not supplied · shortcode identifies linked post"],
+        ["Source row identity", r.source_study_id ? "Study Video ID " + r.source_study_id : "CSV row " + r.source_rows.join(", ")],
+        ["Source sheet / row", (r.source_id === "educational-reels" ? "Analysis / " : "CSV / ") + r.source_rows.join(", ")],
         [
           "Source data quality",
           Object.keys(r.quality).length
@@ -303,17 +326,23 @@ $("compare").addEventListener("click", () => {
   selected.forEach((r) => {
     const n = card("@" + r.creator, [
       ["Posted", day(r.published_at)],
-      ["Observed views", fmt(r.views)],
+      ["Observed views", fmt(r.views) + (r.counter_text ? " · source " + r.counter_text.views : "")],
       ["Observed plays", fmt(r.video_play_count)],
       ["Interaction ratio", pct(r.engagement_per_view)],
       ["Duration", fmt(r.duration) + "s"],
       ["Caption cue · inferred", r.caption_cue],
       ["Relative performance", "Unavailable: no comparable-age baseline"],
-      ["Metric observed at", "Unknown"],
+      ["Metric observation", r.metric_observed_date || "Unknown"],
+      ["Source", r.source_id || "Bright Data"],
     ]);
     n.append(original(r));
+    if (r.annotations) n.append(dl(annotationPairs(r)));
     grid.append(n);
   });
+  if (new Set([...selected.values()].map((r) => r.source_id)).size > 1) {
+    showDialog([el("h2", "Choose two records from one source"), el("p", "Counter definitions and sampling methods differ. Cross-source counts are not a valid pooled comparison.")]);
+    return;
+  }
   showDialog([
     el("span", "SIDE-BY-SIDE · DESCRIPTIVE ONLY", "eyebrow"),
     el("h2", "Compare the observations."),
@@ -367,7 +396,7 @@ function provenance(s, all) {
   );
   const c = el("article", undefined, "provenance-card");
   c.append(
-    el("h3", "Rights & interpretation"),
+    el("h3", "Bright Data rights & interpretation"),
     el(
       "p",
       "Local sample evaluation only, based on the provider’s stated testing and proof-of-concept uses. The repository has no open-data license. No dataset redistribution, video downloads, thumbnail requests or embedded players. Caption cues do not establish real video structure.",
@@ -385,6 +414,83 @@ function provenance(s, all) {
     c.append(a, el("br"));
   });
   root.replaceChildren(a, b, c);
+  const annotated = overview.sources.find((source) => source.source_id === "educational-reels");
+  if (annotated) {
+    const d = card("Licensed annotated source", [
+      ["Source", annotated.name], ["License", annotated.rights.license],
+      ["Dataset publication date", annotated.repository_published_at],
+      ["Coding-date range", annotated.coding_date_range.join(" to ") + " · date precision only"],
+      ["Local download receipt", annotated.downloaded_at || "Unavailable"],
+      ["Workbook SHA-256", annotated.sha256], ["Sampling", annotated.listing_frame],
+      ["Media processing rights", "Not established · no media fetched"],
+    ]);
+    d.className = "provenance-card";
+    d.append(el("p", annotated.attribution), el("p", annotated.limitations.join(". ")));
+    root.append(d);
+  }
+}
+function annotationPairs(r) {
+  const a = r.annotations;
+  return [["Hook type · human", a.hook_type || "Missing"],
+    ["Hook duration · human", fmt(a.hook_duration_seconds) + "s"],
+    ["Pacing / delivery", (a.editing_pace || "Missing") + " / " + (a.delivery_style || "Missing")],
+    ["Introduction / clear ending", (a.introduction || "Missing") + " / " + (a.clear_ending || "Missing")],
+    ["CTA · human", a.cta || "Missing"],
+    ["Subtitles / overlays", (a.subtitles || "Missing") + " / " + (a.text_overlays || "Missing")],
+    ["Reveal / product-entry timing", "Not supplied"]];
+}
+function researchTable(headers, rows) {
+  const wrap = el("div", undefined, "table-wrap"), table = el("table"), head = el("tr"), body = el("tbody"), thead = el("thead");
+  headers.forEach((h) => head.append(el("th", h)));
+  thead.append(head);
+  rows.forEach((values) => { const row = el("tr"); values.forEach((v) => {
+    const cell = el("td"); if (v instanceof Node) cell.append(v); else cell.textContent = v; row.append(cell);
+  }); body.append(row); });
+  table.append(thead, body); wrap.append(table); return wrap;
+}
+function creatorButton(name) {
+  const b = el("button", "@" + name, "row-title");
+  b.addEventListener("click", () => {
+    form.reset(); form.elements.source.value = "educational-reels"; form.elements.creator.value = name;
+    page = 1; selected.clear(); selection(); catalog(); tab("catalog");
+  }); return b;
+}
+function renderResearch(data) {
+  $("research-summary").replaceChildren(
+    el("p", `${fmt(data.real_reels_total)} genuine Reel records. ${fmt(data.annotated_reels)} have published human annotations across ${fmt(data.annotated_creators)} accounts. ${fmt(data.descriptive_reference_n)} support a coarse age-band reference; 0 qualify for historical prediction.`),
+    el("p", "Grigorii Tvorogov (2026), Educational Instagram Reels, v1.0, CC BY 4.0. Changes: catalog projection and descriptive analysis. No endorsement. One snapshot per video; exact observation times unknown. No video media copied."));
+  const sourceLink = el("a", "Dataset, codebook and methods report");
+  sourceLink.href = "https://doi.org/10.5281/zenodo.23301344"; sourceLink.target = "_blank"; sourceLink.rel = "noopener noreferrer";
+  $("research-summary").append(sourceLink);
+  const pairs = data.example_pairs.map((pair) => {
+    const root = el("article", undefined, "research-pair");
+    root.append(el("h3", "@" + pair.creator + " · " + pair.age_band + " · " + pair.comparable_sample_n + " sampled posts"));
+    const grid = el("div", undefined, "comparison-grid");
+    for (const [label, item] of [["Lower observed views", pair.lower], ["Higher observed views", pair.higher]]) {
+      const r = item.record, ref = item.reference;
+      const n = card(label, [["Source views", fmt(r.views) + " (" + r.counter_text.views + ")"],
+        ["Comments", fmt(r.num_comments)], ["Published / coded", day(r.published_at) + " / " + r.metric_observed_date],
+        ["Calendar age / duration", r.age_calendar_days + " days / " + fmt(r.duration) + "s"],
+        ["Other-post reference median", fmt(ref.other_median_views) + " · n=" + ref.other_posts],
+        ["Views / descriptive reference", ref.descriptive_ratio === null ? "Unavailable" : multiple(ref.descriptive_ratio)],
+        ...annotationPairs(r)]);
+      const inspect = el("button", "Inspect metadata and provenance"); inspect.addEventListener("click", () => detail(r.id));
+      n.append(el("p", r.id, "detail-caption"), original(r), inspect); grid.append(n);
+    }
+    root.append(grid); return root;
+  });
+  $("research-examples").replaceChildren(...pairs);
+  $("creator-comparisons").replaceChildren(researchTable(
+    ["CREATOR", "POSTS", "MEDIAN VIEWS", "OBSERVED VIEW RANGE", "CALENDAR AGE RANGE", "REFERENCE AVAILABLE N"],
+    data.creator_comparisons.map((r) => [creatorButton(r.creator), fmt(r.n), fmt(r.median_views), fmt(r.min_views) + " – " + fmt(r.max_views), r.age_days_min + " – " + r.age_days_max + " days", fmt(r.reference_available_n)])));
+  $("structure-comparisons").replaceChildren(...data.structure_comparisons.map((group) => {
+    const n = el("article", undefined, "structure-group");
+    n.append(el("h4", group.field.replaceAll("_", " ") + " · varies within " + group.within_creator_variation_n + " / " + data.annotated_creators + " accounts"));
+    n.append(researchTable(["HUMAN CATEGORY", "POSTS", "ACCOUNTS", "MEDIAN VIEWS", "MEDIAN REFERENCE RATIO", "REFERENCE N"], group.groups.map((r) => [r.label, fmt(r.n), fmt(r.creators), fmt(r.median_views), r.median_descriptive_ratio === null ? "Unavailable" : multiple(r.median_descriptive_ratio), fmt(r.reference_n)])));
+    return n;
+  }));
+  $("structure-coverage").replaceChildren(dl(Object.entries(data.structure_coverage).map(([k, v]) => [k.replaceAll("_", " "), v])), el("p", "Missingness: " + data.missingness.annotated_zero_comments + " zero-comment posts retained; " + data.missingness.annotated_below_1000_observed_views + " posts below 1,000 observed views retained. Skipped/deleted counts are unavailable; no failure rate can be estimated."));
+  $("prospective-route").replaceChildren(el("p", data.prospective_first_observation), el("p", "Lawful route for missing video structure: creator-owned footage with explicit local processing rights, or creator-supplied timestamped annotations. Do not infer reveal/product integration from captions."));
 }
 async function start() {
   try {
@@ -396,7 +502,7 @@ async function start() {
     $("stat-median").textContent = fmt(r.median_views);
     $("stat-creators").textContent = fmt(r.creators);
     $("source-summary").textContent =
-      `Pinned CSV · downloaded ${day(s.downloaded_at)}`;
+      `${fmt(r.n)} provider Reels · licensed annotated source ${overview.sources.some((source) => source.source_id === "educational-reels") ? "loaded separately" : "not yet imported"}`;
     const max = Math.max(1, ...r.histogram.map((b) => b.n));
     $("histogram").replaceChildren(
       ...r.histogram.map((b) => {
@@ -408,6 +514,8 @@ async function start() {
       }),
     );
     provenance(s, all);
+    const research = await api("/api/research");
+    renderResearch(research);
     await catalog();
   } catch (e) {
     error(e.message);

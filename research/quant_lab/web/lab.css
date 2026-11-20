@@ -794,3 +794,19 @@ dialog h2 {
     margin-bottom: 10px;
   }
 }
+
+/* Research terminal additions are isolated from website branding assets. */
+.research-pair { margin: 30px 0; }
+.structure-group { margin: 28px 0; }
+#research-summary { max-width: 1050px; }
+#research-summary a { color: #3b6337; }
+#research .comparison-card { min-width: 0; }
+#research .comparison-card .button { margin-right: 10px; }
+#research .comparison-card button { white-space: normal; }
+#research .comparison-card dt, #research .comparison-card dd,
+#structure-coverage dt, #structure-coverage dd { font-size: 14px; line-height: 1.5; }
+#research h3 { font-size: 21px; }
+#research h4 { font-size: 17px; font-weight: 550; }
+#research td, #research th, #research .row-title { font-size: 14px; }
+#research .section-intro, #research-summary, #prospective-route p { font-size: 16px; }
+pre { max-width: 100%; overflow: auto; font-size: 13px; }

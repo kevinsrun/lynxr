@@ -7,6 +7,7 @@ from pathlib import Path
 from urllib.parse import parse_qs, urlsplit
 
 from .analysis import creator_reference, export_bundle, filter_records, summarize
+from .comparisons import research_report, source_for
 from .data import canonical
 
 WEB = Path(__file__).parent / "web"
@@ -22,11 +23,11 @@ def safe_cell(value):
 def csv_export(rows):
     fields = ("id", "post_id", "creator", "url", "published_at", "views", "video_play_count", "likes",
               "num_comments", "engagement_per_view", "duration", "product_type", "caption_cue",
-              "metric_observed_at", "metric_collected_at", "availability", "evidence_type")
+              "metric_observed_at", "metric_collected_at", "availability", "evidence_type", "source_id", "publication_precision", "metric_observed_date", "age_calendar_days")
     stream = io.StringIO(newline="")
     writer = csv.writer(stream)
     writer.writerow(fields)
-    writer.writerows([safe_cell(row[k]) for k in fields] for row in rows)
+    writer.writerows([safe_cell(row.get(k)) for k in fields] for row in rows)
     return stream.getvalue().encode("utf-8-sig")
 
 
@@ -64,13 +65,19 @@ def handler_for(source, records):
                     name, mime = assets[path]
                     return self.reply(200, (WEB / name).read_bytes(), mime + "; charset=utf-8")
                 if path == "/api/overview":
-                    result = {"source": source, "all_records": summarize(records),
-                              "reels": summarize([r for r in records if r["product_type"] == "clips"])}
+                    result = {"source": source, "all_records": summarize(filter_records(records, {"type": ["all"]})),
+                              "reels": summarize(filter_records(records, {})), "sources": source.get("sources", [source])}
                 elif path.startswith("/api/record/"):
                     row = next((r for r in records if r["id"] == path.removeprefix("/api/record/")), None)
                     if row is None:
                         return self.reply(404, b'{"error":"record not found"}')
-                    result = {"record": row, "creator_reference": creator_reference(row, records), "source": source}
+                    result = {"record": row, "creator_reference": creator_reference(row, records), "source": source_for(source, row)}
+                elif path in ("/api/research", "/api/research.json"):
+                    if query:
+                        raise ValueError("research report has a fixed, reproducible definition")
+                    result = research_report(source, records)
+                    if path.endswith(".json"):
+                        return self.reply(200, canonical(result).encode(), filename="quant-lab-real-research.json")
                 elif path in ("/api/catalog", "/api/export.json", "/api/export.csv"):
                     selected = filter_records(records, query)
                     if path == "/api/export.json":

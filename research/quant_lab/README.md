@@ -34,3 +34,21 @@ python3 -m research.quant_lab verify --data-dir "$HOME/Lynxr-Quant-Lab-Data"
 ```
 
 `verify` is the opt-in real-data regression: it checks the downloaded digest, actual inventory and reproducible analysis without network. Default tests use explicitly artificial unit records, never as catalog content. See `findings.md` for measured inventory, comparisons, verification and limitations, and `prospective.md` for the proposed next experiment.
+
+## Mission 006: real-data research terminal
+
+The next increment adds 300 genuine annotated educational Reels from 21 repeated accounts under CC BY 4.0, with full attribution and source-separated descriptive comparisons. See [mission006.md](mission006.md) for the rights decision, empirical results, six inspectable examples, additional-source investigation and concrete prospective observation route. Human annotations are explicitly separate from caption cues; the lab still fetches no media.
+
+Create a **separate** expanded data directory using the verified original catalog:
+
+```sh
+python3 -m research.quant_lab expand --base-data-dir "$HOME/Lynxr-Quant-Lab-Data" --data-dir "$HOME/Lynxr-Quant-Terminal-Data"
+python3 -m research.quant_lab serve --data-dir "$HOME/Lynxr-Quant-Terminal-Data" --port 8766
+python3 -m research.quant_lab research --data-dir "$HOME/Lynxr-Quant-Terminal-Data" > "$HOME/Lynxr-Quant-Terminal-Data/real-research.json"
+python3 -m research.quant_lab verify-expanded --data-dir "$HOME/Lynxr-Quant-Terminal-Data"
+python3 -m research.quant_lab.test_real --data-dir "$HOME/Lynxr-Quant-Terminal-Data"
+```
+
+Use the original data-dir selected in Mission 004, even if it differs from this example. Expansion downloads only the fixed 120KB Zenodo workbook when not cached; its immutable record/version and SHA-256 are pinned. It reads the existing authorized sample, keeps its original raw bytes in the expanded directory and never changes the original catalog. The server/analysis/test commands run offline; no extra Python dependencies, credentials or model are needed. Keep both data directories outside Git. The research JSON export includes source-specific provenance, method and a deterministic result digest; new imports have their own ingestion receipts.
+
+The new source gives **calendar dates**, not exact UTC publication/measurement instants. The local catalog projection records precision explicitly; never pass those dates off as point-in-time observations. Rounded K/M counts and the author's special duration encoding are retained in original cells and converted with documented rules. Same-account age-band reference ratios are descriptive and use contemporaneous sample outcomes, never a historical prior baseline. The catalog chooses one source at a time, and cross-source comparison is refused. For exact reproduction of Mission 004, use its original data directory and `verify` command.

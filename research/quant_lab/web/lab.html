@@ -12,7 +12,8 @@
       <a class="brand" href="/">lynxr<span>QUANT LAB</span></a>
       <div class="local"><i></i> LOCAL RESEARCH ENVIRONMENT</div>
       <nav aria-label="Research sections">
-        <button data-tab="catalog" class="nav active">
+        <button data-tab="research" class="nav active"><span>Real-video research</span></button>
+        <button data-tab="catalog" class="nav">
           01 <span>Reel catalog</span><b>↗</b></button
         ><button data-tab="cohorts" class="nav">
           02 <span>Cohort comparisons</span></button
@@ -28,14 +29,14 @@
           connections.</small
         >
       </div>
-      <footer>MISSION 004 <span>•</span> EVALUATION BUILD</footer>
+      <footer>MISSION 006 <span>•</span> EVALUATION BUILD</footer>
     </aside>
     <main>
       <header>
         <div class="breadcrumb">
           LYNXR RESEARCH <span>/</span> INSTAGRAM REELS
         </div>
-        <span class="badge">PUBLIC SAMPLE · LOCAL ONLY</span>
+        <span class="badge">REAL OBSERVATIONS · LOCAL ONLY</span>
       </header>
       <section class="hero">
         <div>
@@ -48,14 +49,15 @@
         <div class="source-tag">
           <span class="dot"></span>
           <div>
-            Bright Data public sample<small id="source-summary"
+            Source-specific observations<small id="source-summary"
               >Loading verified local records…</small
             >
           </div>
         </div>
       </section>
       <div id="error" role="alert" hidden></div>
-      <section class="stats" aria-label="Sample summary">
+      <p class="table-caption">Reference statistics below: Bright Data sample only. Licensed annotations are analyzed separately in the research view.</p>
+      <section class="stats" aria-label="Bright Data sample summary">
         <article>
           <span>REELS IN THE SAMPLE</span><strong id="stat-reels">—</strong
           ><small id="stat-source">—</small>
@@ -74,7 +76,21 @@
           ><small>Original observation clocks unavailable</small>
         </article>
       </section>
-      <section id="catalog" class="tab-section">
+      <section id="research" class="tab-section">
+        <div class="section-heading"><div><span class="eyebrow">PUBLISHED HUMAN ANNOTATIONS</span><h2>Inspect creative structure and observed counts.</h2></div><a class="button primary" href="/api/research.json">Export real-data research</a></div>
+        <div id="research-summary" class="section-intro">Loading actual records…</div>
+        <h3>Same-account comparisons</h3>
+        <p class="section-intro">Six linked examples from the three largest comparable age-band groups, one per account. Lower/higher refers to observed views. These extremes were chosen for inspection, not to test a hypothesis.</p>
+        <div id="research-examples"></div>
+        <h3>Creator sample coverage</h3>
+        <div id="creator-comparisons"></div>
+        <h3>Structure associations</h3>
+        <p class="section-intro">Published human judgments, not caption heuristics or Lynxr video viewing. Ratios use the median of at least four OTHER same-account posts in the same calendar-age band. They remain descriptive; topics, coarse ages, selection and coder bias can explain differences. Hook groups overlap.</p>
+        <div id="structure-comparisons"></div>
+        <h3>What can be examined?</h3><div id="structure-coverage" class="provenance-card"></div>
+        <h3>First prospective observations</h3><div id="prospective-route" class="provenance-card"></div>
+      </section>
+      <section id="catalog" class="tab-section" hidden>
         <div class="insight-row">
           <article class="distribution">
             <div class="section-kicker">
@@ -122,10 +138,11 @@
                 name="creator"
                 placeholder="e.g. abpmajhatv"
                 list="creators" /></label
-            ><label>Posted from · UTC<input name="start" type="date" /></label
-            ><label>Posted through · UTC<input name="end" type="date" /></label>
+            ><label>Posted from · source date<input name="start" type="date" /></label
+            ><label>Posted through · source date<input name="end" type="date" /></label>
           </div>
           <div class="filter-secondary">
+            <label>Observation source<select name="source"><option value="brightdata-reels">Bright Data · 983 Reels</option><option value="educational-reels">Tvorogov · human annotations</option></select></label>
             <label
               >Content type<select name="type">
                 <option value="clips">Reels · clips</option>
@@ -162,6 +179,7 @@
             ><button class="primary" type="submit">Apply filters</button
             ><button type="reset">Reset</button>
           </div>
+        <div class="filter-secondary"><label>Human hook annotation<select name="hook"><option value="">Any / not annotated</option><option>Visual</option><option>Fact</option><option>Story</option><option>Problem</option><option>Question</option><option>Surprise</option><option>Joke</option><option>None</option></select></label><label>Human pacing annotation<select name="pace"><option value="">Any / not annotated</option><option>Slow</option><option>Medium</option><option>Fast</option></select></label><span class="footnote">Human annotation filters apply to the Tvorogov source. Use Apply filters after selecting.</span></div>
         </form>
         <datalist id="creators"></datalist>
         <p class="table-caption">
@@ -174,7 +192,7 @@
               <tr>
                 <th><span class="sr-only">Select</span></th>
                 <th>CREATOR / REEL</th>
-                <th>POSTED · UTC</th>
+                <th>POSTED · SOURCE DATE</th>
                 <th id="views-heading">VIEWS ↓</th>
                 <th>PLAYS</th>
                 <th>INTERACTION RATIO¹</th>

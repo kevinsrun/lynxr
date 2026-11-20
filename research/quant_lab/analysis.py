@@ -6,10 +6,11 @@ from datetime import date
 
 from pipeline.hook_views import MIN_OTHERS
 
+from .comparisons import age_reference
 from .data import canonical, sha
 
 SORTS = {"views", "video_play_count", "likes", "num_comments", "engagement_per_view", "published_at", "duration"}
-ALLOWED_FILTERS = {"q", "creator", "start", "end", "type", "cue", "sort", "direction", "page"}
+ALLOWED_FILTERS = {"q", "creator", "start", "end", "type", "cue", "sort", "direction", "page", "source", "hook", "pace"}
 
 
 def median(rows, field):
@@ -32,8 +33,17 @@ def filter_records(records, query):
         raise ValueError("start date is after end date")
     if len(args.get("q", "")) > 300 or len(args.get("creator", "")) > 100:
         raise ValueError("query too long")
+    source_id = args.get("source", "brightdata-reels")
+    if source_id not in ("brightdata-reels", "educational-reels"):
+        raise ValueError("choose one source; incompatible counters cannot be pooled")
     out = []
     for r in records:
+        if r.get("source_id", "brightdata-reels") != source_id:
+            continue
+        if args.get("hook") and args["hook"] not in [v.strip() for v in (r.get("annotations", {}).get("hook_type") or "").split(",")]:
+            continue
+        if args.get("pace") and r.get("annotations", {}).get("editing_pace") != args["pace"]:
+            continue
         if args.get("type", "clips") != "all" and r["product_type"] != args.get("type", "clips"):
             continue
         if args.get("creator", "").casefold().lstrip("@") not in r["creator"].casefold():
@@ -52,10 +62,10 @@ def filter_records(records, query):
 
 
 def creator_reference(record, records):
-    peers = [r for r in records if r["creator"] == record["creator"] and r["product_type"] == "clips"]
-    return {"sample_posts": len(peers), "sample_median_views": median(peers, "views"),
+    peers = [r for r in records if r["creator"] == record["creator"] and r["product_type"] == "clips" and r.get("source_id") == record.get("source_id")]
+    return {"age_band_reference": age_reference(record, records), "sample_posts": len(peers), "sample_median_views": median(peers, "views"),
             "eligible_baseline": False, "normalized_outcome": None, "required_other_posts": MIN_OTHERS,
-            "reason": "Original observation times and comparable post ages are unknown; handles are not verified stable creator IDs.",
+            "reason": "No pre-cutoff, exact-age baseline established; source clocks/ages have source-specific uncertainty and creator handles are not verified stable IDs.",
             "minimum_count_met": len(peers) >= MIN_OTHERS + 1,
             "interpretation": "Selected-sample median only; includes this post, mixed ages, not a historical baseline."}
 
@@ -94,8 +104,9 @@ def summarize(records):
 def export_bundle(source, records, query):
     selected = filter_records(records, query)
     filters = {k: v[0] for k, v in sorted(query.items()) if k != "page"}
-    result = {"schema_version": 1, "analysis_version": "quant-lab-descriptive-v1", "source": source,
-              "filters": {"type": "clips", "sort": "views", "direction": "desc", **filters},
+    selected_source = next((s for s in source.get("sources", []) if s["source_id"] == filters.get("source", "brightdata-reels")), source)
+    result = {"schema_version": 2 if "sources" in source else 1, "analysis_version": "quant-lab-descriptive-v2", "source": selected_source,
+              "filters": {"source": "brightdata-reels", "type": "clips", "sort": "views", "direction": "desc", **filters},
               "summary": summarize(selected), "records": selected}
     result["result_sha256"] = sha(canonical(result).encode())
     return result
